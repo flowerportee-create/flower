@@ -1,0 +1,1992 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KEIFU — Family Tree Book</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+JP:wght@300;400;500&family=Noto+Sans+JP:wght@300;400&display=swap');
+
+    :root {
+      --gold: #b8975a;
+      --gold-light: #d4b07a;
+      --navy: #1a2340;
+      --navy-light: #2c3a5c;
+      --cream: #faf8f4;
+      --warm-white: #f5f2ec;
+      --text-dark: #1a1a1a;
+      --text-mid: #4a4a4a;
+      --text-light: #7a7a7a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Serif JP', serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(184,151,90,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 80%, rgba(184,151,90,0.06) 0%, transparent 60%);
+    }
+
+    .hero-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    .hero-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(64px, 12vw, 120px);
+      font-weight: 300;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+      line-height: 1;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      letter-spacing: 0.5em;
+      color: rgba(184,151,90,0.7);
+      text-transform: uppercase;
+      margin-bottom: 56px;
+    }
+
+    .hero-divider {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+      margin: 0 auto 56px;
+    }
+
+    .hero-headline {
+      font-size: clamp(22px, 4vw, 36px);
+      font-weight: 300;
+      color: #ffffff;
+      line-height: 1.8;
+      letter-spacing: 0.05em;
+      margin-bottom: 24px;
+      max-width: 640px;
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .hero-body {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 14px;
+      color: rgba(255,255,255,0.55);
+      line-height: 2;
+      max-width: 500px;
+      margin-bottom: 56px;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      padding: 16px 48px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      letter-spacing: 0.25em;
+      text-decoration: none;
+      transition: all 0.4s ease;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-cta:hover {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-scroll span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: rgba(184,151,90,0.5);
+      text-transform: uppercase;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(184,151,90,0.5), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
+      50% { opacity: 1; transform: scaleY(1); }
+    }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 100px 24px; }
+
+    .section-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: clamp(26px, 4vw, 38px);
+      font-weight: 300;
+      text-align: center;
+      line-height: 1.7;
+      letter-spacing: 0.05em;
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+
+    .section-lead {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 14px;
+      color: var(--text-mid);
+      line-height: 2.2;
+      text-align: center;
+      max-width: 560px;
+      margin: 0 auto 60px;
+    }
+
+    .gold-bar {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 60px;
+    }
+
+    /* ─── CONCEPT ─── */
+    .concept {
+      background: var(--warm-white);
+    }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: rgba(184,151,90,0.2);
+      border: 1px solid rgba(184,151,90,0.2);
+    }
+
+    .concept-item {
+      background: var(--warm-white);
+      padding: 48px 36px;
+      text-align: center;
+    }
+
+    .concept-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      font-weight: 300;
+      color: rgba(184,151,90,0.25);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .concept-label {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--navy);
+      margin-bottom: 12px;
+      letter-spacing: 0.05em;
+    }
+
+    .concept-desc {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px;
+      color: var(--text-mid);
+      line-height: 2;
+    }
+
+    /* ─── CONTENTS ─── */
+    .contents {
+      background: var(--navy);
+    }
+
+    .contents .section-title { color: #fff; }
+    .contents .section-lead { color: rgba(255,255,255,0.5); }
+    .contents .section-eyebrow { color: var(--gold); }
+
+    .chapter-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .chapter-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      align-items: center;
+      gap: 32px;
+      padding: 36px 40px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(184,151,90,0.1);
+      transition: background 0.3s;
+      cursor: default;
+    }
+
+    .chapter-item:hover {
+      background: rgba(184,151,90,0.06);
+    }
+
+    .chapter-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+
+    .chapter-body h3 {
+      font-size: 18px;
+      font-weight: 400;
+      color: #ffffff;
+      margin-bottom: 8px;
+      letter-spacing: 0.05em;
+    }
+
+    .chapter-body p {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.8;
+    }
+
+    .chapter-tag {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      border: 1px solid rgba(184,151,90,0.3);
+      padding: 6px 14px;
+      white-space: nowrap;
+      text-transform: uppercase;
+    }
+
+    /* ─── SAMPLE ─── */
+    .sample { background: var(--navy); }
+
+    /* ツリーヒーロー */
+    .tree-hero {
+      position: relative;
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto 80px;
+      overflow: hidden;
+      border: 1px solid rgba(184,151,90,0.15);
+    }
+
+    .tree-hero img {
+      width: 100%;
+      display: block;
+    }
+
+    .tree-hero-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(26,35,64,0.92) 0%, transparent 100%);
+      padding: 48px 40px 28px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .tree-hero-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 300;
+      color: #fff;
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+
+    .tree-hero-text p {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .tree-hero-tag {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      color: var(--gold);
+      border: 1px solid rgba(184,151,90,0.4);
+      padding: 6px 16px;
+      text-transform: uppercase;
+    }
+
+    /* ページグリッド */
+    .sample-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .sample-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      cursor: default;
+    }
+
+    .sample-card:hover {
+      border-color: rgba(184,151,90,0.4);
+      transform: translateY(-3px);
+    }
+
+    .sample-card img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+    }
+
+    .sample-caption {
+      padding: 14px 16px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 11px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.04em;
+      line-height: 1.6;
+      border-top: 1px solid rgba(184,151,90,0.1);
+    }
+
+    .sample-caption strong {
+      display: block;
+      color: rgba(255,255,255,0.7);
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+
+    /* ─── DIAGNOSIS ─── */
+    .diagnosis { background: var(--warm-white); }
+
+    .axis-legend {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      max-width: 640px;
+      margin: 0 auto 56px;
+    }
+
+    .axis-box {
+      background: #fff;
+      border: 1px solid rgba(184,151,90,0.2);
+      padding: 20px 24px;
+    }
+
+    .axis-box-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .axis-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .axis-badge {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--navy);
+      width: 20px;
+      flex-shrink: 0;
+    }
+
+    .axis-desc {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      color: var(--text-mid);
+    }
+
+    .type-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 48px;
+    }
+
+    .type-card {
+      background: #fff;
+      border: 1px solid rgba(184,151,90,0.18);
+      padding: 20px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s;
+      position: relative;
+    }
+
+    .type-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 4px 20px rgba(184,151,90,0.12);
+      transform: translateY(-2px);
+    }
+
+    .type-code {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .type-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .type-mini-stats {
+      display: flex;
+      gap: 3px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .mini-bar-wrap {
+      width: 8px;
+      height: 28px;
+      background: rgba(184,151,90,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .mini-bar {
+      width: 100%;
+      background: var(--gold);
+      border-radius: 2px;
+      transition: height 0.4s ease;
+    }
+
+    /* Modal */
+    .type-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(26,35,64,0.7);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .type-modal-overlay.open { display: flex; }
+
+    .type-modal {
+      background: #fff;
+      max-width: 560px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      border-top: 3px solid var(--gold);
+      position: relative;
+    }
+
+    .modal-header {
+      background: var(--navy);
+      padding: 36px 40px 28px;
+      text-align: center;
+    }
+
+    .modal-code {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 12px;
+      letter-spacing: 0.4em;
+      color: rgba(184,151,90,0.7);
+      margin-bottom: 8px;
+    }
+
+    .modal-name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+    }
+
+    .modal-body { padding: 32px 40px; }
+
+    .modal-desc {
+      font-size: 14px;
+      line-height: 2;
+      color: var(--text-dark);
+      margin-bottom: 32px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid rgba(184,151,90,0.15);
+    }
+
+    .modal-stats-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: 70px 1fr 36px;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .stat-label {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      color: var(--text-mid);
+      white-space: nowrap;
+    }
+
+    .stat-bar-bg {
+      height: 6px;
+      background: rgba(184,151,90,0.1);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .stat-bar-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--gold), var(--gold-light));
+      border-radius: 3px;
+      transition: width 0.6s ease;
+    }
+
+    .stat-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      color: var(--navy);
+      text-align: right;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: rgba(184,151,90,0.6);
+      font-size: 24px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px 8px;
+    }
+
+    .modal-close:hover { color: var(--gold); }
+
+    .diagnosis-note {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px;
+      color: var(--text-mid);
+      text-align: center;
+      line-height: 2;
+    }
+
+    /* ─── FLOW ─── */
+    .flow { background: var(--navy); }
+    .flow .section-title { color: #fff; }
+    .flow .section-lead { color: rgba(255,255,255,0.5); }
+
+    .flow-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      position: relative;
+    }
+
+    .flow-steps::after {
+      content: '';
+      position: absolute;
+      top: 36px;
+      left: 12%;
+      right: 12%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(184,151,90,0.4), var(--gold), rgba(184,151,90,0.4), transparent);
+    }
+
+    .flow-step {
+      text-align: center;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .flow-step-num {
+      width: 72px;
+      height: 72px;
+      border: 1px solid rgba(184,151,90,0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      background: var(--navy);
+    }
+
+    .flow-step-num span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      color: var(--gold);
+    }
+
+    .flow-step h4 {
+      font-size: 15px;
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    .flow-step p {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.9;
+    }
+
+    /* ─── PRICE ─── */
+    .price { background: var(--cream); }
+
+    .price-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .price-box {
+      border: 1px solid rgba(184,151,90,0.35);
+      padding: 48px 40px;
+      text-align: center;
+      position: relative;
+    }
+
+    .price-box.featured {
+      border-color: var(--gold);
+      background: var(--navy);
+    }
+
+    .price-box::before {
+      content: 'KEIFU';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 10px;
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--cream);
+      padding: 0 12px;
+    }
+
+    .price-box.featured::before { background: var(--navy); }
+
+    .price-badge {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      padding: 4px 14px;
+      margin-bottom: 20px;
+    }
+
+    .price-plan {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 12px;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .price-name {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--navy);
+      margin-bottom: 24px;
+      letter-spacing: 0.05em;
+    }
+
+    .price-box.featured .price-name { color: #fff; }
+
+    .price-amount {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px;
+      font-weight: 300;
+      color: var(--navy);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .price-box.featured .price-amount { color: var(--gold); }
+
+    .price-amount sup {
+      font-size: 22px;
+      vertical-align: super;
+    }
+
+    .price-tax {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      color: var(--text-light);
+      margin-bottom: 28px;
+    }
+
+    .price-box.featured .price-tax { color: rgba(255,255,255,0.4); }
+
+    .price-features {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .price-features li {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      color: var(--text-mid);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.6;
+    }
+
+    .price-box.featured .price-features li { color: rgba(255,255,255,0.65); }
+
+    .price-features li::before {
+      content: '—';
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      flex-shrink: 0;
+    }
+
+    .price-btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: var(--navy);
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      letter-spacing: 0.3em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: all 0.4s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .price-box.featured .price-btn {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .price-btn:hover { opacity: 0.85; }
+
+    /* Plan + Community grid */
+    .plan-community-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: stretch;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* Community card */
+    .community-card {
+      border: 1px solid rgba(184,151,90,0.45);
+      background: linear-gradient(145deg, rgba(184,151,90,0.07) 0%, rgba(10,14,35,0.8) 40%, rgba(5,8,22,0.95) 100%);
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .community-card::before {
+      content: 'KEIFU';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 10px;
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--navy);
+      padding: 0 12px;
+    }
+
+    .community-deco-top {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      pointer-events: none;
+    }
+
+    .community-badge {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      padding: 4px 14px;
+      margin-bottom: 16px;
+      align-self: flex-start;
+    }
+
+    .community-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 10px;
+      letter-spacing: 0.45em;
+      color: rgba(184,151,90,0.5);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .community-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 38px;
+      font-weight: 300;
+      color: #fff;
+      line-height: 1.15;
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+
+    .community-lead {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.9;
+      margin-bottom: 24px;
+    }
+
+    .community-divider {
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin-bottom: 28px;
+    }
+
+    .community-items {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .community-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .community-item-icon {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(184,151,90,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(184,151,90,0.06);
+    }
+
+    .community-item-body {
+      flex: 1;
+    }
+
+    .community-item-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 14px;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    .community-item-desc {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.8;
+    }
+
+    .community-more {
+      margin-top: auto;
+      padding-top: 20px;
+      text-align: center;
+    }
+
+    .community-more-dots {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .community-more-dots span {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0.5;
+    }
+
+    .community-more p {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.8;
+    }
+
+    .community-deco-bottom {
+      margin-top: 24px;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 768px) {
+      .plan-community-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+      }
+    }
+
+    .price-note {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      color: var(--text-light);
+      text-align: center;
+      margin-top: 24px;
+      line-height: 2;
+    }
+
+    /* ─── PRICE BAR CHART ─── */
+    .cmp-row {
+      display: grid;
+      grid-template-columns: 120px 1fr 90px;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+    .cmp-name {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      text-align: right;
+    }
+    .keifu-name { color: var(--gold); font-size: 13px; font-weight:400; }
+    .cmp-bar-bg {
+      height: 40px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 2px;
+      position: relative;
+    }
+    .cmp-bar {
+      height: 100%;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      padding-left: 12px;
+      min-width: 4px;
+    }
+    .other-bar { background: rgba(255,255,255,0.1); }
+    .keifu-bar {
+      background: linear-gradient(90deg, rgba(184,151,90,0.5) 0%, var(--gold) 100%);
+      box-shadow: 0 0 28px rgba(184,151,90,0.3);
+    }
+    .cmp-bar-inner-label {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 10px;
+      color: var(--navy);
+      white-space: nowrap;
+      font-weight: 500;
+    }
+    .keifu-flag {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: calc(11% + 10px);
+      background: var(--gold);
+      color: var(--navy);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 10px;
+      padding: 3px 12px;
+      white-space: nowrap;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+    .cmp-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      color: rgba(255,255,255,0.25);
+      text-align: right;
+    }
+    .keifu-val { color: var(--gold); font-size: 18px; }
+    .keifu-row { margin-bottom: 18px; }
+
+    /* ─── FEATURE MATRIX ─── */
+    .mx-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 700px;
+    }
+    .mx-table thead th {
+      padding: 14px 12px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .mx-feat-col { text-align:left; color:rgba(255,255,255,0.3); width:220px; }
+    .mx-keifu-col {
+      color: var(--gold) !important;
+      background: rgba(184,151,90,0.1);
+      border-left: 1px solid rgba(184,151,90,0.25);
+      border-right: 1px solid rgba(184,151,90,0.25);
+      text-align: center;
+    }
+    .mx-other-col { color:rgba(255,255,255,0.2); text-align:center; }
+    .mx-table tbody td {
+      padding: 13px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+    }
+    .mx-feat { text-align:left; color:rgba(255,255,255,0.55); }
+    .mx-keifu-td {
+      text-align: center;
+      background: rgba(184,151,90,0.07);
+      border-left: 1px solid rgba(184,151,90,0.15);
+      border-right: 1px solid rgba(184,151,90,0.15);
+    }
+    .mx-other-td { text-align:center; }
+    .mx-price-row td { padding-top:20px; padding-bottom:20px; border-top:1px solid rgba(255,255,255,0.08); }
+    .mx-check { color:var(--gold); font-size:17px; }
+    .mx-check-other { color:rgba(255,255,255,0.2); font-size:17px; }
+    .mx-cross { color:rgba(255,255,255,0.08); font-size:17px; }
+
+    /* ─── MARKET DATA ─── */
+    .market { background: var(--navy); }
+    .market .section-title { color: #fff; }
+    .market .section-lead { color: rgba(255,255,255,0.5); }
+
+    .market-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(184,151,90,0.1);
+      border: 1px solid rgba(184,151,90,0.1);
+      margin-bottom: 56px;
+    }
+
+    .market-stat {
+      background: var(--navy);
+      padding: 40px 32px;
+      text-align: center;
+    }
+
+    .market-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .market-num span {
+      font-size: 20px;
+      vertical-align: super;
+    }
+
+    .market-label {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.8;
+    }
+
+    .survey-bar-wrap {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .survey-item {
+      display: grid;
+      grid-template-columns: 140px 1fr 48px;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .survey-label {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+      text-align: right;
+    }
+
+    .survey-bar-bg {
+      height: 8px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .survey-bar-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--gold), var(--gold-light));
+      border-radius: 4px;
+    }
+
+    .survey-pct {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: var(--gold);
+    }
+
+    /* ─── COMPETITOR ─── */
+    .competitor { background: var(--warm-white); }
+
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+
+    .comp-table th {
+      background: var(--navy);
+      color: rgba(255,255,255,0.7);
+      font-weight: 400;
+      padding: 12px 16px;
+      text-align: left;
+      letter-spacing: 0.05em;
+      font-size: 11px;
+    }
+
+    .comp-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(184,151,90,0.1);
+      color: var(--text-mid);
+      vertical-align: middle;
+    }
+
+    .comp-table tr:hover td { background: rgba(184,151,90,0.04); }
+
+    .comp-keifu td { background: rgba(184,151,90,0.06); }
+    .comp-keifu td:first-child {
+      font-weight: 500;
+      color: var(--navy);
+    }
+
+    .comp-price-high { color: #888; }
+    .comp-price-keifu { color: var(--gold); font-weight: 500; font-size: 15px; }
+
+    .comp-note {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      color: var(--text-light);
+      text-align: center;
+      line-height: 2;
+    }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonials { background: var(--warm-white); }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+
+    .testimonial-card {
+      background: #fff;
+      padding: 36px 32px;
+      border-top: 2px solid var(--gold);
+    }
+
+    .testimonial-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .testimonial-text {
+      font-size: 14px;
+      color: var(--text-dark);
+      line-height: 2;
+      margin-bottom: 24px;
+    }
+
+    .testimonial-author {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    /* ─── CTA ─── */
+    .final-cta {
+      background: var(--navy);
+      text-align: center;
+      padding: 120px 24px;
+    }
+
+    .final-cta .hero-logo {
+      font-size: clamp(48px, 8vw, 80px);
+      margin-bottom: 4px;
+    }
+
+    .final-cta .hero-subtitle {
+      margin-bottom: 40px;
+    }
+
+    .final-cta-headline {
+      font-size: clamp(20px, 3vw, 28px);
+      font-weight: 300;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.9;
+      margin-bottom: 48px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #111827;
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      margin-bottom: 8px;
+    }
+
+    .footer-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 10px;
+      letter-spacing: 0.4em;
+      color: rgba(184,151,90,0.4);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .footer-copy {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 11px;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .concept-grid { grid-template-columns: 1fr; }
+      .sample-grid { grid-template-columns: 1fr 1fr; }
+      .tree-hero-label { flex-direction: column; gap: 12px; align-items: flex-start; }
+      .type-grid { grid-template-columns: 1fr 1fr; }
+      .flow-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .flow-steps::after { display: none; }
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .chapter-item { grid-template-columns: 60px 1fr; }
+      .chapter-tag { display: none; }
+      .price-box { padding: 48px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">A Premium Family History Book</div>
+    <div class="hero-logo">KEIFU</div>
+    <div class="hero-subtitle">Family &nbsp; Tree</div>
+    <div class="hero-divider"></div>
+    <h1 class="hero-headline">
+      突然ですが、<br>
+      あなたの<em>"ひいおじいちゃん"</em>の<br>
+      名前、言えますか？
+    </h1>
+    <p class="hero-body">
+      自分のルーツを探ると、自分のことがわかる。<br>
+      戸籍情報をもとに200年さかのぼり、<br>
+      先祖の歴史・家系診断・聖地をまとめた<br>
+      世界にひとつだけの家系図ブック。
+    </p>
+    <a href="#contents" class="hero-cta">詳細を見る</a>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- CONCEPT -->
+  <section class="concept">
+    <div class="section-inner">
+      <span class="section-eyebrow">Concept</span>
+      <h2 class="section-title">「自分を知ること」は、<br>先祖を知ることから始まる</h2>
+      <div class="gold-bar"></div>
+      <div class="concept-grid">
+        <div class="concept-item">
+          <div class="concept-num">I</div>
+          <div class="concept-label">ルーツの解明</div>
+          <p class="concept-desc">姓氏大辞典・歴史文書をもとに、あなたの名字の発祥地・武家・公家とのつながりを詳細に記述します。</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-num">II</div>
+          <div class="concept-label">家系診断</div>
+          <p class="concept-desc">父方・母方それぞれの家系の気質を分析。16タイプの「家系性格診断」であなたの強みと弱みを解き明かします。</p>
+        </div>
+        <div class="concept-item">
+          <div class="concept-num">III</div>
+          <div class="concept-label">未来への指針</div>
+          <p class="concept-desc">先祖の職業・土地・気質から導く、あなたに向いている仕事・生き方・人生戦略をご提案します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENTS -->
+  <section class="contents" id="contents">
+    <div class="section-inner">
+      <span class="section-eyebrow">Contents</span>
+      <h2 class="section-title">収録内容</h2>
+      <p class="section-lead">全5章・約40ページにわたる、あなただけのオーダーメイドブック</p>
+      <div class="gold-bar" style="background: rgba(184,151,90,0.4);"></div>
+
+      <div class="chapter-list">
+        <div class="chapter-item">
+          <div class="chapter-num">Chapter 01</div>
+          <div class="chapter-body">
+            <h3>一族の肖像 ── 家系のルーツと歴史</h3>
+            <p>あなたの名字の発祥地・武家としての記録・地域との結びつきを、歴史文書をもとに詳述します。</p>
+          </div>
+          <div class="chapter-tag">History</div>
+        </div>
+        <div class="chapter-item">
+          <div class="chapter-num">Chapter 02</div>
+          <div class="chapter-body">
+            <h3>移動の歴史マップ ── 先祖の歩いた道</h3>
+            <p>江戸〜明治〜現代にかけての一族の移動経路を地図で可視化。先祖の「生きた軌跡」を辿ります。</p>
+          </div>
+          <div class="chapter-tag">Map</div>
+        </div>
+        <div class="chapter-item">
+          <div class="chapter-num">Chapter 03</div>
+          <div class="chapter-body">
+            <h3>家系診断 ── あなたの16タイプ</h3>
+            <p>父方・母方の家系の気質を分析した「家系性格診断」。あなたの強み・弱み・価値観の根源に迫ります。</p>
+          </div>
+          <div class="chapter-tag">Diagnosis</div>
+        </div>
+        <div class="chapter-item">
+          <div class="chapter-num">Chapter 04</div>
+          <div class="chapter-body">
+            <h3>仕事と才能 ── 家系が示す天職</h3>
+            <p>先祖が代々担ってきた役割・職能から、あなたが本来持つ才能と向いている仕事を導き出します。</p>
+          </div>
+          <div class="chapter-tag">Career</div>
+        </div>
+        <div class="chapter-item">
+          <div class="chapter-num">Chapter 05</div>
+          <div class="chapter-body">
+            <h3>聖地巡礼 ── 先祖の地を訪ねる旅</h3>
+            <p>ご先祖の本拠地・ゆかりの神社・史跡をご案内。自分の「根」を感じる旅のしおりとしてお使いください。</p>
+          </div>
+          <div class="chapter-tag">Journey</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAMPLE PAGES -->
+  <section class="sample" style="padding: 100px 24px;">
+    <div class="section-inner">
+      <span class="section-eyebrow" style="color:var(--gold);">Sample Pages</span>
+      <h2 class="section-title" style="color:#fff;">実際のページ紹介</h2>
+      <div class="gold-bar" style="background:rgba(184,151,90,0.4);"></div>
+
+      <!-- KEIFU TREE ヒーロービジュアル -->
+      <div class="tree-hero">
+        <img src="img/tree_full.jpg" alt="KEIFU TREE — 家系図ビジュアル" />
+        <div class="tree-hero-label">
+          <div class="tree-hero-text">
+            <h3>KEIFU TREE</h3>
+            <p>父方・母方2家系を1枚のアートとして可視化。先祖から自分へと続く生命の流れ。</p>
+          </div>
+          <div class="tree-hero-tag">Family Tree Art</div>
+        </div>
+      </div>
+
+      <!-- ページサンプル 4枚 -->
+      <div class="sample-grid">
+        <div class="sample-card">
+          <img src="img/cover.png" alt="表紙" />
+          <div class="sample-caption">
+            <strong>表紙</strong>
+            高品質な製本・シンプルでエレガントな装丁
+          </div>
+        </div>
+        <div class="sample-card">
+          <img src="img/history.png" alt="一族の肖像" />
+          <div class="sample-caption">
+            <strong>Ch.1 一族の肖像</strong>
+            史実をもとにしたルーツの記述と歴史考察
+          </div>
+        </div>
+        <div class="sample-card">
+          <img src="img/diagnosis.png" alt="家系診断" />
+          <div class="sample-caption">
+            <strong>Ch.3 家系診断</strong>
+            16タイプ診断結果・強み弱みの分析
+          </div>
+        </div>
+        <div class="sample-card">
+          <img src="img/pilgrimage.png" alt="聖地巡礼" />
+          <div class="sample-caption">
+            <strong>結びに 聖地巡礼</strong>
+            先祖ゆかりの地を訪ねる旅のガイド
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIAGNOSIS TYPES -->
+  <section class="diagnosis">
+    <div class="section-inner">
+      <span class="section-eyebrow">Family Type Diagnosis</span>
+      <h2 class="section-title">16タイプ 家系診断</h2>
+      <p class="section-lead">父方・母方それぞれの「地理軸」×「スタイル軸」を分析。<br>4文字のコードがあなたの家系の構造を表します。</p>
+      <div class="gold-bar"></div>
+
+      <!-- 軸の説明 -->
+      <div class="axis-legend">
+        <div class="axis-box">
+          <div class="axis-box-label">軸① 地理軸（前半2文字）</div>
+          <div class="axis-row"><span class="axis-badge">T</span><span class="axis-desc">定着 — 同一地域に根を張る</span></div>
+          <div class="axis-row"><span class="axis-badge">I</span><span class="axis-desc">移動 — 県越えの移動を繰り返す</span></div>
+        </div>
+        <div class="axis-box">
+          <div class="axis-box-label">軸② スタイル軸（後半2文字）</div>
+          <div class="axis-row"><span class="axis-badge">S</span><span class="axis-desc">守護 — 家の連続性・維持が強い</span></div>
+          <div class="axis-row"><span class="axis-badge">K</span><span class="axis-desc">開拓 — 家の形を組み替えて適応</span></div>
+        </div>
+      </div>
+      <p style="text-align:center; font-family:'Noto Sans JP',sans-serif; font-size:12px; color:var(--text-light); margin-bottom:48px;">前半2文字 = 父方判定 ／ 後半2文字 = 母方判定</p>
+
+      <!-- 16タイプグリッド -->
+      <div class="type-grid">
+        <div class="type-card" onclick="openModal('TSTS','守護人','守るべきものを見極め、家や資産の土台を崩さずに維持していくタイプ。派手さはないが、長く残す力が強い。',95,35,45,60,90,50)">
+          <div class="type-code">TSTS</div><div class="type-name">守護人</div>
+          <div class="type-mini-stats"><div class="mini-bar-wrap"><div class="mini-bar" style="height:95%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:35%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:45%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:60%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:90%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:50%"></div></div></div>
+        </div>
+        <div class="type-card" onclick="openModal('TSTK','育成者','守りの感覚を持ちながら、地域や身近な関係の中で価値をじっくり育てていくタイプ。急成長より、着実な成長に強い。',80,60,65,55,85,60)">
+          <div class="type-code">TSTK</div><div class="type-name">育成者</div>
+          <div class="type-mini-stats"><div class="mini-bar-wrap"><div class="mini-bar" style="height:80%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:60%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:65%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:55%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:85%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:60%"></div></div></div>
+        </div>
+        <div class="type-card" onclick="openModal('TSIS','再起人','守りを手放さずに立て直す力が強いタイプ。崩れても終わらず、もう一度整えて戻してくる粘りがある。',85,40,50,95,75,60)">
+          <div class="type-code">TSIS</div><div class="type-name">再起人</div>
+          <div class="type-mini-stats"><div class="mini-bar-wrap"><div class="mini-bar" style="height:85%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:40%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:50%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:95%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:75%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:60%"></div></div></div>
+        </div>
+        <div class="type-card" onclick="openModal('TSIK','戦略家','守るべきものと攻めるべき場面を見極める、バランス感覚のあるタイプ。感覚ではなく、全体最適で動ける。',75,70,85,65,70,75)">
+          <div class="type-code">TSIK</div><div class="type-name">戦略家</div>
+          <div class="type-mini-stats"><div class="mini-bar-wrap"><div class="mini-bar" style="height:75%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:70%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:85%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:65%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:70%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:75%"></div></div></div>
+        </div>
+        <div class="type-card" onclick="openModal('TKTS','地盤家','地域・人脈・信用・足元の資源を強みに変えるタイプ。派手な拡大より、まず勝てる地盤を固めるのがうまい。',75,55,60,55,95,60)">
+          <div class="type-code">TKTS</div><div class="type-name">地盤家</div>
+          <div class="type-mini-stats"><div class="mini-bar-wrap"><div class="mini-bar" style="height:75%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:55%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:60%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:55%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:95%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:60%"></div></div></div>
+        </div>
+        <div class="type-card" onclick="openModal('TKTK','プロデューサー','地域や基盤の中にある素材を見つけて、価値として仕立て直すタイプ。人・モノ・関係性を編集して強みに変える。',65,75,95,55,80,70)">
+          <div class="type-code">TKTK</div><div class="type-name">プロデューサー</div>
+          <div class="type-mini-stats"><div class="mini-bar-wrap"><div class="mini-bar" style="height:65%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:75%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:95%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:55%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:80%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:70%"></div></div></div>
+        </div>
+        <div class="type-card" onclick="openModal('TKIS','実務家','理想論より、現場で動かして整えるのが得意なタイプ。改善・調整・立て直しを地道に積み上げて結果につなげる。',70,50,60,80,75,70)">
+          <div class="type-code">TKIS</div><div class="type-name">実務家</div>
+          <div class="type-mini-stats"><div class="mini-bar-wrap"><div class="mini-bar" style="height:70%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:50%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:60%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:80%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:75%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:70%"></div></div></div>
+        </div>
+        <div class="type-card" onclick="openModal('TKIK','ブースター','今ある強みを加速させ、外へ広げていくタイプ。ゼロから作るより、伸びる種を見つけて勢いをつけるのが得意。',50,90,75,60,65,85)">
+          <div class="type-code">TKIK</div><div class="type-name">ブースター</div>
+          <div class="type-mini-stats"><div class="mini-bar-wrap"><div class="mini-bar" style="height:50%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:90%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:75%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:60%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:65%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:85%"></div></div></div>
+        </div>
+        <div class="type-card" onclick="openModal('ISTS','渡り鳥','環境を移しながらも、自分の軸や守るべきものを失わないタイプ。変化の中でも帰る場所を感覚的に持っている。',80,45,50,85,60,65)">
+          <div class="type-code">ISTS</div><div class="type-name">渡り鳥</div>
+          <div class="type-mini-stats"><div class="mini-bar-wrap"><div class="mini-bar" style="height:80%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:45%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:50%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:85%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:60%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:65%"></div></div></div>
+        </div>
+        <div class="type-card" onclick="openModal('ISTK','変革者','環境の変化を受け身で終わらせず、自ら形を変えて前に進むタイプ。変わることを怖がらず、流れを変える力がある。',55,70,80,80,50,80)">
+          <div class="type-code">ISTK</div><div class="type-name">変革者</div>
+          <div class="type-mini-stats"><div class="mini-bar-wrap"><div class="mini-bar" style="height:55%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:70%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:80%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:80%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:50%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:80%"></div></div></div>
+        </div>
+        <div class="type-card" onclick="openModal('ISIS','サバイバー','逆風・移動・変化の中でも、生き残ることに強いタイプ。派手ではないが、折れずに続ける底力がある。',70,40,45,100,45,65)">
+          <div class="type-code">ISIS</div><div class="type-name">サバイバー</div>
+          <div class="type-mini-stats"><div class="mini-bar-wrap"><div class="mini-bar" style="height:70%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:40%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:45%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:100%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:45%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:65%"></div></div></div>
+        </div>
+        <div class="type-card" onclick="openModal('ISIK','チャンスメーカー','転機や変化の中から機会を見つけ、流れをチャンスに変えていくタイプ。危機でも視点を変えて突破口を作れる。',55,80,85,85,45,75)">
+          <div class="type-code">ISIK</div><div class="type-name">チャンスメーカー</div>
+          <div class="type-mini-stats"><div class="mini-bar-wrap"><div class="mini-bar" style="height:55%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:80%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:85%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:85%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:45%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:75%"></div></div></div>
+        </div>
+        <div class="type-card" onclick="openModal('IKTS','仕掛け人','ただ拡大するのではなく、仕組みや流れを作って勝ち筋を作るタイプ。攻めの起点をつくるのがうまい。',65,80,90,60,55,80)">
+          <div class="type-code">IKTS</div><div class="type-name">仕掛け人</div>
+          <div class="type-mini-stats"><div class="mini-bar-wrap"><div class="mini-bar" style="height:65%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:80%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:90%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:60%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:55%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:80%"></div></div></div>
+        </div>
+        <div class="type-card" onclick="openModal('IKTK','波乗り','時流やチャンスの波を読み、その勢いを使って広げていくタイプ。タイミング感覚が強く、伸びる流れをつかみやすい。',45,95,75,65,45,90)">
+          <div class="type-code">IKTK</div><div class="type-name">波乗り</div>
+          <div class="type-mini-stats"><div class="mini-bar-wrap"><div class="mini-bar" style="height:45%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:95%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:75%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:65%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:45%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:90%"></div></div></div>
+        </div>
+        <div class="type-card" onclick="openModal('IKIS','ドライバー','状況が変わっても止まらず、前に進める推進型。自分でハンドルを握り、周囲を巻き込みながら動かす力がある。',50,75,65,85,40,100)">
+          <div class="type-code">IKIS</div><div class="type-name">ドライバー</div>
+          <div class="type-mini-stats"><div class="mini-bar-wrap"><div class="mini-bar" style="height:50%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:75%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:65%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:85%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:40%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:100%"></div></div></div>
+        </div>
+        <div class="type-card" onclick="openModal('IKIK','開拓者','誰もやっていない道、新しい市場、新しいやり方を切り拓いていくタイプ。ゼロから道を作る力が最も強い。',35,100,90,75,35,95)">
+          <div class="type-code">IKIK</div><div class="type-name">開拓者</div>
+          <div class="type-mini-stats"><div class="mini-bar-wrap"><div class="mini-bar" style="height:35%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:100%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:90%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:75%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:35%"></div></div><div class="mini-bar-wrap"><div class="mini-bar" style="height:95%"></div></div></div>
+        </div>
+      </div>
+
+      <p class="diagnosis-note">各カードをクリックするとキャラクター説明とステータスを確認できます</p>
+    </div>
+  </section>
+
+  <!-- TYPE MODAL -->
+  <div class="type-modal-overlay" id="typeModal" onclick="closeModal(event)">
+    <div class="type-modal">
+      <button class="modal-close" onclick="document.getElementById('typeModal').classList.remove('open')">✕</button>
+      <div class="modal-header">
+        <div class="modal-code" id="modalCode"></div>
+        <div class="modal-name" id="modalName"></div>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-stats-title">Status</div>
+        <div class="stat-row"><span class="stat-label">守備力</span><div class="stat-bar-bg"><div class="stat-bar-fill" id="s1"></div></div><span class="stat-val" id="v1"></span></div>
+        <div class="stat-row"><span class="stat-label">拡張力</span><div class="stat-bar-bg"><div class="stat-bar-fill" id="s2"></div></div><span class="stat-val" id="v2"></span></div>
+        <div class="stat-row"><span class="stat-label">企画力</span><div class="stat-bar-bg"><div class="stat-bar-fill" id="s3"></div></div><span class="stat-val" id="v3"></span></div>
+        <div class="stat-row"><span class="stat-label">再起力</span><div class="stat-bar-bg"><div class="stat-bar-fill" id="s4"></div></div><span class="stat-val" id="v4"></span></div>
+        <div class="stat-row"><span class="stat-label">基盤力</span><div class="stat-bar-bg"><div class="stat-bar-fill" id="s5"></div></div><span class="stat-val" id="v5"></span></div>
+        <div class="stat-row"><span class="stat-label">推進力</span><div class="stat-bar-bg"><div class="stat-bar-fill" id="s6"></div></div><span class="stat-val" id="v6"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal(code, name, desc, s1, s2, s3, s4, s5, s6) {
+      document.getElementById('modalCode').textContent = code;
+      document.getElementById('modalName').textContent = name;
+      document.getElementById('modalDesc').textContent = desc;
+      const vals = [s1,s2,s3,s4,s5,s6];
+      vals.forEach(function(v, i) {
+        document.getElementById('s'+(i+1)).style.width = v + '%';
+        document.getElementById('v'+(i+1)).textContent = v;
+      });
+      document.getElementById('typeModal').classList.add('open');
+    }
+    function closeModal(e) {
+      if (e.target === document.getElementById('typeModal')) {
+        document.getElementById('typeModal').classList.remove('open');
+      }
+    }
+  </script>
+
+  <!-- FLOW -->
+  <section class="flow">
+    <div class="section-inner">
+      <span class="section-eyebrow">How It Works</span>
+      <h2 class="section-title">ご注文の流れ</h2>
+      <p class="section-lead">ご注文からお届けまで、約4〜6週間</p>
+      <div class="gold-bar" style="background: rgba(184,151,90,0.4);"></div>
+
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-step-num"><span>01</span></div>
+          <h4>情報のご提供</h4>
+          <p>名字・出身地・わかる範囲での家系情報をフォームにご記入いただきます</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num"><span>02</span></div>
+          <h4>リサーチ・制作</h4>
+          <p>姓氏大辞典・歴史文書をもとに調査。専門家チームが執筆・デザインします</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num"><span>03</span></div>
+          <h4>校正・確認</h4>
+          <p>制作後、内容をご確認いただきます。修正のご要望にも対応いたします</p>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num"><span>04</span></div>
+          <h4>製本・お届け</h4>
+          <p>高品質な製本でお届けします。デジタル版（PDF）も同時にご提供</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICE + COMPARE -->
+  <section style="background:var(--navy); padding:100px 24px;">
+    <div class="section-inner">
+      <span class="section-eyebrow">Pricing &amp; Comparison</span>
+      <h2 class="section-title" style="color:#fff;">料金と他社比較</h2>
+      <p class="section-lead" style="color:rgba(255,255,255,0.5);">一般的な家系図サービスは7万〜100万円。<br>KEIFUはAI活用で業界最安水準、かつ圧倒的な内容を実現しました。</p>
+      <div class="gold-bar" style="background:rgba(184,151,90,0.4);"></div>
+
+      <!-- ① 価格バーチャート -->
+      <div style="margin-bottom:72px;">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:.35em;color:var(--gold);text-align:center;text-transform:uppercase;margin-bottom:32px;">Price Comparison — ２系統あたりの料金</p>
+
+        <!-- KEIFU -->
+        <div class="cmp-row keifu-row">
+          <div class="cmp-name keifu-name">KEIFU</div>
+          <div class="cmp-bar-bg">
+            <div class="cmp-bar keifu-bar" style="width:24%;">
+              <span class="cmp-bar-inner-label">¥39,800</span>
+            </div>
+            <div class="keifu-flag">業界最安水準</div>
+          </div>
+          <div class="cmp-val keifu-val">¥39,800</div>
+        </div>
+
+        <div class="cmp-row">
+          <div class="cmp-name">A社</div>
+          <div class="cmp-bar-bg"><div class="cmp-bar other-bar" style="width:46%;"></div></div>
+          <div class="cmp-val">¥76,800</div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-name">B社</div>
+          <div class="cmp-bar-bg"><div class="cmp-bar other-bar" style="width:73%;"></div></div>
+          <div class="cmp-val">¥121,000</div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-name">C社</div>
+          <div class="cmp-bar-bg"><div class="cmp-bar other-bar" style="width:99%;"></div></div>
+          <div class="cmp-val">¥165,000</div>
+        </div>
+
+        <!-- axis -->
+        <div style="display:grid;grid-template-columns:120px 1fr 90px;gap:16px;margin-top:10px;">
+          <div></div>
+          <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.06);padding-top:8px;">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:10px;color:rgba(255,255,255,0.15);">¥0</span>
+            <span style="font-family:'Cormorant Garamond',serif;font-size:10px;color:rgba(255,255,255,0.15);">¥90,000</span>
+            <span style="font-family:'Cormorant Garamond',serif;font-size:10px;color:rgba(255,255,255,0.15);">¥180,000</span>
+          </div>
+          <div></div>
+        </div>
+      </div>
+
+      <!-- ② 機能比較マトリクス -->
+      <div style="overflow-x:auto; margin-bottom:72px;">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:.35em;color:var(--gold);text-align:center;text-transform:uppercase;margin-bottom:28px;">Feature Matrix — 提供内容の比較</p>
+        <table class="mx-table">
+          <thead>
+            <tr>
+              <th class="mx-feat-col">機能・内容</th>
+              <th class="mx-keifu-col">KEIFU</th>
+              <th class="mx-other-col">A社</th>
+              <th class="mx-other-col">B社</th>
+              <th class="mx-other-col">C社</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mx-feat">戸籍調査・家系図作成</td>
+              <td class="mx-keifu-td"><span class="mx-check">✓</span></td>
+              <td class="mx-other-td"><span class="mx-check-other">✓</span></td>
+              <td class="mx-other-td"><span class="mx-check-other">✓</span></td>
+              <td class="mx-other-td"><span class="mx-check-other">✓</span></td>
+            </tr>
+            <tr>
+              <td class="mx-feat">歴史・ルーツ調査レポート</td>
+              <td class="mx-keifu-td"><span class="mx-check">✓</span></td>
+              <td class="mx-other-td"><span class="mx-cross">✗</span></td>
+              <td class="mx-other-td"><span class="mx-check-other">✓</span></td>
+              <td class="mx-other-td"><span class="mx-check-other">✓</span></td>
+            </tr>
+            <tr>
+              <td class="mx-feat">16タイプ 家系性格診断</td>
+              <td class="mx-keifu-td"><span class="mx-check">✓</span></td>
+              <td class="mx-other-td"><span class="mx-cross">✗</span></td>
+              <td class="mx-other-td"><span class="mx-cross">✗</span></td>
+              <td class="mx-other-td"><span class="mx-cross">✗</span></td>
+            </tr>
+            <tr>
+              <td class="mx-feat">移動の歴史マップ</td>
+              <td class="mx-keifu-td"><span class="mx-check">✓</span></td>
+              <td class="mx-other-td"><span class="mx-cross">✗</span></td>
+              <td class="mx-other-td"><span class="mx-cross">✗</span></td>
+              <td class="mx-other-td"><span class="mx-cross">✗</span></td>
+            </tr>
+            <tr>
+              <td class="mx-feat">天職・才能・仕事の分析</td>
+              <td class="mx-keifu-td"><span class="mx-check">✓</span></td>
+              <td class="mx-other-td"><span class="mx-cross">✗</span></td>
+              <td class="mx-other-td"><span class="mx-cross">✗</span></td>
+              <td class="mx-other-td"><span class="mx-cross">✗</span></td>
+            </tr>
+            <tr>
+              <td class="mx-feat">聖地巡礼ガイド</td>
+              <td class="mx-keifu-td"><span class="mx-check">✓</span></td>
+              <td class="mx-other-td"><span class="mx-cross">✗</span></td>
+              <td class="mx-other-td"><span class="mx-cross">✗</span></td>
+              <td class="mx-other-td"><span class="mx-cross">✗</span></td>
+            </tr>
+            <tr>
+              <td class="mx-feat">戸籍原本一式</td>
+              <td class="mx-keifu-td"><span class="mx-check">✓</span></td>
+              <td class="mx-other-td"><span class="mx-check-other">✓</span></td>
+              <td class="mx-other-td"><span class="mx-check-other">✓</span></td>
+              <td class="mx-other-td"><span class="mx-check-other">✓</span></td>
+            </tr>
+            <tr>
+              <td class="mx-feat">AIリサーチ活用</td>
+              <td class="mx-keifu-td"><span class="mx-check">✓</span></td>
+              <td class="mx-other-td"><span class="mx-cross">✗</span></td>
+              <td class="mx-other-td"><span class="mx-cross">✗</span></td>
+              <td class="mx-other-td"><span class="mx-cross">✗</span></td>
+            </tr>
+            <tr class="mx-price-row">
+              <td class="mx-feat" style="font-weight:500;color:rgba(255,255,255,.8);">2家系 料金（税込）</td>
+              <td class="mx-keifu-td"><span style="font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);font-weight:300;">¥39,800</span></td>
+              <td class="mx-other-td"><span style="font-family:'Cormorant Garamond',serif;font-size:15px;color:rgba(255,255,255,.3);">¥76,800〜</span></td>
+              <td class="mx-other-td"><span style="font-family:'Cormorant Garamond',serif;font-size:15px;color:rgba(255,255,255,.3);">¥121,000〜</span></td>
+              <td class="mx-other-td"><span style="font-family:'Cormorant Garamond',serif;font-size:15px;color:rgba(255,255,255,.3);">¥165,000〜</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-family:'Noto Sans JP',sans-serif;font-size:11px;color:rgba(255,255,255,.2);text-align:center;margin-top:16px;">※ 各社公開情報をもとに作成。内容は変動する場合があります。</p>
+      </div>
+
+      <!-- ③ プランカード + コミュニティ -->
+      <p style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:.35em;color:var(--gold);text-align:center;text-transform:uppercase;margin-bottom:32px;">Plan &amp; Community</p>
+      <div class="plan-community-grid">
+
+        <!-- プランカード -->
+        <div class="price-box featured">
+          <div class="price-badge">Premium Plan</div>
+          <div class="price-name">2家系（冊子＋データ）</div>
+          <div class="price-amount"><sup>¥</sup>39,800</div>
+          <div class="price-tax">税込 ／ 高品質製本冊子付き</div>
+          <ul class="price-features">
+            <li>KEIFU Book（高品質製本冊子）</li>
+            <li>KEIFU Tree（家系データ）</li>
+            <li>16タイプ家系性格診断</li>
+            <li>移動の歴史マップ</li>
+            <li>天職・才能・仕事の分析</li>
+            <li>聖地巡礼ガイド</li>
+            <li>戸籍原本一式</li>
+            <li>父方・母方 両家系</li>
+          </ul>
+          <a href="#" class="price-btn">ご注文はこちら</a>
+        </div>
+
+        <!-- コミュニティカード -->
+        <div class="community-card">
+          <div class="community-deco-top">
+            <svg width="120" height="60" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:.18;">
+              <circle cx="20" cy="30" r="4" fill="#B8975A"/>
+              <circle cx="60" cy="10" r="3" fill="#B8975A"/>
+              <circle cx="100" cy="30" r="4" fill="#B8975A"/>
+              <circle cx="60" cy="50" r="3" fill="#B8975A"/>
+              <line x1="20" y1="30" x2="60" y2="10" stroke="#B8975A" stroke-width="0.8"/>
+              <line x1="60" y1="10" x2="100" y2="30" stroke="#B8975A" stroke-width="0.8"/>
+              <line x1="100" y1="30" x2="60" y2="50" stroke="#B8975A" stroke-width="0.8"/>
+              <line x1="60" y1="50" x2="20" y2="30" stroke="#B8975A" stroke-width="0.8"/>
+              <line x1="20" y1="30" x2="100" y2="30" stroke="#B8975A" stroke-width="0.5" stroke-dasharray="3 3"/>
+              <line x1="60" y1="10" x2="60" y2="50" stroke="#B8975A" stroke-width="0.5" stroke-dasharray="3 3"/>
+            </svg>
+          </div>
+
+          <div class="community-badge">購入者限定</div>
+          <div class="community-eyebrow">Members Only</div>
+          <h3 class="community-title">KEIFU<br>Community</h3>
+          <p class="community-lead">同じ想いを持つ仲間と、<br>ルーツを探求する特別な場所。</p>
+
+          <div class="community-divider"></div>
+
+          <div class="community-items">
+            <div class="community-item">
+              <div class="community-item-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <circle cx="10" cy="10" r="4" stroke="#B8975A" stroke-width="1.2"/>
+                  <circle cx="20" cy="16" r="4" stroke="#B8975A" stroke-width="1.2"/>
+                  <path d="M14 10 Q17 13 20 16" stroke="#B8975A" stroke-width="1" stroke-dasharray="2 2"/>
+                </svg>
+              </div>
+              <div class="community-item-body">
+                <div class="community-item-title">ルーツマッチング</div>
+                <p class="community-item-desc">同じ地域にルーツを持つ方や、家系分析で相性の良い方との交流が可能です。</p>
+              </div>
+            </div>
+
+            <div class="community-item">
+              <div class="community-item-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                  <rect x="4" y="6" width="20" height="16" rx="1" stroke="#B8975A" stroke-width="1.2"/>
+                  <line x1="4" y1="11" x2="24" y2="11" stroke="#B8975A" stroke-width="0.8"/>
+                  <circle cx="9" cy="4" r="1.5" stroke="#B8975A" stroke-width="1.2"/>
+                  <circle cx="19" cy="4" r="1.5" stroke="#B8975A" stroke-width="1.2"/>
+                  <line x1="9" y1="4" x2="9" y2="7" stroke="#B8975A" stroke-width="1.2"/>
+                  <line x1="19" y1="4" x2="19" y2="7" stroke="#B8975A" stroke-width="1.2"/>
+                  <line x1="9" y1="16" x2="19" y2="16" stroke="#B8975A" stroke-width="0.8" stroke-dasharray="2 2"/>
+                  <line x1="9" y1="19" x2="16" y2="19" stroke="#B8975A" stroke-width="0.8" stroke-dasharray="2 2"/>
+                </svg>
+              </div>
+              <div class="community-item-body">
+                <div class="community-item-title">郷土史勉強会</div>
+                <p class="community-item-desc">専門家を交えながら、楽しく深く学べる定期勉強会を開催しています。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="community-more">
+            <div class="community-more-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <p>その他にも、様々な内容をご用意しております。</p>
+          </div>
+
+          <div class="community-deco-bottom">
+            <svg width="100%" height="40" viewBox="0 0 300 40" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0 20 Q75 5 150 20 Q225 35 300 20" stroke="#B8975A" stroke-width="0.6" stroke-dasharray="4 4" opacity="0.3"/>
+              <circle cx="0" cy="20" r="2" fill="#B8975A" opacity="0.4"/>
+              <circle cx="75" cy="5" r="2" fill="#B8975A" opacity="0.4"/>
+              <circle cx="150" cy="20" r="2.5" fill="#B8975A" opacity="0.6"/>
+              <circle cx="225" cy="35" r="2" fill="#B8975A" opacity="0.4"/>
+              <circle cx="300" cy="20" r="2" fill="#B8975A" opacity="0.4"/>
+            </svg>
+          </div>
+        </div>
+
+      </div><!-- /plan-community-grid -->
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="section-inner">
+      <span class="section-eyebrow">Voice</span>
+      <h2 class="section-title">お客様の声</h2>
+      <div class="gold-bar"></div>
+
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <p class="testimonial-text">父の七回忌の法要に合わせて贈りました。先祖が鳥取藩の「庄屋」だったと知り、家族みんなで感動。宝物になりました。</p>
+          <div class="testimonial-author">40代 女性 / 東京都</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <p class="testimonial-text">家系診断で「戦略家タイプ」と出て、なぜ自分が経営に向いていたのか腑に落ちました。先祖の生き方が今の自分に繋がっている。</p>
+          <div class="testimonial-author">50代 男性 / 大阪府</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <p class="testimonial-text">聖地巡礼のページを見て実際に鳥取へ行きました。先祖の神社に手を合わせたとき、涙が止まりませんでした。本当に作って良かったです。</p>
+          <div class="testimonial-author">30代 女性 / 神奈川県</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="hero-logo">KEIFU</div>
+    <div class="hero-subtitle">Family &nbsp; Tree</div>
+    <p class="final-cta-headline">
+      あなたの名字には、<br>
+      先祖たちの誇りと意志が宿っている。
+    </p>
+    <a href="#" class="hero-cta">ご注文・お問い合わせ</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">KEIFU</div>
+    <div class="footer-sub">Family Tree — Premium Heritage Book</div>
+    <div class="footer-copy">© 2026 KEIFU. All rights reserved.</div>
+  </footer>
+
+</body>
+</html>

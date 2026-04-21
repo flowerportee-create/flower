@@ -1,0 +1,11 @@
+{
+  "name": "note-generator",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0"
+  }
+}

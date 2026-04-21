@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -sI \"https://source.unsplash.com/1200x800/?bouquet\")"
+    ]
+  }
+}

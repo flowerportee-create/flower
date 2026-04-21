@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAISON FLORALE — Paris Style Flower Atelier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f7f3ee;
+      --warm-white: #faf8f5;
+      --stone: #c9bfb2;
+      --taupe: #8c7b6b;
+      --deep: #3a3028;
+      --sage: #8a9b8a;
+      --blush: #d4b8a8;
+      --gold: #b09a7a;
+      --text: #4a3f35;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--warm-white);
+      color: var(--text);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 60px;
+      background: rgba(250, 248, 245, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,191,178,0.3);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 400; letter-spacing: 0.18em;
+      color: var(--deep); text-decoration: none;
+    }
+    .nav-logo span { font-style: italic; color: var(--gold); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--taupe); text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--deep); }
+
+    /* ── HERO ── */
+    .hero {
+      height: 100vh; position: relative;
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .hero-text {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 120px 80px 80px 80px;
+      background: var(--cream);
+    }
+    .hero-eyebrow {
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 28px;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 5vw, 72px);
+      font-weight: 300; line-height: 1.1;
+      color: var(--deep); margin-bottom: 32px;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-desc {
+      font-size: 12px; line-height: 2;
+      color: var(--taupe); max-width: 340px; margin-bottom: 48px;
+    }
+    .btn {
+      display: inline-block; padding: 14px 36px;
+      font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--deep); text-decoration: none;
+      border: 1px solid var(--stone);
+      transition: all 0.3s;
+    }
+    .btn:hover {
+      background: var(--deep); color: var(--cream); border-color: var(--deep);
+    }
+    .btn-dark {
+      background: var(--deep); color: var(--cream); border-color: var(--deep);
+    }
+    .btn-dark:hover {
+      background: transparent; color: var(--deep);
+    }
+    .hero-image {
+      position: relative; overflow: hidden;
+    }
+    .hero-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 8s ease;
+    }
+    .hero-image:hover img { transform: scale(1.03); }
+    .hero-badge {
+      position: absolute; bottom: 40px; left: -24px;
+      width: 120px; height: 120px; border-radius: 50%;
+      background: var(--warm-white);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      box-shadow: 0 4px 24px rgba(58,48,40,0.1);
+    }
+    .hero-badge span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px; letter-spacing: 0.1em; color: var(--taupe);
+    }
+    .hero-badge strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 400; color: var(--deep);
+    }
+
+    /* ── MARQUEE ── */
+    .marquee {
+      background: var(--deep); overflow: hidden;
+      padding: 16px 0;
+    }
+    .marquee-track {
+      display: flex; gap: 60px; animation: scroll 20s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee-track span {
+      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--stone); flex-shrink: 0;
+    }
+    .marquee-track span.dot { color: var(--gold); }
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 120px 60px; }
+    .section-label {
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 20px;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 56px); font-weight: 300; line-height: 1.15;
+      color: var(--deep);
+    }
+    .section-title em { font-style: italic; }
+
+    /* ── PHILOSOPHY ── */
+    .philosophy {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 100px;
+      align-items: center;
+      background: var(--warm-white);
+    }
+    .philosophy-text { }
+    .philosophy-text p {
+      font-size: 13px; line-height: 2.2;
+      color: var(--taupe); margin-top: 32px;
+    }
+    .philosophy-images {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    .philosophy-images img {
+      width: 100%; aspect-ratio: 3/4; object-fit: cover;
+    }
+    .philosophy-images img:first-child { margin-top: 40px; }
+
+    /* ── COLLECTIONS ── */
+    .collections { background: var(--cream); }
+    .collections-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 60px;
+    }
+    .collections-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    }
+    .collection-item { position: relative; overflow: hidden; cursor: pointer; }
+    .collection-item img {
+      width: 100%; aspect-ratio: 3/4; object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .collection-item:hover img { transform: scale(1.05); }
+    .collection-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(58,48,40,0.65) 0%, transparent 50%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 32px;
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .collection-item:hover .collection-overlay { opacity: 1; }
+    .collection-overlay h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px; font-weight: 300; color: var(--cream);
+      letter-spacing: 0.06em;
+    }
+    .collection-overlay p {
+      font-size: 11px; color: var(--stone);
+      letter-spacing: 0.1em; margin-top: 6px;
+    }
+    .collection-tag {
+      position: absolute; top: 20px; left: 20px;
+      font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 6px 14px; background: var(--warm-white); color: var(--taupe);
+    }
+
+    /* ── FEATURE ── */
+    .feature {
+      display: grid; grid-template-columns: 5fr 7fr;
+      gap: 0; background: var(--deep);
+      padding: 0;
+    }
+    .feature-text {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 100px 80px;
+    }
+    .feature-text .section-label { color: var(--gold); }
+    .feature-text .section-title { color: var(--cream); }
+    .feature-text p {
+      font-size: 12px; line-height: 2.2; color: var(--stone);
+      margin-top: 28px; max-width: 360px;
+    }
+    .feature-text .btn { margin-top: 40px; border-color: var(--stone); color: var(--stone); }
+    .feature-text .btn:hover { background: var(--cream); color: var(--deep); border-color: var(--cream); }
+    .feature-image { overflow: hidden; }
+    .feature-image img { width: 100%; height: 100%; object-fit: cover; min-height: 600px; }
+
+    /* ── ATELIER ── */
+    .atelier { background: var(--warm-white); }
+    .atelier-grid {
+      display: grid; grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: auto auto;
+      gap: 16px; margin-top: 60px;
+    }
+    .atelier-img-1 { grid-column: 1/6; grid-row: 1/2; }
+    .atelier-img-2 { grid-column: 6/10; grid-row: 1/3; }
+    .atelier-img-3 { grid-column: 10/13; grid-row: 1/2; }
+    .atelier-img-4 { grid-column: 1/6; grid-row: 2/3; background: var(--cream);
+      padding: 48px; display: flex; flex-direction: column; justify-content: center; }
+    .atelier-img-5 { grid-column: 10/13; grid-row: 2/3; }
+    .atelier-grid img { width: 100%; height: 100%; object-fit: cover; }
+    .atelier-img-4 h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 300; color: var(--deep); margin-bottom: 16px;
+    }
+    .atelier-img-4 p { font-size: 12px; line-height: 2; color: var(--taupe); }
+
+    /* ── SERVICE ── */
+    .services { background: var(--cream); }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 2px; margin-top: 60px;
+    }
+    .service-card {
+      background: var(--warm-white); padding: 52px 40px;
+      border-top: 2px solid var(--stone);
+      transition: border-color 0.3s;
+    }
+    .service-card:hover { border-color: var(--gold); }
+    .service-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px; font-weight: 300; color: var(--stone);
+      line-height: 1; margin-bottom: 28px;
+    }
+    .service-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 400; color: var(--deep);
+      letter-spacing: 0.06em; margin-bottom: 16px;
+    }
+    .service-card p { font-size: 12px; line-height: 2; color: var(--taupe); }
+    .service-price {
+      font-size: 11px; color: var(--gold); letter-spacing: 0.12em;
+      margin-top: 28px;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      background: var(--deep); text-align: center;
+    }
+    .testimonials .section-title { color: var(--cream); }
+    .testimonials .section-label { color: var(--gold); }
+    .testimonial-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 40px; margin-top: 70px;
+    }
+    .testimonial {
+      background: rgba(255,255,255,0.04);
+      padding: 48px 36px; text-align: left;
+      border: 1px solid rgba(201,191,178,0.15);
+    }
+    .testimonial p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px; font-style: italic; line-height: 1.9;
+      color: var(--stone); margin-bottom: 28px;
+    }
+    .testimonial-author {
+      font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--taupe);
+    }
+
+    /* ── INSTAGRAM ── */
+    .instagram { background: var(--warm-white); }
+    .instagram-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 32px;
+    }
+    .instagram-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px;
+    }
+    .instagram-item {
+      position: relative; overflow: hidden; aspect-ratio: 1;
+    }
+    .instagram-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .instagram-item:hover img { transform: scale(1.08); }
+    .instagram-overlay {
+      position: absolute; inset: 0;
+      background: rgba(58,48,40,0.4);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .instagram-item:hover .instagram-overlay { opacity: 1; }
+    .instagram-overlay span { font-size: 22px; color: white; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--deep);
+      padding: 80px 60px 40px;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px; padding-bottom: 60px;
+      border-bottom: 1px solid rgba(201,191,178,0.15);
+    }
+    .footer-brand .nav-logo { display: block; margin-bottom: 20px; }
+    .footer-brand p {
+      font-size: 11px; line-height: 2; color: var(--taupe);
+    }
+    .footer-col h4 {
+      font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a {
+      font-size: 12px; color: var(--taupe); text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-col a:hover { color: var(--cream); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 32px;
+    }
+    .footer-bottom p { font-size: 11px; color: var(--taupe); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">MAISON <span>FLORALE</span></a>
+  <ul class="nav-links">
+    <li><a href="#philosophy">Philosophy</a></li>
+    <li><a href="#collection">Collection</a></li>
+    <li><a href="#atelier">Atelier</a></li>
+    <li><a href="#service">Service</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding:0;">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Paris Style Flower Atelier — Tokyo</p>
+    <h1 class="hero-title">
+      花は、<br />
+      <em>静寂の中で</em><br />
+      語りかける。
+    </h1>
+    <p class="hero-desc">
+      一輪の花が持つ沈黙の美しさを。<br />
+      余白の中に宿る、静かな豊かさを。<br />
+      MAISON FLORALEは、パリのエスプリと<br />
+      日本の感性が交差する花のアトリエです。
+    </p>
+    <a href="#collection" class="btn">Discover the Collection</a>
+  </div>
+  <div class="hero-image">
+    <img
+      src="https://images.unsplash.com/photo-1531058020387-3be344556be6?w=1200&q=85&auto=format&fit=crop"
+      alt="Champetre bouquet"
+    />
+    <div class="hero-badge">
+      <span>Since</span>
+      <strong>2019</strong>
+      <span>Paris</span>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Seasonal Bouquet</span><span class="dot">✦</span>
+    <span>Bespoke Arrangement</span><span class="dot">✦</span>
+    <span>Wedding Flowers</span><span class="dot">✦</span>
+    <span>Atelier Paris</span><span class="dot">✦</span>
+    <span>No Floral Foam</span><span class="dot">✦</span>
+    <span>Champêtre Style</span><span class="dot">✦</span>
+    <span>Seasonal Bouquet</span><span class="dot">✦</span>
+    <span>Bespoke Arrangement</span><span class="dot">✦</span>
+    <span>Wedding Flowers</span><span class="dot">✦</span>
+    <span>Atelier Paris</span><span class="dot">✦</span>
+    <span>No Floral Foam</span><span class="dot">✦</span>
+    <span>Champêtre Style</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy" id="philosophy">
+  <div class="philosophy-text">
+    <p class="section-label">Our Philosophy</p>
+    <h2 class="section-title">
+      静かな贅沢。<br />
+      <em>飾らない美しさ。</em>
+    </h2>
+    <p>
+      花の美しさとは、華やかさだけではありません。<br />
+      茎の曲線、葉の重なり、散りゆく花弁のひとひら。<br />
+      そのすべてに宿る、抑制された豊かさを信じています。
+    </p>
+    <p>
+      私たちは吸水スポンジを一切使用しません。<br />
+      地球への敬意と、花本来の生命力を引き出すために。<br />
+      季節の花と向き合い、その声に耳を澄ませながら、<br />
+      あなただけの一束をお仕立てします。
+    </p>
+    <a href="#service" class="btn" style="margin-top:40px;">Our Approach</a>
+  </div>
+  <div class="philosophy-images">
+    <img
+      src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&auto=format&fit=crop"
+      alt="Flower details"
+    />
+    <img
+      src="https://images.unsplash.com/photo-1469259943454-aa100abba749?w=600&q=80&auto=format&fit=crop"
+      alt="Flower arrangement"
+    />
+  </div>
+</section>
+
+<!-- COLLECTIONS -->
+<section class="collections" id="collection">
+  <div class="collections-header">
+    <div>
+      <p class="section-label">Collection 2025</p>
+      <h2 class="section-title">
+        季節のコレクション
+      </h2>
+    </div>
+    <a href="#" class="btn">View All</a>
+  </div>
+  <div class="collections-grid">
+    <div class="collection-item">
+      <span class="collection-tag">Spring</span>
+      <img
+        src="https://images.unsplash.com/photo-1444021465936-c6ca81d39b84?w=800&q=80&auto=format&fit=crop"
+        alt="Spring bouquet"
+      />
+      <div class="collection-overlay">
+        <h3>Printemps</h3>
+        <p>芍薬と桜のシャンペトル</p>
+      </div>
+    </div>
+    <div class="collection-item">
+      <span class="collection-tag">Summer</span>
+      <img
+        src="https://images.unsplash.com/photo-1498671546682-94a232c26d17?w=800&q=80&auto=format&fit=crop"
+        alt="Summer bouquet"
+      />
+      <div class="collection-overlay">
+        <h3>Été</h3>
+        <p>ひまわりとデルフィニウム</p>
+      </div>
+    </div>
+    <div class="collection-item">
+      <span class="collection-tag">Autumn</span>
+      <img
+        src="https://images.unsplash.com/photo-1525310072745-f49212b5ac6d?w=800&q=80&auto=format&fit=crop"
+        alt="Autumn bouquet"
+      />
+      <div class="collection-overlay">
+        <h3>Automne</h3>
+        <p>ダリアと秋バラのコンポジション</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE (BESPOKE) -->
+<div class="feature">
+  <div class="feature-text">
+    <p class="section-label">Bespoke Service</p>
+    <h2 class="section-title" style="color:var(--cream);">
+      あなただけの<br />
+      <em>一束を。</em>
+    </h2>
+    <p>
+      お祝いの日、大切な人への贈り物、特別な空間の装飾。
+      どんな花を、どんな形で。
+      お客様の言葉に耳を傾け、
+      世界に一つだけの作品をお届けします。
+    </p>
+    <a href="#contact" class="btn">Request Bespoke</a>
+  </div>
+  <div class="feature-image">
+    <img
+      src="https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=1200&q=85&auto=format&fit=crop"
+      alt="Bespoke flower arrangement"
+    />
+  </div>
+</div>
+
+<!-- ATELIER -->
+<section class="atelier" id="atelier">
+  <div>
+    <p class="section-label">The Atelier</p>
+    <h2 class="section-title">
+      花と過ごす、<br /><em>静かな時間。</em>
+    </h2>
+  </div>
+  <div class="atelier-grid">
+    <div class="atelier-img-1">
+      <img
+        src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80&auto=format&fit=crop"
+        alt="Atelier interior"
+      />
+    </div>
+    <div class="atelier-img-2">
+      <img
+        src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80&auto=format&fit=crop"
+        alt="Atelier white room"
+      />
+    </div>
+    <div class="atelier-img-3">
+      <img
+        src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80&auto=format&fit=crop"
+        alt="Atelier white wall"
+      />
+    </div>
+    <div class="atelier-img-4">
+      <h3>Atelier Parisien</h3>
+      <p>
+        白い壁、花の香り、光が踊る空間。<br />
+        私たちのアトリエは、日常から少し離れた<br />
+        静かな隠れ家です。
+      </p>
+    </div>
+    <div class="atelier-img-5">
+      <img
+        src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=800&q=80&auto=format&fit=crop"
+        alt="Flower close up"
+      />
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="service">
+  <p class="section-label">Services</p>
+  <h2 class="section-title">サービスのご案内</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <p class="service-num">01</p>
+      <h3>Retail Bouquet</h3>
+      <p>
+        季節の花を丁寧にセレクトし、その日だけの
+        ブーケをお仕立てします。店頭でのご注文に
+        対応。事前のご連絡で特別なリクエストも承ります。
+      </p>
+      <p class="service-price">¥3,300 —</p>
+    </div>
+    <div class="service-card">
+      <p class="service-num">02</p>
+      <h3>Bespoke Arrangement</h3>
+      <p>
+        贈り物や特別な記念日のために、世界に一つだけの
+        アレンジメントを制作。お客様のご要望を丁寧に
+        伺い、花の言葉で想いを伝えます。
+      </p>
+      <p class="service-price">¥18,000 —</p>
+    </div>
+    <div class="service-card">
+      <p class="service-num">03</p>
+      <h3>Event & Wedding</h3>
+      <p>
+        ウェディングや特別なイベントの装花を承ります。
+        会場全体をコーディネートし、忘れられない
+        空間を演出します。
+      </p>
+      <p class="service-price">お問い合わせください</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <p class="section-label">Voices</p>
+  <h2 class="section-title" style="color:var(--cream);">
+    お客様の声
+  </h2>
+  <div class="testimonial-grid">
+    <div class="testimonial">
+      <p>
+        "ただ美しいだけでなく、なぜか心が落ち着く花束でした。
+        余分なものが何もなく、それでいて豊かで。
+        贈られた友人も涙を流してくれました。"
+      </p>
+      <p class="testimonial-author">M.K. — Wedding Guest</p>
+    </div>
+    <div class="testimonial">
+      <p>
+        "吸水スポンジを使わない、という哲学に共感して
+        訪れました。花の扱い方ひとつひとつに、
+        誠実さと美学を感じます。"
+      </p>
+      <p class="testimonial-author">Y.T. — Regular Client</p>
+    </div>
+    <div class="testimonial">
+      <p>
+        "オフィスのエントランスを毎月お願いしています。
+        訪れるたびに違う表情を見せてくれる花が、
+        私たちのブランドの空気感を作ってくれています。"
+      </p>
+      <p class="testimonial-author">R.S. — Corporate Client</p>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section class="instagram">
+  <div class="instagram-header">
+    <div>
+      <p class="section-label">Instagram</p>
+      <h2 class="section-title" style="font-size:36px;">@maison_florale</h2>
+    </div>
+    <a href="#" class="btn">Follow us</a>
+  </div>
+  <div class="instagram-grid">
+    <div class="instagram-item">
+      <img src="https://images.unsplash.com/photo-1562690868-60bbe7293e94?w=400&q=80&auto=format&fit=crop" alt="Instagram 1" />
+      <div class="instagram-overlay"><span>+</span></div>
+    </div>
+    <div class="instagram-item">
+      <img src="https://images.unsplash.com/photo-1457089328109-e5d9bd499191?w=400&q=80&auto=format&fit=crop" alt="Instagram 2" />
+      <div class="instagram-overlay"><span>+</span></div>
+    </div>
+    <div class="instagram-item">
+      <img src="https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=400&q=80&auto=format&fit=crop" alt="Instagram 3" />
+      <div class="instagram-overlay"><span>+</span></div>
+    </div>
+    <div class="instagram-item">
+      <img src="https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=400&q=80&auto=format&fit=crop" alt="Instagram 4" />
+      <div class="instagram-overlay"><span>+</span></div>
+    </div>
+    <div class="instagram-item">
+      <img src="https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=400&q=80&auto=format&fit=crop" alt="Instagram 5" />
+      <div class="instagram-overlay"><span>+</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a class="nav-logo" href="#">MAISON <span>FLORALE</span></a>
+      <p>
+        パリスタイルの花のアトリエ。<br />
+        静かな豊かさと、季節の美しさを。<br /><br />
+        〒150-0001<br />
+        東京都渋谷区神宮前4-1-1<br />
+        TEL: 03-0000-0000
+      </p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#philosophy">Philosophy</a></li>
+        <li><a href="#collection">Collection</a></li>
+        <li><a href="#atelier">Atelier</a></li>
+        <li><a href="#service">Service</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Service</h4>
+      <ul>
+        <li><a href="#">Retail Bouquet</a></li>
+        <li><a href="#">Bespoke Order</a></li>
+        <li><a href="#">Wedding</a></li>
+        <li><a href="#">Corporate</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Hours</h4>
+      <ul>
+        <li><a href="#">Wed – Sun</a></li>
+        <li><a href="#">11:00 – 19:00</a></li>
+        <li><a href="#" style="margin-top:8px;display:block;">Instagram</a></li>
+        <li><a href="#">Online Shop</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Maison Florale. All rights reserved.</p>
+    <p>Crafted with care in Tokyo</p>
+  </div>
+</footer>
+
+</body>
+</html>

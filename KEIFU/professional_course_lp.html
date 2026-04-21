@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>花仕事開業コース｜portée フラワーアトリエ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ivory:     #FAF7F2;
+      --cream:     #F2EBE0;
+      --blush:     #E8D5CC;
+      --rose:      #C4978D;
+      --wine:      #7A3F45;
+      --burgundy:  #5C2D32;
+      --gold:      #C2955A;
+      --gold-lt:   #D9B98A;
+      --charcoal:  #2A2420;
+      --gray:      #7A726D;
+      --gray-lt:   #B5ADA8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ivory);
+      color: var(--charcoal);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+      line-height: 1.9;
+      font-size: 15px;
+    }
+
+    /* ────────────────────────────────────────
+       UTILITIES
+    ──────────────────────────────────────── */
+    .serif      { font-family: 'Noto Serif JP', serif; }
+    .cormorant  { font-family: 'Cormorant Garamond', serif; }
+    .center     { text-align: center; }
+    .gold       { color: var(--gold); }
+    .wine       { color: var(--wine); }
+
+    .section-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .section-heading {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: clamp(22px, 3vw, 32px);
+      line-height: 1.6;
+      color: var(--charcoal);
+    }
+
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin: 20px auto;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background: var(--wine);
+      color: #fff;
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: 15px;
+      letter-spacing: .1em;
+      padding: 18px 52px;
+      border: none;
+      cursor: pointer;
+      transition: background .3s, transform .2s;
+      text-decoration: none;
+    }
+    .btn-primary:hover { background: var(--burgundy); transform: translateY(-1px); }
+
+    .btn-outline {
+      display: inline-block;
+      border: 1px solid var(--wine);
+      color: var(--wine);
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: 14px;
+      letter-spacing: .1em;
+      padding: 14px 44px;
+      cursor: pointer;
+      transition: all .3s;
+      text-decoration: none;
+    }
+    .btn-outline:hover { background: var(--wine); color: #fff; }
+
+    /* ────────────────────────────────────────
+       GLOBAL NAV
+    ──────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 40px;
+      background: rgba(250,247,242,.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(194,149,90,.2);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      letter-spacing: .18em;
+      color: var(--charcoal);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--gold); }
+
+    .nav-cta {
+      font-size: 12px;
+      letter-spacing: .12em;
+      padding: 10px 28px;
+    }
+
+    /* ────────────────────────────────────────
+       HERO
+    ──────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #EDE3D8 0%, #F5EDE4 50%, #E8DDD0 100%);
+      padding: 120px 40px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(194,149,90,.08) 0%, transparent 70%);
+    }
+
+    .hero::after {
+      content: 'portée';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 260px;
+      color: rgba(194,149,90,.06);
+      position: absolute;
+      right: -20px; bottom: -60px;
+      line-height: 1;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 12px;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 200;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.55;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+    }
+    .hero-title strong {
+      font-weight: 400;
+      color: var(--wine);
+      display: block;
+    }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: var(--gold);
+      margin-bottom: 28px;
+      letter-spacing: .05em;
+    }
+
+    .hero-lead {
+      font-size: 14px;
+      line-height: 2;
+      color: var(--gray);
+      margin-bottom: 40px;
+      max-width: 440px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .hero-note {
+      font-size: 11px;
+      color: var(--gray-lt);
+      letter-spacing: .05em;
+    }
+
+    /* hero visual placeholder */
+    .hero-visual {
+      aspect-ratio: 4/5;
+      background: linear-gradient(160deg, var(--blush) 0%, var(--cream) 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-visual::before {
+      content: '＊';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 120px;
+      color: rgba(194,149,90,.25);
+    }
+    .hero-visual-label {
+      position: absolute;
+      bottom: 24px; right: 24px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      letter-spacing: .25em;
+      color: var(--gray);
+      text-transform: uppercase;
+    }
+
+    /* ────────────────────────────────────────
+       PAIN — 共感セクション
+    ──────────────────────────────────────── */
+    .pain {
+      background: var(--wine);
+      padding: 96px 40px;
+    }
+
+    .pain-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .pain-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+      margin-bottom: 16px;
+    }
+
+    .pain-heading {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: clamp(20px, 3vw, 30px);
+      color: #fff;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+
+    .pain-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      text-align: left;
+    }
+
+    .pain-item {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 28px 24px;
+    }
+
+    .pain-item-icon {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      color: var(--gold-lt);
+      margin-bottom: 12px;
+    }
+
+    .pain-item p {
+      font-size: 14px;
+      color: rgba(255,255,255,.85);
+      line-height: 1.8;
+    }
+
+    .pain-cta {
+      margin-top: 56px;
+      padding-top: 48px;
+      border-top: 1px solid rgba(255,255,255,.15);
+    }
+
+    .pain-cta p {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 16px;
+      color: rgba(255,255,255,.9);
+      margin-bottom: 28px;
+    }
+
+    .btn-primary-light {
+      display: inline-block;
+      background: var(--gold);
+      color: #fff;
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: 15px;
+      letter-spacing: .1em;
+      padding: 18px 52px;
+      text-decoration: none;
+      transition: background .3s, transform .2s;
+    }
+    .btn-primary-light:hover { background: var(--gold-lt); transform: translateY(-1px); }
+
+    /* ────────────────────────────────────────
+       CONCEPT
+    ──────────────────────────────────────── */
+    .concept {
+      padding: 112px 40px;
+      background: var(--ivory);
+    }
+
+    .concept-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .concept-fr {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(36px, 5vw, 64px);
+      color: var(--gold);
+      line-height: 1.2;
+      margin-bottom: 8px;
+      opacity: .7;
+    }
+
+    .concept-body {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 2.2;
+      color: var(--gray);
+      margin: 32px auto;
+      max-width: 640px;
+    }
+
+    .concept-highlight {
+      background: var(--cream);
+      border-left: 2px solid var(--gold);
+      padding: 28px 36px;
+      text-align: left;
+      margin: 48px auto;
+      max-width: 640px;
+    }
+
+    .concept-highlight p {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 2.1;
+      color: var(--charcoal);
+    }
+
+    /* ────────────────────────────────────────
+       THREE PILLARS
+    ──────────────────────────────────────── */
+    .pillars {
+      background: var(--cream);
+      padding: 96px 40px;
+    }
+
+    .pillars-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .pillars-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2px;
+    }
+
+    .pillar {
+      background: var(--ivory);
+      padding: 48px 36px;
+      position: relative;
+    }
+
+    .pillar-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 72px;
+      color: var(--gold);
+      opacity: .18;
+      line-height: 1;
+      margin-bottom: -20px;
+    }
+
+    .pillar-title {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 400;
+      font-size: 18px;
+      color: var(--wine);
+      margin-bottom: 16px;
+    }
+
+    .pillar-desc {
+      font-size: 13.5px;
+      color: var(--gray);
+      line-height: 2;
+    }
+
+    .pillar-list {
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    .pillar-list li {
+      font-size: 13px;
+      color: var(--gray);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--cream);
+      padding-left: 16px;
+      position: relative;
+    }
+    .pillar-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-size: 11px;
+    }
+
+    /* ────────────────────────────────────────
+       CURRICULUM
+    ──────────────────────────────────────── */
+    .curriculum {
+      padding: 96px 40px;
+      background: var(--ivory);
+    }
+
+    .curriculum-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .curriculum-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .curriculum-timeline {
+      position: relative;
+      padding-left: 32px;
+      border-left: 1px solid var(--gold-lt);
+    }
+
+    .curr-phase {
+      margin-bottom: 48px;
+      position: relative;
+    }
+
+    .curr-phase::before {
+      content: '';
+      position: absolute;
+      left: -38px;
+      top: 6px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--ivory);
+      outline: 1px solid var(--gold);
+    }
+
+    .curr-phase-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .curr-phase-title {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 400;
+      font-size: 17px;
+      color: var(--wine);
+      margin-bottom: 12px;
+    }
+
+    .curr-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .curr-tag {
+      background: var(--cream);
+      border: 1px solid var(--blush);
+      font-size: 12px;
+      color: var(--gray);
+      padding: 5px 14px;
+      letter-spacing: .03em;
+    }
+
+    /* ────────────────────────────────────────
+       VOICE — 受講生の声
+    ──────────────────────────────────────── */
+    .voices {
+      background: linear-gradient(160deg, #EDE3D8 0%, #E8DDD0 100%);
+      padding: 96px 40px;
+    }
+
+    .voices-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .voices-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .voices-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .voice-card {
+      background: rgba(250,247,242,.85);
+      padding: 36px 32px;
+      position: relative;
+    }
+
+    .voice-card::before {
+      content: '\201C';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 80px;
+      color: var(--gold);
+      opacity: .3;
+      position: absolute;
+      top: 12px; left: 20px;
+      line-height: 1;
+    }
+
+    .voice-text {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 2;
+      color: var(--charcoal);
+      padding-top: 24px;
+      margin-bottom: 24px;
+    }
+
+    .voice-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .voice-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--blush);
+      flex-shrink: 0;
+    }
+
+    .voice-name {
+      font-size: 12px;
+      color: var(--wine);
+      font-family: 'Noto Serif JP', serif;
+    }
+
+    .voice-attr {
+      font-size: 11px;
+      color: var(--gray-lt);
+    }
+
+    /* ────────────────────────────────────────
+       RESULTS — 受講後の変化
+    ──────────────────────────────────────── */
+    .results {
+      background: var(--ivory);
+      padding: 96px 40px;
+    }
+
+    .results-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .results-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2px;
+    }
+
+    .result-item {
+      background: var(--cream);
+      padding: 36px 28px;
+      text-align: center;
+    }
+
+    .result-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px;
+      color: var(--wine);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .result-unit {
+      font-size: 16px;
+      color: var(--rose);
+    }
+
+    .result-label {
+      font-size: 12px;
+      color: var(--gray);
+      margin-top: 8px;
+      line-height: 1.7;
+    }
+
+    /* ────────────────────────────────────────
+       INSTRUCTOR
+    ──────────────────────────────────────── */
+    .instructor {
+      background: var(--cream);
+      padding: 96px 40px;
+    }
+
+    .instructor-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .instructor-photo {
+      aspect-ratio: 3/4;
+      background: linear-gradient(160deg, var(--blush), var(--cream));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      color: rgba(194,149,90,.3);
+    }
+
+    .instructor-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .instructor-name {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: 28px;
+      color: var(--charcoal);
+      margin-bottom: 4px;
+    }
+
+    .instructor-name-fr {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    .instructor-bio {
+      font-size: 13.5px;
+      color: var(--gray);
+      line-height: 2;
+      margin-bottom: 24px;
+    }
+
+    .instructor-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      border: 1px solid var(--rose);
+      font-size: 11px;
+      color: var(--wine);
+      padding: 5px 14px;
+      letter-spacing: .05em;
+    }
+
+    /* ────────────────────────────────────────
+       PRICE
+    ──────────────────────────────────────── */
+    .price {
+      background: var(--ivory);
+      padding: 96px 40px;
+    }
+
+    .price-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .price-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .price-card {
+      background: var(--cream);
+      border: 1px solid var(--blush);
+      padding: 56px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .price-card::before {
+      content: 'Professionnel';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 96px;
+      color: rgba(194,149,90,.06);
+      position: absolute;
+      top: -10px; right: -10px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .price-badge {
+      display: inline-block;
+      background: var(--wine);
+      color: #fff;
+      font-size: 11px;
+      letter-spacing: .15em;
+      padding: 6px 18px;
+      margin-bottom: 24px;
+    }
+
+    .price-main {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 64px;
+      color: var(--wine);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .price-main span {
+      font-size: 24px;
+    }
+
+    .price-note {
+      font-size: 12px;
+      color: var(--gray);
+      margin-bottom: 36px;
+    }
+
+    .price-includes {
+      border-top: 1px solid var(--blush);
+      padding-top: 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .price-include-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+
+    .price-include-item::before {
+      content: '✦';
+      color: var(--gold);
+      font-size: 10px;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    .price-cta {
+      margin-top: 48px;
+      text-align: center;
+    }
+
+    .price-trial {
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--gray-lt);
+    }
+
+    /* ────────────────────────────────────────
+       FAQ
+    ──────────────────────────────────────── */
+    .faq {
+      background: var(--cream);
+      padding: 96px 40px;
+    }
+
+    .faq-inner {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--blush);
+      padding: 28px 0;
+    }
+
+    .faq-q {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 400;
+      font-size: 15px;
+      color: var(--wine);
+      margin-bottom: 12px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .faq-q::before {
+      content: 'Q.';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .faq-a {
+      font-size: 13.5px;
+      color: var(--gray);
+      line-height: 2;
+      padding-left: 28px;
+    }
+
+    /* ────────────────────────────────────────
+       CTA FINAL
+    ──────────────────────────────────────── */
+    .cta-final {
+      background: linear-gradient(135deg, var(--wine) 0%, var(--burgundy) 100%);
+      padding: 112px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-final::before {
+      content: '✦';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 300px;
+      color: rgba(255,255,255,.03);
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .cta-final-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .cta-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+      margin-bottom: 20px;
+    }
+
+    .cta-title {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 200;
+      font-size: clamp(22px, 3.5vw, 36px);
+      color: #fff;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .cta-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: var(--gold-lt);
+      margin-bottom: 40px;
+    }
+
+    .cta-note {
+      font-size: 12px;
+      color: rgba(255,255,255,.5);
+      margin-top: 20px;
+      letter-spacing: .05em;
+    }
+
+    .cta-detail {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-top: 48px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,.15);
+    }
+
+    .cta-detail-item {
+      text-align: center;
+    }
+
+    .cta-detail-label {
+      font-size: 10px;
+      letter-spacing: .15em;
+      color: var(--gold-lt);
+      opacity: .7;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .cta-detail-value {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 14px;
+      color: rgba(255,255,255,.9);
+    }
+
+    /* ────────────────────────────────────────
+       FOOTER
+    ──────────────────────────────────────── */
+    footer {
+      background: var(--charcoal);
+      padding: 56px 40px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      letter-spacing: .2em;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .footer-logo span { color: var(--gold); }
+
+    .footer-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: rgba(255,255,255,.35);
+      margin-bottom: 32px;
+    }
+
+    .footer-info {
+      font-size: 11px;
+      color: rgba(255,255,255,.3);
+      line-height: 2;
+    }
+
+    /* ────────────────────────────────────────
+       STICKY CTA BAR
+    ──────────────────────────────────────── */
+    .sticky-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 99;
+      background: var(--wine);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+
+    .sticky-bar-text {
+      color: rgba(255,255,255,.85);
+      font-size: 13px;
+      letter-spacing: .05em;
+    }
+
+    .sticky-bar-text strong {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      color: #fff;
+    }
+
+    .btn-sticky {
+      background: var(--gold);
+      color: #fff;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 13px;
+      letter-spacing: .1em;
+      padding: 12px 36px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background .2s;
+    }
+    .btn-sticky:hover { background: var(--gold-lt); }
+
+    /* ────────────────────────────────────────
+       RESPONSIVE
+    ──────────────────────────────────────── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-cta { display: none; }
+
+      .hero { padding: 100px 20px 60px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-visual { display: none; }
+
+      .pain, .concept, .pillars, .curriculum,
+      .voices, .results, .instructor, .price,
+      .faq, .cta-final { padding: 64px 20px; }
+
+      .instructor-inner { grid-template-columns: 1fr; gap: 32px; }
+      .instructor-photo { aspect-ratio: 1/1; max-width: 160px; }
+
+      .price-card { padding: 36px 24px; }
+      .price-includes { grid-template-columns: 1fr; }
+
+      .sticky-bar { padding: 12px 20px; flex-direction: column; gap: 10px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">port<span>é</span>e</a>
+    <a href="#contact" class="btn-primary nav-cta">無料個別相談に申し込む</a>
+  </nav>
+
+  <!-- ══════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════ -->
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <div>
+        <p class="hero-eyebrow">Professional Course — 花仕事開業コース</p>
+        <h1 class="hero-title">
+          花が好きという気持ちを、<br>
+          <strong>本物の仕事にする。</strong>
+        </h1>
+        <p class="hero-sub">Transformer la passion en métier.</p>
+        <p class="hero-lead">
+          花の技術とビジネスを同時に学べる唯一のコース。<br>
+          受講後 6ヶ月以内に売上を立てた卒業生、多数。<br>
+          フローリストを目指す女性の第一歩を、丁寧に伴走します。
+        </p>
+        <div class="hero-cta-group">
+          <a href="#contact" class="btn-primary">無料個別相談に申し込む →</a>
+          <a href="#curriculum" class="btn-outline">カリキュラムを見る</a>
+        </div>
+        <p class="hero-note" style="margin-top:20px;">* 個別相談は完全無料・オンライン開催（約45分）</p>
+      </div>
+      <div class="hero-visual">
+        <span class="hero-visual-label">Photo Image</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       PAIN — こんな悩みありませんか？
+  ═══════════════════════════════════════════ -->
+  <section class="pain">
+    <div class="pain-inner">
+      <p class="pain-label">Votre inquiétude — あなたの悩み</p>
+      <h2 class="pain-heading">
+        「花が好き」だけでは、<br>仕事にする自信が持てない。
+      </h2>
+      <ul class="pain-list">
+        <li class="pain-item">
+          <div class="pain-item-icon">✦</div>
+          <p>技術は少しあるけれど、それをどうビジネスに結びつけたらいいかわからない</p>
+        </li>
+        <li class="pain-item">
+          <div class="pain-item-icon">✦</div>
+          <p>SNSやHP、何から始めればいいか全くイメージが湧かない</p>
+        </li>
+        <li class="pain-item">
+          <div class="pain-item-icon">✦</div>
+          <p>育児・仕事と両立しながら、本当に花で稼げるのか不安</p>
+        </li>
+        <li class="pain-item">
+          <div class="pain-item-icon">✦</div>
+          <p>独学で続けてきたが、プロとしての技術水準に自信がない</p>
+        </li>
+      </ul>
+      <div class="pain-cta">
+        <p>その悩み、このコースで全て解決できます。<br>まずは話を聞いてみませんか？</p>
+        <a href="#contact" class="btn-primary-light">無料相談を予約する（先着順）</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       CONCEPT
+  ═══════════════════════════════════════════ -->
+  <section class="concept">
+    <div class="concept-inner">
+      <span class="section-label">Concept</span>
+      <p class="concept-fr">Fleuriste Professionnel</p>
+      <h2 class="section-heading">
+        花スキル × ビジネスを、<br>同時に手に入れる唯一のコース
+      </h2>
+      <div class="divider"></div>
+      <p class="concept-body">
+        一般的なフラワースクールは「花の技術」しか教えません。<br>
+        でも実際に仕事にするには、集客・価格設定・写真撮影・<br>
+        SNS運用……やることは山のようにある。<br><br>
+        portée プロフェッショナルコースは、技術と経営の両輪を<br>
+        徹底的に伴走するプログラムです。
+      </p>
+      <div class="concept-highlight">
+        <p>
+          「花が好き」という気持ちは、あなただけの資産です。<br>
+          その情熱を、お客様が喜んでお金を払ってくれる仕事に変える。<br>
+          そのために必要なすべてをお伝えします。
+        </p>
+      </div>
+      <a href="#contact" class="btn-primary">まずは無料相談で話を聞く</a>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       THREE PILLARS
+  ═══════════════════════════════════════════ -->
+  <section class="pillars">
+    <div class="pillars-inner">
+      <div class="pillars-header">
+        <span class="section-label">Three Pillars</span>
+        <h2 class="section-heading">3つの柱で、プロを育てる</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="pillars-grid">
+        <div class="pillar">
+          <div class="pillar-num">01</div>
+          <h3 class="pillar-title">花の技術・知識</h3>
+          <p class="pillar-desc">パリスタイルの本格技術を習得。市場研修まで含む実践的プログラム。</p>
+          <ul class="pillar-list">
+            <li>ブーケロン・シャンペトル・コンポジション</li>
+            <li>花き市場研修（仕入れ・目利き）</li>
+            <li>水揚げ・花の管理</li>
+            <li>ノーフローラルフォームアレンジ</li>
+            <li>ラッピング・梱包・発送方法</li>
+          </ul>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">02</div>
+          <h3 class="pillar-title">ビジネス・集客</h3>
+          <p class="pillar-desc">SNS・HP・ブランディングまで。稼ぐ仕組みを0から一緒に作ります。</p>
+          <ul class="pillar-list">
+            <li>Instagram / TikTok / LINE公式</li>
+            <li>HP・オンラインショップ開設</li>
+            <li>ブランディング・世界観づくり</li>
+            <li>価格設定・収益設計</li>
+            <li>コンセプト設計</li>
+          </ul>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">03</div>
+          <h3 class="pillar-title">写真・発信力</h3>
+          <p class="pillar-desc">売れるフォトと動画を自分で作れるように。作品がそのままSNS素材に。</p>
+          <ul class="pillar-list">
+            <li>フォトセッション（カメラ設定〜構図）</li>
+            <li>スタイリング・小物使い</li>
+            <li>動画編集・リール制作</li>
+            <li>作品写真プレゼント（商用利用OK）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       CURRICULUM
+  ═══════════════════════════════════════════ -->
+  <section class="curriculum" id="curriculum">
+    <div class="curriculum-inner">
+      <div class="curriculum-header">
+        <span class="section-label">Curriculum — 全10回</span>
+        <h2 class="section-heading">卒業まで、ひとりにしない</h2>
+        <div class="divider"></div>
+        <p style="font-size:14px;color:var(--gray);margin-top:16px;">月1回〜受講可。対面・オンライン選択制。</p>
+      </div>
+      <div class="curriculum-timeline">
+        <div class="curr-phase">
+          <p class="curr-phase-label">Phase 1 — 第1〜3回</p>
+          <h3 class="curr-phase-title">基礎技術 ＋ コンセプト設計</h3>
+          <div class="curr-items">
+            <span class="curr-tag">ブーケロン</span>
+            <span class="curr-tag">シャンペトル</span>
+            <span class="curr-tag">自己分析</span>
+            <span class="curr-tag">ターゲット設定</span>
+            <span class="curr-tag">コンセプト言語化</span>
+          </div>
+        </div>
+        <div class="curr-phase">
+          <p class="curr-phase-label">Phase 2 — 第4〜6回</p>
+          <h3 class="curr-phase-title">商品設計 ＋ SNS・写真発信</h3>
+          <div class="curr-items">
+            <span class="curr-tag">ギフト花束</span>
+            <span class="curr-tag">季節商品</span>
+            <span class="curr-tag">Instagram戦略</span>
+            <span class="curr-tag">フォトセッション</span>
+            <span class="curr-tag">リール制作</span>
+          </div>
+        </div>
+        <div class="curr-phase">
+          <p class="curr-phase-label">Phase 3 — 第7〜9回</p>
+          <h3 class="curr-phase-title">高度技術 ＋ 販売開始</h3>
+          <div class="curr-items">
+            <span class="curr-tag">ノーフローラルフォーム</span>
+            <span class="curr-tag">ワイドブーケ</span>
+            <span class="curr-tag">HP・ショップ開設</span>
+            <span class="curr-tag">価格設定</span>
+            <span class="curr-tag">初受注サポート</span>
+          </div>
+        </div>
+        <div class="curr-phase">
+          <p class="curr-phase-label">Phase 4 — 第10回</p>
+          <h3 class="curr-phase-title">卒業制作 ＆ 事業計画発表</h3>
+          <div class="curr-items">
+            <span class="curr-tag">自由制作・発表</span>
+            <span class="curr-tag">今後の目標設定</span>
+            <span class="curr-tag">卒業生コミュニティ参加</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:48px;text-align:center;">
+        <a href="#contact" class="btn-primary">このカリキュラムについて相談する</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       RESULTS
+  ═══════════════════════════════════════════ -->
+  <section class="results">
+    <div class="results-inner">
+      <div class="results-header">
+        <span class="section-label">Results</span>
+        <h2 class="section-heading">卒業生のリアルな変化</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="results-grid">
+        <div class="result-item">
+          <div class="result-num">6<span class="result-unit">ヶ月</span></div>
+          <p class="result-label">受講後6ヶ月以内に<br>初受注を達成した割合</p>
+        </div>
+        <div class="result-item">
+          <div class="result-num">10<span class="result-unit">作品</span></div>
+          <p class="result-label">卒業時点で手元に残る<br>ポートフォリオ作品数</p>
+        </div>
+        <div class="result-item">
+          <div class="result-num">1<span class="result-unit">年</span></div>
+          <p class="result-label">VIPコース受講者への<br>個別コンサル無償サポート期間</p>
+        </div>
+        <div class="result-item">
+          <div class="result-num">∞</div>
+          <p class="result-label">卒業生限定コミュニティへの<br>永続アクセス</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       VOICES
+  ═══════════════════════════════════════════ -->
+  <section class="voices">
+    <div class="voices-inner">
+      <div class="voices-header">
+        <span class="section-label">Voix — 受講生の声</span>
+        <h2 class="section-heading">受け取った言葉たち</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="voices-grid">
+        <div class="voice-card">
+          <p class="voice-text">
+            育休中に受講しました。子育てしながらできるか不安でしたが、オンラインで時間の融通が利いて助かりました。復職前に最初のお客様からご注文いただき、自信になっています。
+          </p>
+          <div class="voice-meta">
+            <div class="voice-avatar"></div>
+            <div>
+              <p class="voice-name">M.K さん</p>
+              <p class="voice-attr">30代・育休中に受講→副業スタート</p>
+            </div>
+          </div>
+        </div>
+        <div class="voice-card">
+          <p class="voice-text">
+            他のスクールでは花の技術だけで終わっていました。ここでは「それで、どうやって売るの？」という部分まで教えてもらえる。受講後、Instagramのフォロワーが3倍になりました。
+          </p>
+          <div class="voice-meta">
+            <div class="voice-avatar"></div>
+            <div>
+              <p class="voice-name">A.S さん</p>
+              <p class="voice-attr">20代・会社員→副業フローリスト</p>
+            </div>
+          </div>
+        </div>
+        <div class="voice-card">
+          <p class="voice-text">
+            コンセプト設計のワークが特に良かったです。「自分らしさ」を言語化できたことで、どんな花を仕入れてどう撮影するかまで、全部軸が定まりました。
+          </p>
+          <div class="voice-meta">
+            <div class="voice-avatar"></div>
+            <div>
+              <p class="voice-name">Y.N さん</p>
+              <p class="voice-attr">40代・専業主婦→オンラインショップ開設</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       INSTRUCTOR
+  ═══════════════════════════════════════════ -->
+  <section class="instructor">
+    <div class="instructor-inner">
+      <div class="instructor-photo">✦</div>
+      <div>
+        <p class="instructor-label">Instructor — 講師紹介</p>
+        <h2 class="instructor-name">濱口 睦</h2>
+        <p class="instructor-name-fr">Mutsumi Hamaguchi</p>
+        <p class="instructor-bio">
+          青森県出身。フリーランスのピアノ調律師として13年間活動後、花の世界へ転向。
+          2018年に日比谷花壇「ドリームプロジェクト」に選出され、都内ホテルのブライダル装花を担当。
+          パリスタイルフラワーのディプロマを取得後、2021年に portee株式会社を設立。
+          2023年、世田谷区桜新町にアトリエ兼フォトスタジオをオープン。
+          花仕事の「技術」と「経営」両方を知る講師として、多くの女性の独立・開業をサポートしている。
+        </p>
+        <div class="instructor-badges">
+          <span class="badge">パリスタイルフラワーディプロマ取得</span>
+          <span class="badge">ノーフローラルフォーム技術習得</span>
+          <span class="badge">日比谷花壇 ドリームP選出</span>
+          <span class="badge">東急電鉄賞受賞</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       PRICE
+  ═══════════════════════════════════════════ -->
+  <section class="price">
+    <div class="price-inner">
+      <div class="price-header">
+        <span class="section-label">Investment — 受講料金</span>
+        <h2 class="section-heading">あなたの花仕事への投資</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="price-card">
+        <span class="price-badge">PROFESSIONAL COURSE</span>
+        <div>
+          <p style="font-size:12px;color:var(--gray);margin-bottom:4px;">料金は個別相談にてご案内</p>
+          <p class="price-main">¥<span>___,___</span></p>
+          <p class="price-note">全10回 ／ 分割払いも対応 ／ まずは無料相談で詳細をお伝えします</p>
+        </div>
+        <div class="price-includes">
+          <div class="price-include-item">全10回レッスン（対面 or オンライン）</div>
+          <div class="price-include-item">花き市場研修</div>
+          <div class="price-include-item">作品写真プレゼント（商用利用OK）</div>
+          <div class="price-include-item">卒業生限定コミュニティ参加</div>
+          <div class="price-include-item">SNS・HP開設サポート</div>
+          <div class="price-include-item">レッスン外作品への無料アドバイス</div>
+          <div class="price-include-item">1年間の個別コンサル（VIPコース）</div>
+          <div class="price-include-item">分割払い対応</div>
+        </div>
+        <div class="price-cta">
+          <a href="#contact" class="btn-primary">料金を含む詳細を無料相談で聞く</a>
+          <p class="price-trial">* 相談は完全無料・勧誘はありません</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       FAQ
+  ═══════════════════════════════════════════ -->
+  <section class="faq">
+    <div class="faq-inner">
+      <div class="faq-header">
+        <span class="section-label">FAQ — よくあるご質問</span>
+        <h2 class="section-heading">不安を、ひとつずつ解消する</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">花の経験がほとんどないのですが、受講できますか？</p>
+        <p class="faq-a">はい、大歓迎です。花の技術は0から丁寧にお伝えします。むしろ「まっさら」な状態の方がportéeのスタイルが素直に身につく傾向があります。</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">仕事や育児があって忙しいのですが、両立できますか？</p>
+        <p class="faq-a">月1回〜のペースで進められ、対面・オンラインを選択できます。育休中・会社員の方の受講実績も多数あります。スケジュールは個別相談時に一緒に設計しましょう。</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">受講後、本当に仕事になりますか？</p>
+        <p class="faq-a">「仕事にできるかどうか」は行動量によりますが、このコースは受注・販売の仕組みを実際に作るところまでサポートします。卒業後も1年間（VIPコース）個別でフォローするので、走り続けられる環境があります。</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">他のスクールに通っていても受講できますか？</p>
+        <p class="faq-a">もちろんです。既に技術をお持ちの方は、ビジネス・集客スキルを集中して伸ばすことも可能です。個別相談でご状況をお聞きして、最適なプランをご提案します。</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">料金の支払い方法は？</p>
+        <p class="faq-a">一括払い・分割払い（Square経由）に対応しています。詳細は無料相談の際にご案内します。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       CTA FINAL
+  ═══════════════════════════════════════════ -->
+  <section class="cta-final" id="contact">
+    <div class="cta-final-inner">
+      <p class="cta-label">Commencer — 最初の一歩</p>
+      <h2 class="cta-title">
+        「いつか」ではなく、<br>今日、始めてみませんか。
+      </h2>
+      <p class="cta-sub">Votre avenir en fleurs commence ici.</p>
+      <a href="https://forms.gle/XXXXXXXX" class="btn-primary-light" style="font-size:16px;padding:22px 64px;">
+        無料個別相談に申し込む →
+      </a>
+      <p class="cta-note">完全無料・約45分 ／ Zoom開催 ／ 勧誘は一切ありません</p>
+      <div class="cta-detail">
+        <div class="cta-detail-item">
+          <p class="cta-detail-label">Format</p>
+          <p class="cta-detail-value">Zoom（オンライン）</p>
+        </div>
+        <div class="cta-detail-item">
+          <p class="cta-detail-label">Duration</p>
+          <p class="cta-detail-value">約45分</p>
+        </div>
+        <div class="cta-detail-item">
+          <p class="cta-detail-label">Cost</p>
+          <p class="cta-detail-value">完全無料</p>
+        </div>
+        <div class="cta-detail-item">
+          <p class="cta-detail-label">Contact</p>
+          <p class="cta-detail-value">flowerportee@gmail.com</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">port<span>é</span>e</div>
+    <p class="footer-tagline">Atelier Floral — Sakura-Shimmachi, Tokyo</p>
+    <p class="footer-info">
+      portee株式会社<br>
+      〒154-0015 東京都世田谷区桜新町2-10-17 日平会館403<br>
+      東急田園都市線 桜新町駅西口 徒歩2分
+    </p>
+  </footer>
+
+  <!-- STICKY BAR -->
+  <div class="sticky-bar">
+    <p class="sticky-bar-text"><strong>花仕事開業コース</strong>　無料個別相談、受付中。</p>
+    <a href="#contact" class="btn-sticky">今すぐ申し込む →</a>
+  </div>
+
+</body>
+</html>
