@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HANA NO TE — 花屋のための水揚げ辞典</title>
+  <meta name="description" content="花屋のための水揚げ方法辞典。花の名前を検索して、最適な水揚げ方法をすぐに調べられます。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ivory: #f6f2ea;
+      --paper: #fbf8f2;
+      --card: #ffffff;
+      --line: #e6dfd1;
+      --line-soft: #efe9dc;
+      --ink: #2b2724;
+      --ink-2: #5a5147;
+      --muted: #8b8275;
+      --sage: #6a7a64;
+      --sage-deep: #4d5c4a;
+      --leaf: #97a690;
+      --rose: #b88a82;
+      --gold: #a68a5b;
+      --shadow: 0 1px 2px rgba(60, 50, 35, 0.04), 0 8px 24px rgba(60, 50, 35, 0.06);
+      --shadow-lg: 0 4px 12px rgba(60, 50, 35, 0.06), 0 24px 48px rgba(60, 50, 35, 0.10);
+      --radius: 14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    .serif { font-family: 'Shippori Mincho', 'Noto Serif JP', serif; }
+    .latin { font-family: 'Cormorant Garamond', serif; letter-spacing: 0.12em; }
+
+    /* ────── HEADER ────── */
+    header.site {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(251, 248, 242, 0.85);
+      backdrop-filter: saturate(140%) blur(12px);
+      -webkit-backdrop-filter: saturate(140%) blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .site-inner {
+      max-width: 1240px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 32px;
+      gap: 24px;
+    }
+    .brand {
+      display: flex; align-items: baseline; gap: 14px;
+      text-decoration: none; color: var(--ink);
+    }
+    .brand-mark {
+      width: 30px; height: 30px;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--sage-deep);
+      transform: translateY(4px);
+    }
+    .brand-jp {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 22px; font-weight: 500;
+      letter-spacing: 0.18em;
+    }
+    .brand-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 12px; font-style: italic;
+      color: var(--muted);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    .nav-meta {
+      font-size: 12px; color: var(--muted);
+      letter-spacing: 0.18em;
+      display: flex; align-items: center; gap: 18px;
+    }
+    .nav-meta .count strong { color: var(--ink-2); font-weight: 500; }
+    .nav-meta .divider { width: 1px; height: 14px; background: var(--line); }
+
+    /* ────── HERO ────── */
+    .hero {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 56px 32px 28px;
+      text-align: center;
+    }
+    .eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 14px;
+      color: var(--gold);
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .eyebrow::before, .eyebrow::after {
+      content: ''; display: inline-block;
+      width: 28px; height: 1px; background: var(--gold);
+      vertical-align: middle; margin: 0 14px;
+      opacity: 0.6;
+    }
+    h1.title {
+      font-family: 'Shippori Mincho', serif;
+      font-weight: 500;
+      font-size: clamp(32px, 4.6vw, 52px);
+      letter-spacing: 0.14em;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+    h1.title .accent { color: var(--sage-deep); }
+    .lead {
+      margin-top: 18px;
+      font-size: 14px;
+      color: var(--ink-2);
+      letter-spacing: 0.08em;
+    }
+
+    /* ────── SEARCH ────── */
+    .search-wrap {
+      max-width: 720px;
+      margin: 36px auto 0;
+      position: relative;
+    }
+    .search {
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 18px 56px 18px 60px;
+      font-size: 16px;
+      font-family: inherit;
+      color: var(--ink);
+      box-shadow: var(--shadow);
+      transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+    }
+    .search::placeholder { color: var(--muted); font-weight: 300; }
+    .search:focus {
+      outline: none;
+      border-color: var(--sage);
+      box-shadow: 0 0 0 4px rgba(106, 122, 100, 0.10), var(--shadow-lg);
+    }
+    .search-icon {
+      position: absolute; left: 24px; top: 50%; transform: translateY(-50%);
+      color: var(--muted); pointer-events: none;
+    }
+    .search-clear {
+      position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
+      width: 28px; height: 28px; border-radius: 50%;
+      border: none; background: var(--ivory); color: var(--muted);
+      cursor: pointer; display: none;
+      align-items: center; justify-content: center;
+      transition: background .2s ease, color .2s ease;
+    }
+    .search-clear:hover { background: var(--line); color: var(--ink); }
+    .search-clear.visible { display: inline-flex; }
+
+    /* ────── CATEGORY CHIPS ────── */
+    .categories {
+      max-width: 1240px;
+      margin: 28px auto 0;
+      padding: 0 32px;
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center;
+    }
+    .chip {
+      font-family: inherit;
+      font-size: 12.5px;
+      letter-spacing: 0.12em;
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink-2);
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+    .chip:hover { border-color: var(--sage); color: var(--sage-deep); }
+    .chip.active {
+      background: var(--sage-deep);
+      border-color: var(--sage-deep);
+      color: var(--paper);
+    }
+
+    /* ────── GRID ────── */
+    main { max-width: 1240px; margin: 0 auto; padding: 40px 32px 96px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px 24px 22px;
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+      color: var(--ink);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      display: flex; flex-direction: column; gap: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: var(--sage-deep);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .35s ease;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--line-soft);
+    }
+    .card:hover::before { transform: scaleX(1); }
+
+    .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .card-name {
+      font-family: 'Shippori Mincho', serif;
+      font-weight: 500;
+      font-size: 22px;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      line-height: 1.35;
+    }
+    .card-latin {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.10em;
+      margin-top: 4px;
+    }
+    .card-cat {
+      font-size: 10.5px;
+      letter-spacing: 0.18em;
+      color: var(--sage-deep);
+      border: 1px solid var(--line);
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .card-method {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-top: 2px;
+    }
+    .tag {
+      font-size: 11px;
+      letter-spacing: 0.10em;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: var(--ivory);
+      color: var(--ink-2);
+    }
+    .tag.primary { background: rgba(106, 122, 100, 0.12); color: var(--sage-deep); }
+    .card-snippet {
+      font-size: 13.5px;
+      color: var(--ink-2);
+      line-height: 1.7;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-foot {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px dashed var(--line);
+      font-size: 11.5px; color: var(--muted); letter-spacing: 0.14em;
+    }
+    .card-foot .more { color: var(--sage-deep); display: inline-flex; align-items: center; gap: 6px; }
+
+    /* empty */
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 24px;
+      color: var(--muted);
+    }
+    .empty .serif { font-size: 26px; color: var(--ink-2); margin-bottom: 10px; }
+
+    /* ────── MODAL ────── */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(43, 39, 36, 0.45);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 100;
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s ease;
+      display: flex; align-items: flex-start; justify-content: center;
+      padding: 60px 20px 40px;
+      overflow-y: auto;
+    }
+    .modal-backdrop.open { opacity: 1; pointer-events: auto; }
+    .modal {
+      background: var(--paper);
+      border-radius: 18px;
+      max-width: 720px; width: 100%;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(16px) scale(0.98);
+      transition: transform .3s ease;
+      overflow: hidden;
+      position: relative;
+    }
+    .modal-backdrop.open .modal { transform: translateY(0) scale(1); }
+
+    .modal-close {
+      position: absolute; top: 18px; right: 18px;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--card); border: 1px solid var(--line);
+      cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+      color: var(--ink-2);
+      transition: background .2s ease, color .2s ease, transform .2s ease;
+      z-index: 2;
+    }
+    .modal-close:hover { background: var(--ink); color: var(--paper); transform: rotate(90deg); }
+
+    .modal-hero {
+      padding: 56px 48px 28px;
+      background:
+        radial-gradient(1100px 240px at 80% -40px, rgba(151,166,144,0.22), transparent 60%),
+        linear-gradient(180deg, var(--ivory), var(--paper));
+      border-bottom: 1px solid var(--line);
+    }
+    .modal-cat {
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      color: var(--sage-deep);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .modal-name {
+      font-family: 'Shippori Mincho', serif;
+      font-weight: 500;
+      font-size: 38px;
+      letter-spacing: 0.12em;
+      color: var(--ink);
+    }
+    .modal-latin {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      margin-top: 6px;
+    }
+    .modal-tagline {
+      margin-top: 18px;
+      font-size: 14px; color: var(--ink-2);
+      line-height: 1.85;
+      max-width: 56ch;
+    }
+
+    .modal-body { padding: 28px 48px 40px; }
+    .section + .section { margin-top: 28px; }
+    .section-label {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 12px; letter-spacing: 0.28em;
+      color: var(--sage-deep); text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .section-label::before {
+      content: ''; display: inline-block;
+      width: 18px; height: 1px; background: var(--sage-deep);
+    }
+    .steps { list-style: none; counter-reset: step; }
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      padding: 14px 16px 14px 56px;
+      border-bottom: 1px solid var(--line-soft);
+      font-size: 14.5px; color: var(--ink);
+    }
+    .steps li:last-child { border-bottom: none; }
+    .steps li::before {
+      content: counter(step, decimal-leading-zero);
+      position: absolute; left: 16px; top: 14px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; color: var(--gold);
+      letter-spacing: 0.06em;
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+    }
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .info-card .k { font-size: 11px; letter-spacing: 0.18em; color: var(--muted); }
+    .info-card .v {
+      font-family: 'Shippori Mincho', serif;
+      font-size: 16px; color: var(--ink); margin-top: 4px;
+      letter-spacing: 0.06em;
+    }
+    .note {
+      background: rgba(168, 138, 91, 0.07);
+      border-left: 3px solid var(--gold);
+      padding: 14px 18px;
+      font-size: 13.5px;
+      color: var(--ink-2);
+      border-radius: 0 8px 8px 0;
+    }
+    .note strong { color: var(--ink); font-weight: 500; }
+
+    /* highlight match */
+    mark {
+      background: rgba(168, 138, 91, 0.22);
+      color: inherit;
+      padding: 0 2px;
+      border-radius: 2px;
+    }
+
+    /* footer */
+    footer.site {
+      padding: 28px 32px 40px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      color: var(--muted);
+      font-size: 11px; letter-spacing: 0.24em;
+    }
+    footer.site .serif { font-size: 14px; color: var(--ink-2); letter-spacing: 0.16em; }
+
+    /* responsive */
+    @media (max-width: 640px) {
+      .site-inner { padding: 14px 20px; }
+      .nav-meta { display: none; }
+      .hero { padding: 36px 20px 16px; }
+      h1.title { font-size: 28px; letter-spacing: 0.10em; }
+      .categories { padding: 0 16px; }
+      main { padding: 28px 20px 64px; }
+      .modal-hero { padding: 48px 24px 22px; }
+      .modal-body { padding: 22px 24px 32px; }
+      .modal-name { font-size: 28px; }
+    }
+
+    /* fade-in stagger */
+    @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    .card { animation: rise .35s ease both; }
+  </style>
+</head>
+<body>
+
+  <header class="site">
+    <div class="site-inner">
+      <a href="#" class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3c1.6 1.8 1.6 4.4 0 6.2-1.6-1.8-1.6-4.4 0-6.2z"/>
+            <path d="M5.8 7.2c2.4 0 4.4 2 4.4 4.4-2.4 0-4.4-2-4.4-4.4z"/>
+            <path d="M18.2 7.2c-2.4 0-4.4 2-4.4 4.4 2.4 0 4.4-2 4.4-4.4z"/>
+            <path d="M8 13.4c1.6 0 2.9 1.3 2.9 2.9-1.6 0-2.9-1.3-2.9-2.9z"/>
+            <path d="M16 13.4c-1.6 0-2.9 1.3-2.9 2.9 1.6 0 2.9-1.3 2.9-2.9z"/>
+            <path d="M12 11v10"/>
+          </svg>
+        </span>
+        <span>
+          <span class="brand-jp">花の手</span>
+          <div class="brand-en">HANA NO TE</div>
+        </span>
+      </a>
+      <div class="nav-meta">
+        <span class="count"><strong id="totalCount">0</strong> FLOWERS</span>
+        <span class="divider"></span>
+        <span>水揚げ辞典</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">For Florists</div>
+    <h1 class="title">花の名を引き、<span class="accent">いのちを保つ。</span></h1>
+    <p class="lead serif">花屋のための、水揚げ方法をまとめた一冊の辞典。</p>
+
+    <div class="search-wrap">
+      <span class="search-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="m20 20-3.5-3.5"/>
+        </svg>
+      </span>
+      <input id="search" class="search" type="search" placeholder="花の名前を入力 (例: バラ、ガーベラ、ヒマワリ…)" autocomplete="off" />
+      <button class="search-clear" id="searchClear" type="button" aria-label="クリア">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="categories" id="categories"></div>
+  </section>
+
+  <main>
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <footer class="site">
+    <div class="serif">花の手 — HANA NO TE</div>
+    <div style="margin-top:8px;">A FIELD GUIDE FOR FLORISTS</div>
+  </footer>
+
+  <!-- MODAL -->
+  <div class="modal-backdrop" id="modal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalName">
+      <button class="modal-close" id="modalClose" aria-label="閉じる">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="modal-hero">
+        <div class="modal-cat" id="modalCat"></div>
+        <div class="modal-name serif" id="modalName"></div>
+        <div class="modal-latin" id="modalLatin"></div>
+        <p class="modal-tagline" id="modalTagline"></p>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    /* ─────────────────────────────────────
+       水揚げデータ
+       method: 主な水揚げ手法のタグ
+       steps : 実際の手順
+       info  : 一覧で要点を確認できるカード情報
+       note  : 注意点・コツ
+       ───────────────────────────────────── */
+    const FLOWERS = [
+      {
+        name: 'バラ', kana: 'ばら', alias: ['ローズ', 'rose'],
+        latin: 'Rosa',
+        category: '定番',
+        method: ['水中切り', '深水'],
+        tagline: '茎が硬く水が上がりにくいため、水中切りと深水で一気に通水させるのが基本。',
+        steps: [
+          '下葉とトゲを取り除き、葉は2〜3枚に整える。',
+          '深いバケツに水を張り、水の中で茎を斜めに2〜3cm切り戻す（水中切り）。',
+          '茎の半分以上が水に浸かる深水に1〜2時間置き、しっかり吸わせる。',
+          '元気がない時は新聞紙で首までしっかり巻き、深水でリフレッシュ。'
+        ],
+        info: { water: '深水', cut: '水中切り（斜め）', life: '5〜7日', season: '通年' },
+        note: 'うつむいた首は<strong>新聞紙巻き＋深水</strong>で90％以上回復します。切り口がぬめったら必ず洗って切り直しを。'
+      },
+      {
+        name: 'ガーベラ', kana: 'がーべら', alias: ['gerbera'],
+        latin: 'Gerbera',
+        category: '定番',
+        method: ['湯揚げ', '浅水'],
+        tagline: '茎が柔らかく腐りやすい。水は浅く、こまめに換える。',
+        steps: [
+          '葉は元々ないので、茎の汚れを軽く拭く。',
+          '新聞紙で花首をまっすぐに巻く（首折れ防止）。',
+          '湯揚げする場合は、切り口を熱湯に5〜10秒、その後すぐ深水へ。',
+          '飾る際は<strong>水位3〜5cm</strong>の浅水で、毎日水替え＆切り戻し。'
+        ],
+        info: { water: '浅水（3〜5cm）', cut: '水切り or 湯揚げ', life: '5〜10日', season: '通年' },
+        note: '茎が水に浸かりすぎると一気に腐ります。<strong>浅水＋毎日水替え</strong>が最大のコツ。'
+      },
+      {
+        name: 'カーネーション', kana: 'かーねーしょん', alias: ['carnation'],
+        latin: 'Dianthus caryophyllus',
+        category: '定番',
+        method: ['水切り', '節を避けて切る'],
+        tagline: '節の部分は水を吸わない。必ず節と節の間で切ること。',
+        steps: [
+          '下葉を取り除く。',
+          '茎の「節（ふくらんだ部分）」を避け、節と節の間で斜めに水切り。',
+          '中深水で1時間ほど水揚げ。',
+          '飾る際は中浅水で。エチレンに弱いため果物の近くは避ける。'
+        ],
+        info: { water: '中浅水', cut: '節を避け斜め切り', life: '7〜14日', season: '通年' },
+        note: '日持ちは抜群。<strong>果物（特にりんご）から離す</strong>とさらに長持ちします。'
+      },
+      {
+        name: 'ユリ', kana: 'ゆり', alias: ['lily', 'リリー'],
+        latin: 'Lilium',
+        category: '定番',
+        method: ['水切り', '花粉処理'],
+        tagline: '花粉が衣服や花弁を汚す。咲き始めにヤクを取るのが鉄則。',
+        steps: [
+          '下葉を3分の1ほど取り除く。',
+          '茎を斜めに水切りし、中深水で30分〜1時間吸水。',
+          '花が開いたら、すぐにヤク（雄しべの先）をティッシュで摘み取る。',
+          'つぼみは下から順に咲くので、咲き終わった花はこまめに摘む。'
+        ],
+        info: { water: '中深水', cut: '水切り（斜め）', life: '7〜10日', season: '通年' },
+        note: '<strong>花粉は服に付くと取れにくい</strong>。水で濡らさず、テープで優しく取るのが正解。'
+      },
+      {
+        name: 'ヒマワリ', kana: 'ひまわり', alias: ['sunflower', 'サンフラワー'],
+        latin: 'Helianthus annuus',
+        category: '夏',
+        method: ['湯揚げ', '深水'],
+        tagline: '茎が太く水を含みやすいが、傷みも早い。湯揚げが効果的。',
+        steps: [
+          '葉を3分の2ほど落として蒸散を抑える。',
+          '茎の切り口を新聞紙で巻き、花首までしっかり保護。',
+          '熱湯に切り口を10秒ほど浸す（湯揚げ）。',
+          'すぐに冷水の深水へ移し、1時間以上吸水させる。'
+        ],
+        info: { water: '深水→中水', cut: '湯揚げ', life: '5〜7日', season: '6〜9月' },
+        note: '水が濁りやすい花。<strong>毎日の水替え＋切り戻し</strong>で日持ちが大きく変わります。'
+      },
+      {
+        name: 'チューリップ', kana: 'ちゅーりっぷ', alias: ['tulip'],
+        latin: 'Tulipa',
+        category: '春',
+        method: ['新聞紙巻き', '浅水'],
+        tagline: '切ってからも伸びる花。曲がりも個性として活かす。',
+        steps: [
+          '下葉を1〜2枚取り除く。',
+          '花首から茎全体を新聞紙でまっすぐに巻く。',
+          '茎を水切りし、浅水〜中浅水で1時間ほど吸水。',
+          '飾る際は浅水で、涼しい場所に置く。'
+        ],
+        info: { water: '浅水', cut: '水切り（直角でも可）', life: '5〜10日', season: '12〜4月' },
+        note: 'チューリップは<strong>光と重力に反応して動く</strong>花。曲がりは正常で、生けてからの表情変化を楽しんで。'
+      },
+      {
+        name: 'スイートピー', kana: 'すいーとぴー', alias: ['sweet pea'],
+        latin: 'Lathyrus odoratus',
+        category: '春',
+        method: ['水切り', '浅水'],
+        tagline: '茎が細く繊細。浅水でやさしく扱う。',
+        steps: [
+          '葉やヒゲは軽く整える。',
+          '茎を水中で斜めに切る（水切り）。',
+          '浅水で1時間ほど吸水。',
+          '飾る際も浅水で、こまめに水を換える。'
+        ],
+        info: { water: '浅水', cut: '水切り（斜め）', life: '5〜7日', season: '1〜4月' },
+        note: 'エチレンに敏感。<strong>果物・他のしおれた花から離して</strong>飾ること。'
+      },
+      {
+        name: 'トルコキキョウ', kana: 'とるこききょう', alias: ['ユーストマ', 'lisianthus', 'eustoma'],
+        latin: 'Eustoma grandiflorum',
+        category: '定番',
+        method: ['水切り', '深水'],
+        tagline: '日持ち抜群。水替えとつぼみの摘み取りで長く楽しめる。',
+        steps: [
+          '下葉を取り除き、込み合った脇枝も適度に整える。',
+          '茎を斜めに水切り。',
+          '深水で1時間吸水。',
+          '咲き終わった花はこまめに摘み取り、つぼみへ栄養を回す。'
+        ],
+        info: { water: '中深水', cut: '水切り（斜め）', life: '10〜14日', season: '通年' },
+        note: '<strong>枯れた花を残すとつぼみが咲きません</strong>。毎日チェックして摘み取りを。'
+      },
+      {
+        name: 'ダリア', kana: 'だりあ', alias: ['dahlia'],
+        latin: 'Dahlia',
+        category: '夏秋',
+        method: ['湯揚げ', '焼き揚げ'],
+        tagline: '中空の茎で水が上がりにくい。湯揚げ or 焼き揚げが必須。',
+        steps: [
+          '葉を半分以上落として蒸散を抑える。',
+          '花首から新聞紙でしっかり巻く。',
+          '<strong>湯揚げ:</strong> 切り口を熱湯に20〜30秒。<strong>焼き揚げ:</strong> 切り口を黒く焦げるまで火で焼く。',
+          'すぐに冷水の深水へ移し、ゆっくり吸水させる。'
+        ],
+        info: { water: '深水', cut: '湯揚げ／焼き揚げ', life: '3〜5日', season: '7〜10月' },
+        note: '日持ちは短め。<strong>切り口の処理がすべて</strong>。中の空洞に空気が入ると一気にしおれます。'
+      },
+      {
+        name: 'アジサイ', kana: 'あじさい', alias: ['hydrangea', 'ハイドランジア'],
+        latin: 'Hydrangea',
+        category: '初夏',
+        method: ['根元割り', 'ミョウバン', '深水'],
+        tagline: '水が上がりにくい代表格。茎の中のワタを取り除くのが鍵。',
+        steps: [
+          '葉は思い切ってほとんど落とす（蒸散を抑えるため）。',
+          '茎の切り口を縦に十字に割る、または木槌で軽く潰す。',
+          '切り口の白いワタを<strong>爪楊枝などで取り除く</strong>。',
+          'ミョウバンを切り口にすり込み、深水へ。'
+        ],
+        info: { water: '深水', cut: '根元割り＋ワタ除去', life: '5〜10日', season: '5〜7月' },
+        note: '<strong>葉を残すとほぼ確実に水が下がる</strong>。アジサイは「葉を捨てて花を生かす」花です。'
+      },
+      {
+        name: 'シャクヤク', kana: 'しゃくやく', alias: ['芍薬', 'peony'],
+        latin: 'Paeonia lactiflora',
+        category: '初夏',
+        method: ['水切り', '蜜拭き'],
+        tagline: 'つぼみの表面の蜜を拭き取り、アリと菌を防ぐ。',
+        steps: [
+          'つぼみについた<strong>蜜をぬるま湯で優しく拭き取る</strong>（咲きやすくなる）。',
+          '下葉を整理する。',
+          '茎を斜めに水切りし、中深水で1時間吸水。',
+          '飾る際は涼しい場所で、咲きすぎ防止のため低温管理。'
+        ],
+        info: { water: '中深水', cut: '水切り（斜め）', life: '4〜7日', season: '5〜6月' },
+        note: '蜜を放置するとつぼみが固まって<strong>開花しなくなる</strong>。仕入れ時の蜜拭きが最重要工程です。'
+      },
+      {
+        name: 'アネモネ', kana: 'あねもね', alias: ['anemone'],
+        latin: 'Anemone coronaria',
+        category: '春',
+        method: ['水切り', '浅水'],
+        tagline: '切ってからも茎が伸び、表情が変わる。浅水で短命を防ぐ。',
+        steps: [
+          '葉を軽く整える。',
+          '茎を斜めに水切り。',
+          '浅水で吸水。',
+          '飾る際も浅水で、毎日水を換える。'
+        ],
+        info: { water: '浅水', cut: '水切り（斜め）', life: '4〜7日', season: '12〜4月' },
+        note: '茎は<strong>光と熱で動く</strong>。曲がりは個性として活かして。直射日光と暖房は避ける。'
+      },
+      {
+        name: 'ラナンキュラス', kana: 'らなんきゅらす', alias: ['ranunculus'],
+        latin: 'Ranunculus asiaticus',
+        category: '春',
+        method: ['水切り', '浅水'],
+        tagline: '茎が中空で柔らかい。やさしく扱い、水替えをこまめに。',
+        steps: [
+          '葉を軽く整える。',
+          '茎を斜めに水切り。',
+          '浅水で1時間ほど吸水。',
+          '茎が腐りやすいため、<strong>毎日切り戻し＋水替え</strong>。'
+        ],
+        info: { water: '浅水', cut: '水切り（斜め）', life: '5〜7日', season: '12〜4月' },
+        note: '<strong>水が濁ったら即交換</strong>。茎が透けてきたら腐敗のサイン、その部分は切り落とす。'
+      },
+      {
+        name: 'デルフィニウム', kana: 'でるふぃにうむ', alias: ['delphinium'],
+        latin: 'Delphinium',
+        category: '初夏',
+        method: ['水切り', '深水'],
+        tagline: '中空の茎を逆さに水を注ぎ入れる「逆さ水」も有効。',
+        steps: [
+          '下葉を取り除く。',
+          '茎を斜めに水切り。',
+          '中空の茎の場合、逆さにして茎の中に水を注ぎ込み、指で塞いで深水へ。',
+          '深水で1〜2時間吸水。'
+        ],
+        info: { water: '深水', cut: '水切り＋逆さ水', life: '5〜7日', season: '4〜7月' },
+        note: '青の発色がきれいな花。<strong>下から順に咲く</strong>ので、終わった花は摘んで上のつぼみへ栄養を。'
+      },
+      {
+        name: 'かすみ草', kana: 'かすみそう', alias: ['カスミソウ', 'gypsophila', 'ベビーズブレス'],
+        latin: 'Gypsophila',
+        category: '定番',
+        method: ['湯揚げ', '深水'],
+        tagline: '小花の集合体。湯揚げで一気に水を上げると元気に。',
+        steps: [
+          '不要な枝や葉を軽く整える。',
+          '茎を斜めに切り、新聞紙でしっかり包む。',
+          '熱湯に5〜10秒切り口を浸す（湯揚げ）。',
+          'すぐに深水で吸水。'
+        ],
+        info: { water: '深水→中水', cut: '湯揚げ', life: '7〜10日', season: '通年' },
+        note: '<strong>ドライフラワーにも最適</strong>。元気なうちに逆さに吊るすと美しく仕上がります。'
+      },
+      {
+        name: '菊', kana: 'きく', alias: ['キク', 'マム', 'chrysanthemum', 'mum'],
+        latin: 'Chrysanthemum',
+        category: '秋',
+        method: ['折り', '深水'],
+        tagline: 'ハサミではなく「手で折る」と水の通りが良くなる。',
+        steps: [
+          '下葉を取り除く。',
+          '茎を<strong>手で斜めにポキッと折る</strong>（繊維が裂け、吸水面積が広がる）。',
+          '中深水で1時間吸水。',
+          '日持ちが長く、水替えだけで2週間以上もつことも。'
+        ],
+        info: { water: '中深水', cut: '手で折る', life: '10〜21日', season: '通年' },
+        note: '花の中でも<strong>最も日持ちする部類</strong>。仏花の主役でもある所以です。'
+      },
+      {
+        name: 'スターチス', kana: 'すたーちす', alias: ['statice', 'リモニウム'],
+        latin: 'Limonium',
+        category: '定番',
+        method: ['切り戻し', 'ドライ可'],
+        tagline: '元々水分が少ないため、特別な処理は不要。ドライにも最適。',
+        steps: [
+          '下葉を取り除く。',
+          '茎を斜めに切り戻す。',
+          '中浅水で吸水。',
+          '水が少なくなったらそのままドライフラワーに移行可能。'
+        ],
+        info: { water: '中浅水', cut: '通常切り', life: '14日〜', season: '通年' },
+        note: '<strong>束のままドライ化できる</strong>万能花材。色も褪せにくい。'
+      },
+      {
+        name: 'リンドウ', kana: 'りんどう', alias: ['gentian'],
+        latin: 'Gentiana',
+        category: '秋',
+        method: ['水切り', '深水'],
+        tagline: '秋の代表花。日持ちもよく、扱いやすい。',
+        steps: [
+          '下葉を取り除く。',
+          '茎を斜めに水切り。',
+          '中深水で1時間吸水。',
+          'こまめに水を換えれば2週間ほどもつ。'
+        ],
+        info: { water: '中深水', cut: '水切り（斜め）', life: '7〜14日', season: '7〜11月' },
+        note: '青の発色を保つには<strong>涼しい場所</strong>で。高温で色が抜けやすい。'
+      },
+      {
+        name: 'ストック', kana: 'すとっく', alias: ['stock', 'マッティオラ'],
+        latin: 'Matthiola incana',
+        category: '春',
+        method: ['水切り', '深水'],
+        tagline: '茎が腐りやすい。下葉処理と水替えが寿命を決める。',
+        steps: [
+          '下葉を<strong>多めにしっかり</strong>取り除く。',
+          '茎を斜めに水切り。',
+          '中深水で1時間吸水。',
+          '水替えのたびに切り戻し、茎の腐敗を防ぐ。'
+        ],
+        info: { water: '中深水', cut: '水切り（斜め）', life: '7〜10日', season: '12〜4月' },
+        note: '<strong>水の腐敗が早い花の代表</strong>。毎日の水替えが必須。'
+      },
+      {
+        name: 'グラジオラス', kana: 'ぐらじおらす', alias: ['gladiolus'],
+        latin: 'Gladiolus',
+        category: '夏',
+        method: ['水切り', '深水'],
+        tagline: '剣のような長い花穂。下から順に咲く。',
+        steps: [
+          '下葉を整える。',
+          '茎を斜めに水切り。',
+          '深水で1時間吸水。',
+          '咲き終わった花は摘み、上のつぼみへ栄養を回す。'
+        ],
+        info: { water: '深水', cut: '水切り（斜め）', life: '5〜10日', season: '6〜9月' },
+        note: '先端のつぼみまで咲かせるには、<strong>下の枯れ花を摘む</strong>のが鉄則。'
+      },
+      {
+        name: 'アルストロメリア', kana: 'あるすとろめりあ', alias: ['alstroemeria'],
+        latin: 'Alstroemeria',
+        category: '定番',
+        method: ['水切り', '葉を多めに除去'],
+        tagline: '葉が傷みやすく腐臭の原因に。葉は思い切って減らす。',
+        steps: [
+          '<strong>葉を3分の2以上</strong>取り除く。',
+          '茎を斜めに水切り。',
+          '中浅水で吸水。',
+          '咲き終わった花を摘めば、つぼみが次々開く。'
+        ],
+        info: { water: '中浅水', cut: '水切り（斜め）', life: '10〜14日', season: '通年' },
+        note: '花持ちは抜群。<strong>葉さえ整えれば</strong>2週間元気に咲き続けます。'
+      },
+      {
+        name: 'クルクマ', kana: 'くるくま', alias: ['curcuma'],
+        latin: 'Curcuma',
+        category: '夏',
+        method: ['湯揚げ', '中深水'],
+        tagline: '熱帯の花。寒さに弱く、冷蔵保存はNG。',
+        steps: [
+          '下葉を整える。',
+          '茎を斜めに切り、湯揚げ（5〜10秒）。',
+          'すぐに中深水へ移し吸水。',
+          '<strong>冷蔵庫には入れない</strong>。常温で管理。'
+        ],
+        info: { water: '中深水', cut: '湯揚げ', life: '7〜14日', season: '6〜10月' },
+        note: '熱帯原産のため<strong>10℃以下で傷む</strong>。夏の暑さには強い。'
+      },
+      {
+        name: 'ブバルディア', kana: 'ぶばるでぃあ', alias: ['bouvardia'],
+        latin: 'Bouvardia',
+        category: '定番',
+        method: ['湯揚げ', '深水'],
+        tagline: '繊細で水が下がりやすい。湯揚げ＋深水で慎重に。',
+        steps: [
+          '下葉を取り除く。',
+          '新聞紙で花首までしっかり巻く。',
+          '熱湯に切り口を10秒ほど浸す。',
+          'すぐに深水へ移し、1〜2時間吸水。'
+        ],
+        info: { water: '深水', cut: '湯揚げ', life: '5〜7日', season: '通年' },
+        note: '<strong>萎れやすい代表花</strong>。仕入れ直後の湯揚げを必ず。'
+      },
+      {
+        name: 'マトリカリア', kana: 'まとりかりあ', alias: ['matricaria', 'フィーバーフュー'],
+        latin: 'Tanacetum parthenium',
+        category: '定番',
+        method: ['湯揚げ', '中水'],
+        tagline: '小さな白い花の集合。湯揚げで一気に元気に。',
+        steps: [
+          '下葉を取り除く。',
+          '茎を新聞紙で巻き、湯揚げ（5〜10秒）。',
+          'すぐに深水で1時間吸水。',
+          '飾る際は中浅水で。'
+        ],
+        info: { water: '中浅水', cut: '湯揚げ', life: '5〜7日', season: '通年' },
+        note: '水の腐敗が早い。<strong>下葉を徹底的に取り除く</strong>のが日持ちの鍵。'
+      },
+      {
+        name: 'キンギョソウ', kana: 'きんぎょそう', alias: ['snapdragon', 'スナップドラゴン'],
+        latin: 'Antirrhinum majus',
+        category: '春',
+        method: ['水切り', '深水'],
+        tagline: '光に向かって曲がる性質を持つ。動きを生かして生ける。',
+        steps: [
+          '下葉を取り除く。',
+          '茎を斜めに水切り。',
+          '中深水で1時間吸水。',
+          '飾る際は涼しい場所で、直射日光は避ける。'
+        ],
+        info: { water: '中深水', cut: '水切り（斜め）', life: '5〜10日', season: '12〜5月' },
+        note: '<strong>光に反応して茎が曲がる</strong>。生けた後の表情変化を楽しんで。'
+      },
+      {
+        name: 'ミモザ', kana: 'みもざ', alias: ['mimosa', 'アカシア'],
+        latin: 'Acacia',
+        category: '春',
+        method: ['根元割り', 'ドライ可'],
+        tagline: '水揚げが難しい枝物。生花期間は短いがドライで長く楽しめる。',
+        steps: [
+          '余分な葉を整理する。',
+          '茎の切り口を<strong>木槌などで叩いて潰す</strong>、または縦に十字に割る。',
+          '深水で1時間吸水。',
+          '生花期間（3〜5日）を過ぎたら逆さ吊りでドライへ。'
+        ],
+        info: { water: '深水', cut: '根元割り（叩く）', life: '3〜5日（生花）', season: '2〜4月' },
+        note: '<strong>水が下がりやすい</strong>。早めにドライへ移行するのが賢明です。'
+      },
+      {
+        name: 'ユーカリ', kana: 'ゆーかり', alias: ['eucalyptus'],
+        latin: 'Eucalyptus',
+        category: '葉物',
+        method: ['根元割り', '湯揚げ'],
+        tagline: '硬い枝物。割りor湯揚げで水通しを良くする。',
+        steps: [
+          '余分な下葉を整理する。',
+          '切り口を縦に十字に割る、または湯揚げ。',
+          '深水で1〜2時間吸水。',
+          '生花でもドライでも楽しめる万能葉物。'
+        ],
+        info: { water: '深水→中水', cut: '根元割り／湯揚げ', life: '14日〜', season: '通年' },
+        note: '<strong>そのままドライに移行</strong>でき、香りも長く楽しめます。'
+      },
+      {
+        name: 'アンスリウム', kana: 'あんすりうむ', alias: ['anthurium'],
+        latin: 'Anthurium',
+        category: '定番',
+        method: ['水切り', '霧吹き'],
+        tagline: '熱帯花。冷蔵NG、霧吹きでツヤを保つ。',
+        steps: [
+          '茎を斜めに水切り。',
+          '中深水で吸水。',
+          '<strong>葉や仏炎苞に霧吹き</strong>で湿度を保つ。',
+          '冷蔵庫には絶対に入れない。常温管理。'
+        ],
+        info: { water: '中深水', cut: '水切り（斜め）', life: '14〜21日', season: '通年' },
+        note: '<strong>低温障害で黒変する</strong>。15℃以上をキープ。日持ちは抜群。'
+      },
+      {
+        name: 'ラベンダー', kana: 'らべんだー', alias: ['lavender'],
+        latin: 'Lavandula',
+        category: '夏',
+        method: ['水切り', 'ドライ可'],
+        tagline: '香りのハーブ。短期間生花、その後ドライに。',
+        steps: [
+          '下葉を整える。',
+          '茎を斜めに水切り。',
+          '浅水〜中浅水で吸水。',
+          '色が褪せる前に逆さ吊りでドライへ。'
+        ],
+        info: { water: '浅水', cut: '水切り（斜め）', life: '5〜7日（生花）', season: '6〜7月' },
+        note: '<strong>生花は短命</strong>。色の濃いうちにドライへ移行するのが美しい仕上がりの秘訣。'
+      },
+      {
+        name: 'カラー', kana: 'からー', alias: ['calla', 'カラ', 'カラリリー'],
+        latin: 'Zantedeschia',
+        category: '定番',
+        method: ['水切り', '浅水'],
+        tagline: '茎が腐りやすい。浅水でこまめに換える。',
+        steps: [
+          '茎を斜めに水切り。',
+          '<strong>浅水（3〜5cm）</strong>で吸水。',
+          '茎の切り口がぬめったら洗って切り戻す。',
+          '毎日水を換え、茎を清潔に保つ。'
+        ],
+        info: { water: '浅水', cut: '水切り（斜め）', life: '5〜10日', season: '通年' },
+        note: '<strong>深水は厳禁</strong>。茎の柔らかい部分が腐って一気にダメになります。'
+      },
+      {
+        name: 'ピンポンマム', kana: 'ぴんぽんまむ', alias: ['ピンポン菊', 'pingpong mum'],
+        latin: 'Chrysanthemum',
+        category: '定番',
+        method: ['折り', '中深水'],
+        tagline: 'まんまるの可愛い菊。日持ちは抜群。',
+        steps: [
+          '下葉を整える。',
+          '茎を<strong>手でポキッと折る</strong>（菊と同様）。',
+          '中深水で1時間吸水。',
+          '水替えだけで2週間以上もつ。'
+        ],
+        info: { water: '中深水', cut: '手で折る', life: '10〜21日', season: '通年' },
+        note: '<strong>切るより折るほうが水が上がりやすい</strong>のは菊類共通の特徴です。'
+      },
+      {
+        name: 'ブプレリウム', kana: 'ぶぷれりうむ', alias: ['bupleurum'],
+        latin: 'Bupleurum',
+        category: '葉物',
+        method: ['水切り', '中水'],
+        tagline: '黄緑の小花が涼しげな名脇役。',
+        steps: [
+          '下葉を取り除く。',
+          '茎を斜めに水切り。',
+          '中深水で吸水。',
+          '水替えで2週間ほどもつ。'
+        ],
+        info: { water: '中深水', cut: '水切り（斜め）', life: '7〜14日', season: '通年' },
+        note: '<strong>花束の隙間を埋める万能花材</strong>。グリーンとしても花としても使えます。'
+      },
+      {
+        name: 'ヒペリカム', kana: 'ひぺりかむ', alias: ['hypericum', 'オトギリソウ'],
+        latin: 'Hypericum',
+        category: '実物',
+        method: ['水切り', '葉を減らす'],
+        tagline: '実物の代表。葉が多いので適度に整理。',
+        steps: [
+          '葉を半分ほど取り除く（蒸散を抑える）。',
+          '茎を斜めに水切り。',
+          '中深水で1時間吸水。',
+          '実が乾いてもそのままドライ風に飾れる。'
+        ],
+        info: { water: '中深水', cut: '水切り（斜め）', life: '10〜14日', season: '通年' },
+        note: '<strong>葉が多いと水が下がる</strong>。思い切って減らすのがコツ。'
+      },
+      {
+        name: 'スカビオサ', kana: 'すかびおさ', alias: ['scabiosa', 'マツムシソウ'],
+        latin: 'Scabiosa',
+        category: '春秋',
+        method: ['湯揚げ', '浅水'],
+        tagline: '繊細な茎。湯揚げで一気に水を上げる。',
+        steps: [
+          '下葉を整える。',
+          '新聞紙で花首までしっかり巻く。',
+          '熱湯に切り口を5〜10秒。',
+          'すぐに深水へ移し、その後は浅水で管理。'
+        ],
+        info: { water: '浅水', cut: '湯揚げ', life: '5〜7日', season: '3〜10月' },
+        note: '繊細で<strong>水が下がりやすい</strong>。湯揚げは必須工程です。'
+      },
+      {
+        name: 'ネリネ', kana: 'ねりね', alias: ['nerine', 'ダイヤモンドリリー'],
+        latin: 'Nerine',
+        category: '秋',
+        method: ['水切り', '浅水'],
+        tagline: '花弁がキラキラ光る秋花。日持ちもよい。',
+        steps: [
+          '茎を斜めに水切り。',
+          '浅水〜中浅水で吸水。',
+          '咲き終わった花を摘めば、つぼみが次々開く。',
+          '涼しい場所で管理。'
+        ],
+        info: { water: '中浅水', cut: '水切り（斜め）', life: '14〜21日', season: '10〜12月' },
+        note: '<strong>「ダイヤモンドリリー」</strong>の異名通り、光に当てると花弁がきらめきます。'
+      },
+      {
+        name: 'コスモス', kana: 'こすもす', alias: ['cosmos'],
+        latin: 'Cosmos',
+        category: '秋',
+        method: ['水切り', '浅水'],
+        tagline: '茎が細く繊細。やさしく扱う。',
+        steps: [
+          '葉を軽く整える。',
+          '茎を斜めに水切り。',
+          '浅水で吸水。',
+          'こまめに水を換える。'
+        ],
+        info: { water: '浅水', cut: '水切り（斜め）', life: '3〜5日', season: '8〜11月' },
+        note: '<strong>短命花</strong>。涼しい場所での管理で1日でも長く。'
+      }
+    ];
+
+    /* ─────── 状態 ─────── */
+    const state = {
+      query: '',
+      category: 'すべて',
+    };
+
+    const grid = document.getElementById('grid');
+    const searchEl = document.getElementById('search');
+    const clearBtn = document.getElementById('searchClear');
+    const categoriesEl = document.getElementById('categories');
+    const totalCountEl = document.getElementById('totalCount');
+
+    totalCountEl.textContent = FLOWERS.length;
+
+    /* カテゴリ抽出 */
+    const categories = ['すべて', ...Array.from(new Set(FLOWERS.map(f => f.category)))];
+
+    function renderCategories() {
+      categoriesEl.innerHTML = categories.map(c =>
+        `<button class="chip ${c === state.category ? 'active' : ''}" data-cat="${c}">${c}</button>`
+      ).join('');
+      categoriesEl.querySelectorAll('.chip').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.category = btn.dataset.cat;
+          renderCategories();
+          renderGrid();
+        });
+      });
+    }
+
+    function highlight(text, q) {
+      if (!q) return escapeHtml(text);
+      const re = new RegExp(`(${escapeRegex(q)})`, 'ig');
+      return escapeHtml(text).replace(re, '<mark>$1</mark>');
+    }
+    function escapeHtml(s) { return s.replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
+    function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+    function matches(f, q) {
+      if (!q) return true;
+      const hay = [f.name, f.kana, f.latin, ...(f.alias || [])].join(' ').toLowerCase();
+      return hay.includes(q.toLowerCase());
+    }
+
+    function renderGrid() {
+      const q = state.query.trim();
+      const list = FLOWERS.filter(f =>
+        (state.category === 'すべて' || f.category === state.category) && matches(f, q)
+      );
+
+      if (list.length === 0) {
+        grid.innerHTML = `
+          <div class="empty">
+            <div class="serif">該当する花が見つかりませんでした。</div>
+            <div>別のキーワードでお試しください。</div>
+          </div>`;
+        return;
+      }
+
+      grid.innerHTML = list.map((f, idx) => `
+        <button class="card" data-name="${f.name}" style="animation-delay:${Math.min(idx * 30, 300)}ms">
+          <div class="card-head">
+            <div>
+              <div class="card-name">${highlight(f.name, q)}</div>
+              <div class="card-latin">${highlight(f.latin, q)}</div>
+            </div>
+            <span class="card-cat">${f.category}</span>
+          </div>
+          <div class="card-method">
+            ${f.method.map((m, i) => `<span class="tag ${i === 0 ? 'primary' : ''}">${m}</span>`).join('')}
+          </div>
+          <div class="card-snippet">${escapeHtml(f.tagline)}</div>
+          <div class="card-foot">
+            <span>${f.info.life}</span>
+            <span class="more">水揚げを見る
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </span>
+          </div>
+        </button>
+      `).join('');
+
+      grid.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', () => openModal(card.dataset.name));
+      });
+    }
+
+    /* ─────── モーダル ─────── */
+    const modal = document.getElementById('modal');
+    const modalClose = document.getElementById('modalClose');
+    const modalCat = document.getElementById('modalCat');
+    const modalName = document.getElementById('modalName');
+    const modalLatin = document.getElementById('modalLatin');
+    const modalTagline = document.getElementById('modalTagline');
+    const modalBody = document.getElementById('modalBody');
+
+    function openModal(name) {
+      const f = FLOWERS.find(x => x.name === name);
+      if (!f) return;
+      modalCat.textContent = `${f.category}  —  ${f.method.join(' / ')}`;
+      modalName.textContent = f.name;
+      modalLatin.textContent = f.latin;
+      modalTagline.textContent = f.tagline;
+      modalBody.innerHTML = `
+        <div class="section">
+          <div class="section-label">水揚げの手順</div>
+          <ol class="steps">${f.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+        </div>
+        <div class="section">
+          <div class="section-label">基本情報</div>
+          <div class="info-grid">
+            <div class="info-card"><div class="k">水の深さ</div><div class="v">${f.info.water}</div></div>
+            <div class="info-card"><div class="k">切り方</div><div class="v">${f.info.cut}</div></div>
+            <div class="info-card"><div class="k">花持ち</div><div class="v">${f.info.life}</div></div>
+            <div class="info-card"><div class="k">時期</div><div class="v">${f.info.season}</div></div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-label">プロのひと言</div>
+          <div class="note">${f.note}</div>
+        </div>
+      `;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+    /* ─────── 検索 ─────── */
+    searchEl.addEventListener('input', (e) => {
+      state.query = e.target.value;
+      clearBtn.classList.toggle('visible', state.query.length > 0);
+      renderGrid();
+    });
+    clearBtn.addEventListener('click', () => {
+      searchEl.value = '';
+      state.query = '';
+      clearBtn.classList.remove('visible');
+      searchEl.focus();
+      renderGrid();
+    });
+
+    /* ─────── キーボードショートカット ─────── */
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement !== searchEl) {
+        e.preventDefault();
+        searchEl.focus();
+      }
+    });
+
+    /* 初期描画 */
+    renderCategories();
+    renderGrid();
+  </script>
+</body>
+</html>
