@@ -1,0 +1,20 @@
+{
+  "name": "ai-email-client",
+  "version": "0.1.0",
+  "description": "Gmail-like email client with Claude-powered AI replies that learn from your past responses",
+  "type": "module",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node --watch server/server.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.40.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "googleapis": "^144.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
