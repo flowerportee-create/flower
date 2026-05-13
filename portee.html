@@ -395,9 +395,26 @@
       letter-spacing: 0.06em;
     }
     .form-submit-area {
-      margin-top: 36px; display: flex; gap: 14px; justify-content: center;
+      margin-top: 28px; display: flex; gap: 14px; justify-content: center;
       flex-wrap: wrap;
     }
+    .form-consent {
+      margin-top: 28px;
+      text-align: center;
+    }
+    .form-consent label {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 12.5px; color: var(--text); cursor: pointer;
+    }
+    .form-consent input[type="checkbox"] {
+      width: 16px; height: 16px;
+      accent-color: var(--gold);
+      cursor: pointer;
+    }
+    .form-consent a {
+      color: var(--gold); text-decoration: underline;
+    }
+    .form-consent a:hover { color: var(--deep); }
 
     /* ── FLOW ── */
     .flow { background: var(--cream); }
@@ -495,7 +512,7 @@
     }
     .footer-grid {
       max-width: 1200px; margin: 0 auto;
-      display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 50px;
+      display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr; gap: 40px;
       padding-bottom: 50px; border-bottom: 1px solid var(--line);
     }
     .footer-brand {
@@ -884,6 +901,13 @@
         <textarea class="form-input" name="message" placeholder="ご相談内容・ご要望(任意)"></textarea>
       </div>
 
+      <div class="form-consent">
+        <label>
+          <input type="checkbox" name="consent" required />
+          <span><a href="legal/terms.html" target="_blank" rel="noopener">利用規約</a>および<a href="legal/privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a>に同意します</span>
+        </label>
+      </div>
+
       <div class="form-submit-area">
         <button type="submit" class="btn btn-dark">この内容で問い合わせる</button>
         <button type="reset" class="btn" onclick="setTimeout(calc,0)">リセット</button>
@@ -1001,6 +1025,14 @@
         <ul>
           <li><a href="mailto:hello@portee.co.jp">hello@portee.co.jp</a></li>
           <li><a href="#diagnosis">無料見積もり診断</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h6>Legal</h6>
+        <ul>
+          <li><a href="legal/terms.html">利用規約</a></li>
+          <li><a href="legal/privacy.html">プライバシーポリシー</a></li>
+          <li><a href="legal/tokushoho.html">特定商取引法に基づく表記</a></li>
         </ul>
       </div>
     </div>
