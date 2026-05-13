@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>portee株式会社 — イベント・パーティー装花の受注サイト</title>
+  <meta name="description" content="portee株式会社が提供する、イベント・パーティー・ウェディングの装花オーダーサイト。簡単な見積もり診断フォームから、概算金額をその場でご確認いただけます。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500&family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f7f3ee;
+      --warm-white: #faf8f5;
+      --stone: #c9bfb2;
+      --taupe: #8c7b6b;
+      --deep: #3a3028;
+      --sage: #8a9b8a;
+      --blush: #d4b8a8;
+      --gold: #b09a7a;
+      --text: #4a3f35;
+      --line: #e5ddd2;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--warm-white);
+      color: var(--text);
+      font-family: 'Noto Serif JP', 'Montserrat', serif;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      line-height: 1.8;
+    }
+
+    img { max-width: 100%; display: block; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 22px 56px;
+      background: rgba(250, 248, 245, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,191,178,0.3);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 400; letter-spacing: 0.22em;
+      color: var(--deep); text-decoration: none;
+    }
+    .nav-logo span { font-style: italic; color: var(--gold); }
+    .nav-links { display: flex; gap: 34px; list-style: none; }
+    .nav-links a {
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--taupe); text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--deep); }
+    .nav-cta {
+      padding: 10px 22px;
+      font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+      background: var(--deep); color: var(--cream);
+      text-decoration: none; transition: all 0.3s;
+    }
+    .nav-cta:hover { background: var(--gold); }
+
+    .menu-toggle { display: none; background: none; border: none; cursor: pointer; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh; position: relative;
+      display: grid; grid-template-columns: 1.05fr 1fr;
+    }
+    .hero-text {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 140px 80px 80px 80px;
+      background: var(--cream);
+    }
+    .hero-eyebrow {
+      font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 28px;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', 'Noto Serif JP', serif;
+      font-size: clamp(40px, 4.6vw, 64px);
+      font-weight: 300; line-height: 1.15;
+      color: var(--deep); margin-bottom: 28px;
+    }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-sub {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 18px; line-height: 1.9;
+      color: var(--deep); margin-bottom: 22px;
+      letter-spacing: 0.08em;
+    }
+    .hero-desc {
+      font-size: 13px; line-height: 2;
+      color: var(--taupe); max-width: 460px; margin-bottom: 44px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 16px 36px;
+      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--deep); text-decoration: none;
+      border: 1px solid var(--stone);
+      transition: all 0.3s; cursor: pointer;
+      background: transparent; font-family: inherit;
+    }
+    .btn:hover {
+      background: var(--deep); color: var(--cream); border-color: var(--deep);
+    }
+    .btn-dark {
+      background: var(--deep); color: var(--cream); border-color: var(--deep);
+    }
+    .btn-dark:hover { background: var(--gold); border-color: var(--gold); color: var(--cream); }
+    .hero-image {
+      position: relative; overflow: hidden;
+      background: linear-gradient(135deg, #e5d5c5 0%, #c9bfb2 100%);
+    }
+    .hero-image::before {
+      content: ""; position: absolute; inset: 0;
+      background-image: url("https://images.unsplash.com/photo-1561181286-d3fee7d55364?auto=format&fit=crop&w=1400&q=80");
+      background-size: cover; background-position: center;
+    }
+    .hero-image::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(58,48,40,0) 60%, rgba(58,48,40,0.22) 100%);
+    }
+    .hero-tag {
+      position: absolute; left: 36px; bottom: 36px;
+      color: var(--cream); z-index: 2;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 14px; letter-spacing: 0.16em;
+    }
+
+    /* ── SECTION ── */
+    section { padding: 120px 80px; }
+    .section-eyebrow {
+      font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px; text-align: center;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', 'Noto Serif JP', serif;
+      font-size: clamp(32px, 3.4vw, 46px);
+      font-weight: 300; color: var(--deep);
+      text-align: center; margin-bottom: 18px; line-height: 1.3;
+    }
+    .section-title em { font-style: italic; color: var(--gold); }
+    .section-desc {
+      text-align: center; font-size: 14px; line-height: 2;
+      color: var(--taupe); max-width: 640px; margin: 0 auto 64px;
+    }
+
+    /* ── ABOUT ── */
+    .about { background: var(--warm-white); }
+    .about-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .about-image {
+      aspect-ratio: 4/5;
+      background-image: url("https://images.unsplash.com/photo-1487530811176-3780de880c2d?auto=format&fit=crop&w=900&q=80");
+      background-size: cover; background-position: center;
+    }
+    .about-content h3 {
+      font-family: 'Cormorant Garamond', 'Noto Serif JP', serif;
+      font-size: 32px; font-weight: 300; line-height: 1.4;
+      color: var(--deep); margin-bottom: 24px;
+    }
+    .about-content p {
+      font-size: 14px; line-height: 2.2; color: var(--text);
+      margin-bottom: 18px;
+    }
+    .about-meta {
+      margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--line);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+      font-size: 12px;
+    }
+    .about-meta dt { color: var(--gold); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 6px; font-size: 10px; }
+    .about-meta dd { color: var(--deep); }
+
+    /* ── SERVICES ── */
+    .services { background: var(--cream); }
+    .service-grid {
+      max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px;
+    }
+    .service-card {
+      background: var(--warm-white);
+      padding: 0 0 36px 0;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      display: flex; flex-direction: column;
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 28px 60px rgba(58,48,40,0.10);
+    }
+    .service-img {
+      aspect-ratio: 4/5;
+      background-size: cover; background-position: center;
+      margin-bottom: 28px;
+    }
+    .service-img.event {
+      background-image: url("https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800&q=80");
+    }
+    .service-img.party {
+      background-image: url("https://images.unsplash.com/photo-1530023367847-a683933f4172?auto=format&fit=crop&w=800&q=80");
+    }
+    .service-img.wedding {
+      background-image: url("https://images.unsplash.com/photo-1522413452208-996ff3f3e740?auto=format&fit=crop&w=800&q=80");
+    }
+    .service-img.other {
+      background-image: url("https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=800&q=80");
+    }
+    .service-body { padding: 0 28px; flex: 1; display: flex; flex-direction: column; }
+    .service-tag {
+      font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 12px;
+    }
+    .service-card h4 {
+      font-family: 'Cormorant Garamond', 'Noto Serif JP', serif;
+      font-size: 24px; font-weight: 400; color: var(--deep);
+      margin-bottom: 14px; letter-spacing: 0.04em;
+    }
+    .service-card p {
+      font-size: 13px; line-height: 1.95; color: var(--taupe);
+      margin-bottom: 24px; flex: 1;
+    }
+    .service-price {
+      padding-top: 18px; border-top: 1px solid var(--line);
+      display: flex; align-items: baseline; gap: 8px;
+      margin-bottom: 18px;
+    }
+    .service-price .label {
+      font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--taupe);
+    }
+    .service-price .amount {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; color: var(--deep);
+      margin-left: auto;
+    }
+    .service-price .amount span { font-size: 13px; color: var(--gold); margin-left: 4px; }
+    .service-link {
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--deep); text-decoration: none;
+      border-bottom: 1px solid var(--deep);
+      padding-bottom: 4px; align-self: flex-start;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .service-link:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* ── PRICING DETAIL ── */
+    .pricing { background: var(--warm-white); }
+    .price-table {
+      max-width: 980px; margin: 0 auto;
+      border-top: 1px solid var(--line);
+    }
+    .price-row {
+      display: grid;
+      grid-template-columns: 200px 1fr 180px;
+      padding: 30px 8px;
+      border-bottom: 1px solid var(--line);
+      align-items: center;
+    }
+    .price-row .category {
+      font-family: 'Cormorant Garamond', 'Noto Serif JP', serif;
+      font-size: 22px; color: var(--deep); font-weight: 400;
+    }
+    .price-row .category small {
+      display: block; font-family: 'Noto Serif JP', serif;
+      font-size: 11px; color: var(--gold); letter-spacing: 0.18em;
+      text-transform: uppercase; margin-top: 4px;
+    }
+    .price-row .detail {
+      font-size: 13px; color: var(--text); line-height: 1.9;
+      padding: 0 24px;
+    }
+    .price-row .amount {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; color: var(--deep); text-align: right;
+    }
+    .price-row .amount span { font-size: 12px; color: var(--gold); margin-left: 4px; }
+
+    .pricing-note {
+      max-width: 980px; margin: 40px auto 0;
+      padding: 22px 28px; background: var(--cream);
+      border-left: 3px solid var(--gold);
+      font-size: 12px; line-height: 2; color: var(--taupe);
+    }
+
+    /* ── DIAGNOSIS FORM ── */
+    .diagnosis {
+      background: linear-gradient(180deg, var(--cream) 0%, var(--warm-white) 100%);
+    }
+    .diagnosis-wrap {
+      max-width: 880px; margin: 0 auto;
+      background: var(--warm-white);
+      padding: 64px;
+      box-shadow: 0 40px 80px rgba(58,48,40,0.08);
+    }
+    .form-step {
+      margin-bottom: 36px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid var(--line);
+    }
+    .form-step:last-of-type { border-bottom: none; }
+    .form-step-label {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 22px;
+    }
+    .form-step-num {
+      width: 32px; height: 32px;
+      border: 1px solid var(--gold); color: var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif; font-size: 14px;
+    }
+    .form-step-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 17px; color: var(--deep); font-weight: 400;
+      letter-spacing: 0.08em;
+    }
+    .form-step-title .req {
+      font-size: 10px; color: var(--blush); margin-left: 8px;
+      letter-spacing: 0.1em;
+    }
+    .form-options {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .form-options.col-2 { grid-template-columns: repeat(2, 1fr); }
+    .form-options.col-3 { grid-template-columns: repeat(3, 1fr); }
+    .form-option {
+      position: relative;
+    }
+    .form-option input { position: absolute; opacity: 0; pointer-events: none; }
+    .form-option label {
+      display: block;
+      padding: 18px 14px;
+      border: 1px solid var(--line);
+      background: var(--warm-white);
+      text-align: center; cursor: pointer;
+      transition: all 0.25s;
+      font-size: 13px; color: var(--text);
+    }
+    .form-option label small {
+      display: block;
+      font-size: 10px; color: var(--taupe);
+      margin-top: 6px; letter-spacing: 0.06em;
+    }
+    .form-option label:hover {
+      border-color: var(--gold); color: var(--deep);
+    }
+    .form-option input:checked + label {
+      background: var(--deep); border-color: var(--deep);
+      color: var(--cream);
+    }
+    .form-option input:checked + label small { color: var(--blush); }
+
+    .form-input {
+      width: 100%; padding: 16px 18px;
+      border: 1px solid var(--line);
+      background: var(--warm-white);
+      font-family: inherit; font-size: 13px; color: var(--text);
+      transition: border-color 0.25s;
+    }
+    .form-input:focus { outline: none; border-color: var(--gold); }
+    textarea.form-input { resize: vertical; min-height: 100px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .estimate-result {
+      margin-top: 8px;
+      padding: 36px 40px;
+      background: var(--deep); color: var(--cream);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 20px;
+    }
+    .estimate-result .label {
+      font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 8px;
+    }
+    .estimate-result .amount {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px; line-height: 1; letter-spacing: 0.04em;
+    }
+    .estimate-result .amount span { font-size: 16px; margin: 0 4px; color: var(--blush); }
+    .estimate-result .hint {
+      font-size: 11px; color: var(--stone); margin-top: 10px;
+      letter-spacing: 0.06em;
+    }
+    .form-submit-area {
+      margin-top: 36px; display: flex; gap: 14px; justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── FLOW ── */
+    .flow { background: var(--cream); }
+    .flow-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px;
+      position: relative;
+    }
+    .flow-step {
+      text-align: center; padding: 36px 22px;
+      background: var(--warm-white);
+      position: relative;
+    }
+    .flow-step::after {
+      content: ""; position: absolute;
+      top: 50%; right: -22px; width: 16px; height: 1px;
+      background: var(--stone);
+    }
+    .flow-step:last-child::after { display: none; }
+    .flow-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px; color: var(--gold); font-style: italic;
+      margin-bottom: 12px; line-height: 1;
+    }
+    .flow-step h5 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 15px; color: var(--deep); font-weight: 400;
+      margin-bottom: 12px; letter-spacing: 0.08em;
+    }
+    .flow-step p {
+      font-size: 12px; line-height: 1.9; color: var(--taupe);
+    }
+
+    /* ── FAQ ── */
+    .faq { background: var(--warm-white); }
+    .faq-list { max-width: 880px; margin: 0 auto; }
+    .faq-item {
+      border-bottom: 1px solid var(--line);
+    }
+    .faq-q {
+      width: 100%; padding: 24px 0;
+      background: transparent; border: none; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: inherit; font-size: 15px; color: var(--deep);
+      text-align: left; letter-spacing: 0.04em;
+    }
+    .faq-q::before {
+      content: "Q."; font-family: 'Cormorant Garamond', serif;
+      color: var(--gold); font-size: 18px; margin-right: 16px;
+      font-style: italic;
+    }
+    .faq-q .toggle {
+      margin-left: auto;
+      width: 24px; height: 24px;
+      position: relative; flex-shrink: 0;
+    }
+    .faq-q .toggle::before, .faq-q .toggle::after {
+      content: ""; position: absolute; background: var(--taupe);
+      top: 50%; left: 50%;
+    }
+    .faq-q .toggle::before { width: 14px; height: 1px; transform: translate(-50%, -50%); }
+    .faq-q .toggle::after { width: 1px; height: 14px; transform: translate(-50%, -50%); transition: transform 0.3s; }
+    .faq-item.open .faq-q .toggle::after { transform: translate(-50%, -50%) rotate(90deg); }
+    .faq-a {
+      max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+    }
+    .faq-a-inner {
+      padding: 0 0 28px 38px;
+      font-size: 13px; line-height: 2; color: var(--text);
+    }
+    .faq-a-inner::before {
+      content: "A.";
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--blush); font-size: 18px; margin-right: 12px;
+      font-style: italic; display: inline-block;
+    }
+
+    /* ── CONTACT CTA ── */
+    .contact-cta {
+      background: var(--deep); color: var(--cream);
+      padding: 100px 80px; text-align: center;
+    }
+    .contact-cta .section-eyebrow { color: var(--gold); }
+    .contact-cta .section-title { color: var(--cream); }
+    .contact-cta .section-title em { color: var(--blush); }
+    .contact-cta .section-desc { color: var(--stone); }
+    .contact-cta .btn { color: var(--cream); border-color: var(--cream); }
+    .contact-cta .btn:hover { background: var(--cream); color: var(--deep); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 60px 80px 30px;
+      background: var(--cream);
+      border-top: 1px solid var(--line);
+    }
+    .footer-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 50px;
+      padding-bottom: 50px; border-bottom: 1px solid var(--line);
+    }
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; letter-spacing: 0.22em;
+      color: var(--deep); margin-bottom: 16px;
+    }
+    .footer-brand span { color: var(--gold); font-style: italic; }
+    .footer p { font-size: 12px; color: var(--taupe); line-height: 2; }
+    .footer-col h6 {
+      font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 18px; font-weight: 500;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; }
+    .footer-col a {
+      font-size: 12px; color: var(--text); text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto; padding-top: 30px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 11px; color: var(--taupe); letter-spacing: 0.1em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 18px 24px; }
+      .nav-links { display: none; }
+      section { padding: 80px 24px; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-text { padding: 110px 28px 60px; }
+      .hero-image { min-height: 360px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .service-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+      .price-row { grid-template-columns: 1fr; gap: 8px; padding: 22px 0; }
+      .price-row .detail { padding: 0; }
+      .price-row .amount { text-align: left; }
+      .diagnosis-wrap { padding: 36px 24px; }
+      .form-options, .form-options.col-3, .form-options.col-2 { grid-template-columns: repeat(2, 1fr); }
+      .form-row { grid-template-columns: 1fr; }
+      .flow-grid { grid-template-columns: repeat(2, 1fr); }
+      .flow-step::after { display: none; }
+      .contact-cta { padding: 70px 24px; }
+      footer { padding: 50px 24px 24px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+      .estimate-result { padding: 26px; }
+      .estimate-result .amount { font-size: 32px; }
+    }
+    @media (max-width: 560px) {
+      .service-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">portee<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#diagnosis">Estimate</a></li>
+      <li><a href="#flow">Flow</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a href="#diagnosis" class="nav-cta">無料見積もり</a>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-text">
+      <div class="hero-eyebrow">portee Inc. — Flower Order</div>
+      <h1 class="hero-title">空間に、<em>花</em>の<br/>物語を添えて。</h1>
+      <p class="hero-sub">イベント・パーティー・ウェディング装花の専門オーダー</p>
+      <p class="hero-desc">
+        portee株式会社では、企業イベントから少人数のパーティー、ウェディングまで、
+        会場の雰囲気と目的に寄り添う装花を一点ずつデザインしてお届けしています。
+        プロのフローリストが、ご予算・テーマ・お時間にあわせて最適なご提案をいたします。
+      </p>
+      <div class="hero-actions">
+        <a href="#diagnosis" class="btn btn-dark">見積もり診断をはじめる</a>
+        <a href="#services" class="btn">サービス一覧</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="hero-tag">— Crafted by portee florists</div>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+    <div class="section-eyebrow">About Us</div>
+    <h2 class="section-title">花が、<em>記憶</em>に残るその場所へ。</h2>
+    <p class="section-desc">
+      portee（ポルテ）は「持ち運ぶ」を意味するフランス語。
+      心が動く瞬間に、花のある景色を運ぶ。それが私たちの仕事です。
+    </p>
+    <div class="about-grid">
+      <div class="about-image" aria-hidden="true"></div>
+      <div class="about-content">
+        <h3>季節と空間を読み取り、<br/>一点ものの装花を仕立てます。</h3>
+        <p>
+          創業以来、私たち portee は企業の周年パーティー、新製品発表会、レセプション、
+          ウェディング、プライベートなホームパーティーまで、年間 200件以上の装花を手掛けてきました。
+        </p>
+        <p>
+          仕入れは市場直送と国内契約農家からのダイレクト仕入れ。
+          鮮度の高い旬の花材を、会場の照明と動線、ゲストの目線まで考えた上で構成します。
+        </p>
+        <dl class="about-meta">
+          <div>
+            <dt>Founded</dt>
+            <dd>portee株式会社</dd>
+          </div>
+          <div>
+            <dt>Service Area</dt>
+            <dd>東京・神奈川・関東一円</dd>
+          </div>
+          <div>
+            <dt>Style</dt>
+            <dd>Natural / Modern Garden</dd>
+          </div>
+          <div>
+            <dt>Yearly</dt>
+            <dd>200+ events / year</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="services">
+    <div class="section-eyebrow">Services</div>
+    <h2 class="section-title">4 つの<em>装花</em>カテゴリー</h2>
+    <p class="section-desc">
+      シーンと目的にあわせた、4 種類の装花プランをご用意しています。
+      まずは概算の相場をご確認ください。詳細はカテゴリーごとにお気軽にお問い合わせいただけます。
+    </p>
+
+    <div class="service-grid">
+      <article class="service-card">
+        <div class="service-img event" role="img" aria-label="イベント装花"></div>
+        <div class="service-body">
+          <div class="service-tag">01 / Event</div>
+          <h4>イベント装花</h4>
+          <p>
+            企業の周年式典、レセプション、新製品発表会、展示会、表彰式など、
+            ブランドの世界観を空間に翻訳する装花。受付・登壇台・フォトスポットまでトータルでご提案します。
+          </p>
+          <div class="service-price">
+            <span class="label">参考価格</span>
+            <span class="amount">¥80,000<span>〜</span></span>
+          </div>
+          <a href="#diagnosis" class="service-link">見積もりへ →</a>
+        </div>
+      </article>
+
+      <article class="service-card">
+        <div class="service-img party" role="img" aria-label="パーティー装花"></div>
+        <div class="service-body">
+          <div class="service-tag">02 / Party</div>
+          <h4>パーティー装花</h4>
+          <p>
+            記念日のホームパーティー、誕生日会、立食レセプションなど、
+            ゲストとの距離が近いシーンに最適なテーブルフラワーとアレンジメントを。
+          </p>
+          <div class="service-price">
+            <span class="label">参考価格</span>
+            <span class="amount">¥30,000<span>〜</span></span>
+          </div>
+          <a href="#diagnosis" class="service-link">見積もりへ →</a>
+        </div>
+      </article>
+
+      <article class="service-card">
+        <div class="service-img wedding" role="img" aria-label="ウェディング装花"></div>
+        <div class="service-body">
+          <div class="service-tag">03 / Wedding</div>
+          <h4>ウェディング装花</h4>
+          <p>
+            会場装花、ブーケ・ブートニア、高砂、ゲストテーブル、ウェルカムスペースまで。
+            おふたりのストーリーと衣装の世界観に寄り添うトータルコーディネートを行います。
+          </p>
+          <div class="service-price">
+            <span class="label">参考価格</span>
+            <span class="amount">¥200,000<span>〜</span></span>
+          </div>
+          <a href="#diagnosis" class="service-link">見積もりへ →</a>
+        </div>
+      </article>
+
+      <article class="service-card">
+        <div class="service-img other" role="img" aria-label="その他装花"></div>
+        <div class="service-body">
+          <div class="service-tag">04 / Other</div>
+          <h4>その他</h4>
+          <p>
+            店舗装花、撮影用フラワー、開店祝い、定期装花、空間ディスプレイ、
+            ギフトアレンジメントなど。カテゴリーに収まらないご相談も柔軟に承ります。
+          </p>
+          <div class="service-price">
+            <span class="label">参考価格</span>
+            <span class="amount">¥15,000<span>〜</span></span>
+          </div>
+          <a href="#diagnosis" class="service-link">見積もりへ →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- PRICING DETAIL -->
+  <section id="pricing" class="pricing">
+    <div class="section-eyebrow">Pricing</div>
+    <h2 class="section-title">装花の<em>相場</em>について</h2>
+    <p class="section-desc">
+      下記は標準的な構成での参考相場です。お打ち合わせの内容によって、ご予算に合わせた最適なプランをご提案いたします。
+    </p>
+
+    <div class="price-table">
+      <div class="price-row">
+        <div class="category">イベント装花<small>Event</small></div>
+        <div class="detail">受付フラワー、登壇台装花、フォトブース、ロゴ装花など。会場規模 30〜200名 想定。</div>
+        <div class="amount">¥80,000<span>〜</span></div>
+      </div>
+      <div class="price-row">
+        <div class="category">パーティー装花<small>Party</small></div>
+        <div class="detail">テーブル装花（4〜10卓）、ウェルカムアレンジ、空間装飾。ホームパーティーから企業パーティーまで。</div>
+        <div class="amount">¥30,000<span>〜</span></div>
+      </div>
+      <div class="price-row">
+        <div class="category">ウェディング装花<small>Wedding</small></div>
+        <div class="detail">ブーケ、高砂、ゲスト卓、ウェルカム、装飾品。一式トータルコーディネートも可。</div>
+        <div class="amount">¥200,000<span>〜</span></div>
+      </div>
+      <div class="price-row">
+        <div class="category">その他<small>Other</small></div>
+        <div class="detail">店舗装花、撮影フラワー、開店祝い、定期装花、ギフトアレンジなど。1点からご相談可能。</div>
+        <div class="amount">¥15,000<span>〜</span></div>
+      </div>
+    </div>
+
+    <div class="pricing-note">
+      ※ 上記は標準仕様での参考価格となります。花材の種類・サイズ・搬入出条件・装飾品により金額は変動いたします。<br/>
+      ※ 表示価格は税抜きです。下記の見積もり診断フォームから、より具体的な概算をご確認いただけます。
+    </div>
+  </section>
+
+  <!-- DIAGNOSIS FORM -->
+  <section id="diagnosis" class="diagnosis">
+    <div class="section-eyebrow">Quick Estimate</div>
+    <h2 class="section-title">簡単<em>見積もり</em>診断</h2>
+    <p class="section-desc">
+      4 つの質問に答えるだけで、概算金額をその場でご確認いただけます。<br/>
+      正式なお見積もりは、ヒアリング後に改めてご案内いたします。
+    </p>
+
+    <form class="diagnosis-wrap" id="estimateForm" onsubmit="return submitForm(event)">
+
+      <!-- Step 1 -->
+      <div class="form-step">
+        <div class="form-step-label">
+          <div class="form-step-num">1</div>
+          <div class="form-step-title">装花の種類を選んでください<span class="req">*必須</span></div>
+        </div>
+        <div class="form-options">
+          <div class="form-option">
+            <input type="radio" name="category" id="cat-event" value="event" data-price="80000" checked />
+            <label for="cat-event">イベント装花<small>¥80,000〜</small></label>
+          </div>
+          <div class="form-option">
+            <input type="radio" name="category" id="cat-party" value="party" data-price="30000" />
+            <label for="cat-party">パーティー装花<small>¥30,000〜</small></label>
+          </div>
+          <div class="form-option">
+            <input type="radio" name="category" id="cat-wedding" value="wedding" data-price="200000" />
+            <label for="cat-wedding">ウェディング装花<small>¥200,000〜</small></label>
+          </div>
+          <div class="form-option">
+            <input type="radio" name="category" id="cat-other" value="other" data-price="15000" />
+            <label for="cat-other">その他<small>¥15,000〜</small></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="form-step">
+        <div class="form-step-label">
+          <div class="form-step-num">2</div>
+          <div class="form-step-title">会場・ゲストの規模はどのくらいですか?<span class="req">*必須</span></div>
+        </div>
+        <div class="form-options col-3">
+          <div class="form-option">
+            <input type="radio" name="scale" id="sc-s" value="s" data-mult="1.0" checked />
+            <label for="sc-s">〜30名 / 小規模<small>Small</small></label>
+          </div>
+          <div class="form-option">
+            <input type="radio" name="scale" id="sc-m" value="m" data-mult="1.6" />
+            <label for="sc-m">30〜80名 / 中規模<small>Medium</small></label>
+          </div>
+          <div class="form-option">
+            <input type="radio" name="scale" id="sc-l" value="l" data-mult="2.5" />
+            <label for="sc-l">80名〜 / 大規模<small>Large</small></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="form-step">
+        <div class="form-step-label">
+          <div class="form-step-num">3</div>
+          <div class="form-step-title">必要な装花アイテムを選んでください<span class="req">複数選択可</span></div>
+        </div>
+        <div class="form-options">
+          <div class="form-option">
+            <input type="checkbox" name="items" id="it-table" value="table" data-add="20000" />
+            <label for="it-table">テーブル装花<small>+ ¥20,000〜</small></label>
+          </div>
+          <div class="form-option">
+            <input type="checkbox" name="items" id="it-welcome" value="welcome" data-add="15000" />
+            <label for="it-welcome">ウェルカム花<small>+ ¥15,000〜</small></label>
+          </div>
+          <div class="form-option">
+            <input type="checkbox" name="items" id="it-stage" value="stage" data-add="40000" />
+            <label for="it-stage">登壇・高砂装花<small>+ ¥40,000〜</small></label>
+          </div>
+          <div class="form-option">
+            <input type="checkbox" name="items" id="it-bouquet" value="bouquet" data-add="18000" />
+            <label for="it-bouquet">ブーケ・ブートニア<small>+ ¥18,000〜</small></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="form-step">
+        <div class="form-step-label">
+          <div class="form-step-num">4</div>
+          <div class="form-step-title">ご希望のグレード<span class="req">*必須</span></div>
+        </div>
+        <div class="form-options col-3">
+          <div class="form-option">
+            <input type="radio" name="grade" id="gr-standard" value="standard" data-mult="1.0" checked />
+            <label for="gr-standard">スタンダード<small>定番花材ベース</small></label>
+          </div>
+          <div class="form-option">
+            <input type="radio" name="grade" id="gr-premium" value="premium" data-mult="1.4" />
+            <label for="gr-premium">プレミアム<small>季節花を贅沢に</small></label>
+          </div>
+          <div class="form-option">
+            <input type="radio" name="grade" id="gr-luxury" value="luxury" data-mult="1.9" />
+            <label for="gr-luxury">ラグジュアリー<small>輸入花材・希少品種</small></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div class="estimate-result" aria-live="polite">
+        <div>
+          <div class="label">Your Estimated Budget</div>
+          <div class="amount"><span>¥</span><span id="estimateAmount">80,000</span><span>〜</span></div>
+          <div class="hint">※ あくまで概算です。正式なお見積もりはご相談後にご案内いたします。</div>
+        </div>
+        <a href="#contact-form" class="btn" style="color:var(--cream);border-color:var(--gold);">この内容で問い合わせる</a>
+      </div>
+
+      <!-- Step 5: Contact -->
+      <div class="form-step" id="contact-form" style="margin-top:36px;border-top:1px solid var(--line);padding-top:36px;">
+        <div class="form-step-label">
+          <div class="form-step-num">5</div>
+          <div class="form-step-title">お客様情報をご入力ください<span class="req">*必須</span></div>
+        </div>
+        <div class="form-row" style="margin-bottom:14px;">
+          <input class="form-input" type="text" name="name" placeholder="お名前" required />
+          <input class="form-input" type="text" name="company" placeholder="会社名・団体名(任意)" />
+        </div>
+        <div class="form-row" style="margin-bottom:14px;">
+          <input class="form-input" type="email" name="email" placeholder="メールアドレス" required />
+          <input class="form-input" type="tel" name="phone" placeholder="お電話番号" />
+        </div>
+        <input class="form-input" type="date" name="date" style="margin-bottom:14px;" />
+        <textarea class="form-input" name="message" placeholder="ご相談内容・ご要望(任意)"></textarea>
+      </div>
+
+      <div class="form-submit-area">
+        <button type="submit" class="btn btn-dark">この内容で問い合わせる</button>
+        <button type="reset" class="btn" onclick="setTimeout(calc,0)">リセット</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- FLOW -->
+  <section id="flow" class="flow">
+    <div class="section-eyebrow">Flow</div>
+    <h2 class="section-title">ご依頼から<em>当日</em>まで</h2>
+    <p class="section-desc">
+      お問い合わせから装花設置・撤収まで、すべて自社チームが一貫して対応いたします。
+    </p>
+    <div class="flow-grid">
+      <div class="flow-step">
+        <div class="flow-num">01</div>
+        <h5>お問い合わせ</h5>
+        <p>見積もり診断フォーム、またはメールよりご相談内容をお送りください。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">02</div>
+        <h5>ヒアリング・ご提案</h5>
+        <p>ご予算・テーマ・会場情報をもとに、最適なプランをご提案します。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">03</div>
+        <h5>正式お見積もり</h5>
+        <p>花材・什器・搬入出を含めた正式なお見積書をご提示いたします。</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">04</div>
+        <h5>制作・搬入・設置</h5>
+        <p>当日はチームで会場に伺い、設置から撤収まで一貫して担当いたします。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="faq">
+    <div class="section-eyebrow">FAQ</div>
+    <h2 class="section-title">よくある<em>ご質問</em></h2>
+    <p class="section-desc">
+      お問い合わせの前に、よく寄せられるご質問をまとめました。
+    </p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">最短どのくらい前から相談すれば良いですか?<span class="toggle"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">理想は実施日の 1ヶ月前ですが、内容によっては 1週間前後でも対応可能です。まずはお気軽にご相談ください。</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">予算に合わせた提案はできますか?<span class="toggle"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">はい、ご予算に応じて花材・サイズ・点数をフレキシブルに調整いたします。診断フォームからお見積もりの概算をご確認いただけます。</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">対応エリアはどこまでですか?<span class="toggle"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">東京・神奈川を中心に、関東一円で対応しております。遠方の場合は別途交通費にてご対応可能です。</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">花材の指定はできますか?<span class="toggle"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">もちろん可能です。お好きな花、避けたい花、テーマカラーなどをヒアリングのうえデザインに反映いたします。</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">当日の搬入出はお願いできますか?<span class="toggle"></span></button>
+        <div class="faq-a"><div class="faq-a-inner">はい。設置・撤収まで自社スタッフが対応いたします。会場担当者様とのやり取りも代行可能です。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section class="contact-cta">
+    <div class="section-eyebrow">Contact</div>
+    <h2 class="section-title">花のある<em>一日</em>を、<br/>ご一緒に。</h2>
+    <p class="section-desc">
+      まずは見積もり診断フォームから、ぜひお気軽にご相談ください。<br/>
+      お電話・メールでもお問い合わせを承っております。
+    </p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="#diagnosis" class="btn">見積もり診断する</a>
+      <a href="mailto:hello@portee.co.jp" class="btn">メールで問い合わせ</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">portee<span>.</span></div>
+        <p>
+          portee株式会社<br/>
+          イベント・パーティー・ウェディング装花<br/>
+          東京都内・関東一円
+        </p>
+      </div>
+      <div class="footer-col">
+        <h6>Services</h6>
+        <ul>
+          <li><a href="#services">イベント装花</a></li>
+          <li><a href="#services">パーティー装花</a></li>
+          <li><a href="#services">ウェディング装花</a></li>
+          <li><a href="#services">その他</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h6>About</h6>
+        <ul>
+          <li><a href="#about">会社情報</a></li>
+          <li><a href="#pricing">料金について</a></li>
+          <li><a href="#flow">ご依頼の流れ</a></li>
+          <li><a href="#faq">よくある質問</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h6>Contact</h6>
+        <ul>
+          <li><a href="mailto:hello@portee.co.jp">hello@portee.co.jp</a></li>
+          <li><a href="#diagnosis">無料見積もり診断</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© portee Inc. All rights reserved.</div>
+      <div>Designed with flowers, in Tokyo.</div>
+    </div>
+  </footer>
+
+  <script>
+    // FAQ toggle
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      const ans = item.querySelector('.faq-a');
+      const open = item.classList.toggle('open');
+      ans.style.maxHeight = open ? ans.scrollHeight + 'px' : '0px';
+    }
+
+    // Live estimate
+    function calc() {
+      const cat = document.querySelector('input[name="category"]:checked');
+      const sc = document.querySelector('input[name="scale"]:checked');
+      const gr = document.querySelector('input[name="grade"]:checked');
+      if (!cat || !sc || !gr) return;
+      let base = Number(cat.dataset.price);
+      let mult = Number(sc.dataset.mult) * Number(gr.dataset.mult);
+      let add = 0;
+      document.querySelectorAll('input[name="items"]:checked').forEach(el => {
+        add += Number(el.dataset.add);
+      });
+      const total = Math.round((base * mult + add) / 1000) * 1000;
+      document.getElementById('estimateAmount').textContent = total.toLocaleString();
+    }
+    document.querySelectorAll('#estimateForm input').forEach(el => {
+      el.addEventListener('change', calc);
+    });
+    calc();
+
+    // Form submission
+    function submitForm(e) {
+      e.preventDefault();
+      const cat = document.querySelector('input[name="category"]:checked').nextElementSibling.firstChild.textContent.trim();
+      const total = document.getElementById('estimateAmount').textContent;
+      alert('ご相談ありがとうございます。\n\n選択カテゴリ: ' + cat + '\n概算金額: ¥' + total + '〜\n\n担当者より2営業日以内にご連絡いたします。');
+      return false;
+    }
+  </script>
+</body>
+</html>
