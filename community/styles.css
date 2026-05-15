@@ -546,13 +546,13 @@ body::before {
 .feature {
   background: var(--paper);
   border-radius: var(--r-xl);
-  padding: 22px 22px 18px;
+  padding: 24px 24px 22px;
   box-shadow: var(--shadow-card);
   position: relative;
   overflow: hidden;
   transition: transform 0.3s, box-shadow 0.3s;
   cursor: pointer;
-  min-height: 200px;
+  min-height: 150px;
   display: flex;
   flex-direction: column;
 }
