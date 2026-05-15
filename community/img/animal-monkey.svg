@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" fill="none">
+  <g stroke="#1a2340" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- 電球 -->
+    <path d="M86 26 C86 14 96 8 100 8 C104 8 114 14 114 26 C114 32 110 36 108 40 L92 40 C90 36 86 32 86 26 Z" fill="#fefdfa"/>
+    <path d="M92 40 L92 46 L108 46 L108 40" />
+    <path d="M94 50 L106 50" stroke-width="0.9"/>
+    <!-- 電球の光線 -->
+    <path d="M72 20 L78 24 M128 20 L122 24 M68 32 L74 32 M132 32 L126 32 M76 8 L80 14 M124 8 L120 14 M100 0 L100 6" stroke-width="0.9"/>
+    <!-- フィラメント -->
+    <path d="M96 24 C98 26 96 30 100 30 C104 30 102 26 104 24" stroke-width="0.7"/>
+    <!-- 頭 -->
+    <ellipse cx="100" cy="76" rx="26" ry="24" fill="#fefdfa"/>
+    <!-- 耳 -->
+    <ellipse cx="76" cy="74" rx="6" ry="8" fill="#fefdfa"/>
+    <ellipse cx="124" cy="74" rx="6" ry="8" fill="#fefdfa"/>
+    <ellipse cx="76" cy="74" rx="2.5" ry="4" fill="none" stroke-width="0.7"/>
+    <ellipse cx="124" cy="74" rx="2.5" ry="4" fill="none" stroke-width="0.7"/>
+    <!-- 顔の中（薄い肌色） -->
+    <ellipse cx="100" cy="82" rx="18" ry="14" fill="#fefdfa" stroke-width="0.8"/>
+    <!-- 目 -->
+    <circle cx="92" cy="78" r="1.6" fill="#1a2340" stroke="none"/>
+    <circle cx="108" cy="78" r="1.6" fill="#1a2340" stroke="none"/>
+    <!-- 眉 -->
+    <path d="M86 73 C90 71 94 71 96 73 M104 73 C106 71 110 71 114 73" stroke-width="0.9"/>
+    <!-- 鼻 -->
+    <path d="M98 84 C99 86 101 86 102 84" stroke-width="0.9"/>
+    <!-- 口（考えている表情） -->
+    <path d="M92 90 C96 88 104 88 108 90" stroke-width="1"/>
+    <!-- 体（しゃがんだ姿勢） -->
+    <path d="M76 96 C66 110 64 140 70 170 C76 196 90 210 100 212 C112 210 124 196 130 170 C136 140 134 110 124 96" fill="#fefdfa"/>
+    <!-- 腕（顎に手を当てる） -->
+    <path d="M82 116 C72 120 64 128 64 138 C66 142 70 142 74 140 L82 134" fill="#fefdfa"/>
+    <path d="M82 134 C84 130 88 124 92 122" />
+    <!-- 手（顎の下） -->
+    <path d="M88 96 C90 92 96 90 100 92" stroke-width="0.8"/>
+    <!-- もう片方の腕 -->
+    <path d="M124 120 C134 130 138 144 134 156 C130 160 124 158 120 152" fill="#fefdfa"/>
+    <!-- 足 -->
+    <path d="M82 200 C76 214 76 224 84 226 L96 226 C98 222 96 216 92 212" fill="#fefdfa"/>
+    <path d="M118 200 C124 214 124 224 116 226 L104 226 C102 222 104 216 108 212" fill="#fefdfa"/>
+    <!-- 足の指 -->
+    <path d="M84 226 L82 230 M88 226 L88 230 M92 226 L94 230" stroke-width="0.9"/>
+    <path d="M116 226 L118 230 M112 226 L112 230 M108 226 L106 230" stroke-width="0.9"/>
+    <!-- 尻尾 -->
+    <path d="M130 150 C144 160 150 178 142 196 C138 204 134 206 132 202" />
+    <!-- 草 -->
+    <path d="M50 234 L52 230 L54 234 M148 234 L150 230 L152 234" stroke-width="0.9"/>
+  </g>
+</svg>

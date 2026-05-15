@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" fill="none">
+  <g stroke="#1a2340" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- 耳 -->
+    <path d="M82 38 C76 22 72 8 80 10 C88 12 92 28 90 44 Z" fill="#fefdfa"/>
+    <path d="M115 38 C112 22 116 6 122 10 C128 14 126 30 122 46 Z" fill="#fefdfa"/>
+    <path d="M84 30 C82 22 84 18 88 18" stroke-width="0.9"/>
+    <path d="M118 30 C118 22 120 18 122 20" stroke-width="0.9"/>
+    <!-- 頭 -->
+    <ellipse cx="100" cy="58" rx="20" ry="18" fill="#fefdfa"/>
+    <!-- 顔の毛 -->
+    <path d="M84 55 L80 53 M84 60 L80 60 M116 55 L120 53 M116 60 L120 60" stroke-width="0.9"/>
+    <!-- 目 -->
+    <circle cx="92" cy="56" r="1.6" fill="#1a2340" stroke="none"/>
+    <circle cx="108" cy="56" r="1.6" fill="#1a2340" stroke="none"/>
+    <!-- 口・鼻 -->
+    <path d="M100 62 L100 65 M97 67 C99 68 101 68 103 67" stroke-width="1"/>
+    <!-- 体 -->
+    <path d="M82 74 C72 82 68 100 72 130 C75 158 84 178 96 188" fill="#fefdfa"/>
+    <path d="M120 76 C132 86 134 108 130 140 C128 162 122 180 112 188" fill="#fefdfa"/>
+    <path d="M96 188 C90 200 88 212 90 218 M112 188 C116 200 118 212 116 218" />
+    <!-- 足 -->
+    <path d="M88 218 C84 222 84 226 92 226 L100 226" fill="#fefdfa"/>
+    <path d="M114 218 C118 222 118 226 110 226 L100 226" fill="#fefdfa"/>
+    <!-- 腕(弓を持つ手) -->
+    <path d="M84 100 C72 102 60 110 56 124" fill="#fefdfa"/>
+    <path d="M56 124 C54 128 56 132 60 132 L66 130" fill="#fefdfa"/>
+    <!-- 弓 -->
+    <path d="M44 70 C26 100 26 150 44 180" stroke-width="1.6"/>
+    <!-- 弦 -->
+    <path d="M44 70 L62 124 L44 180" stroke="#1a2340" stroke-width="0.7"/>
+    <!-- 矢 -->
+    <path d="M48 124 L80 124" stroke-width="1.4"/>
+    <path d="M48 124 L52 120 M48 124 L52 128 M48 124 L44 120 M48 124 L44 128" stroke-width="1"/>
+    <path d="M80 124 L76 121 M80 124 L76 127" stroke-width="1"/>
+    <!-- 反対の腕 -->
+    <path d="M122 102 C128 110 132 118 132 124 C130 130 124 130 122 126" fill="#fefdfa"/>
+    <!-- お腹のライン -->
+    <path d="M92 100 C100 102 108 102 116 100" stroke-width="0.7"/>
+    <path d="M88 130 C100 134 112 132 118 130" stroke-width="0.7"/>
+    <!-- 草 -->
+    <path d="M64 230 L66 226 L68 230 M134 230 L136 226 L138 230 M76 232 L78 228 L80 232" stroke-width="0.9"/>
+  </g>
+</svg>

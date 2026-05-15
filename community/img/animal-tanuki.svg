@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 240" fill="none">
+  <g stroke="#1a2340" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- 耳 -->
+    <path d="M64 38 L58 24 L74 32 Z" fill="#1a2340"/>
+    <path d="M124 38 L130 24 L114 32 Z" fill="#1a2340"/>
+    <!-- 頭 -->
+    <ellipse cx="94" cy="56" rx="32" ry="26" fill="#fefdfa"/>
+    <!-- 目の周りの黒い模様（タヌキの特徴） -->
+    <ellipse cx="82" cy="56" rx="9" ry="7" fill="#1a2340" stroke="none"/>
+    <ellipse cx="108" cy="56" rx="9" ry="7" fill="#1a2340" stroke="none"/>
+    <!-- 目 -->
+    <circle cx="82" cy="56" r="2" fill="#fefdfa" stroke="none"/>
+    <circle cx="108" cy="56" r="2" fill="#fefdfa" stroke="none"/>
+    <circle cx="82" cy="56" r="1" fill="#1a2340" stroke="none"/>
+    <circle cx="108" cy="56" r="1" fill="#1a2340" stroke="none"/>
+    <!-- 鼻 -->
+    <ellipse cx="94" cy="68" rx="3" ry="2" fill="#1a2340" stroke="none"/>
+    <!-- 口（驚いた表情・開いた口） -->
+    <path d="M94 72 C92 76 90 78 90 82 C90 84 94 84 94 82 C94 84 98 84 98 82 C98 78 96 76 94 72" fill="#1a2340" stroke="none"/>
+    <!-- 体（ふっくらタヌキ） -->
+    <path d="M70 80 C56 90 50 110 50 140 C50 170 60 190 78 200 C100 208 130 204 148 192 C162 180 168 160 166 138 C164 116 156 96 142 84" fill="#fefdfa"/>
+    <!-- お腹のラインの色分け -->
+    <path d="M76 110 C90 120 110 122 134 116" stroke-width="0.7"/>
+    <!-- 後ろ足 -->
+    <path d="M70 196 C64 210 64 220 72 222 L84 222 C86 218 84 212 80 208" fill="#fefdfa"/>
+    <path d="M138 196 C144 210 144 220 136 222 L124 222 C122 218 124 212 128 208" fill="#fefdfa"/>
+    <!-- 足の指 -->
+    <path d="M72 222 L70 226 M76 222 L76 226 M80 222 L82 226" stroke-width="0.9"/>
+    <path d="M136 222 L138 226 M132 222 L132 226 M128 222 L126 226" stroke-width="0.9"/>
+    <!-- 大きな尻尾 -->
+    <path d="M154 140 C176 132 190 144 196 162 C200 178 192 196 178 200 C168 202 162 196 158 188" fill="#fefdfa"/>
+    <!-- 尻尾の縞模様 -->
+    <path d="M170 142 C172 150 170 158 168 162" stroke-width="0.8"/>
+    <path d="M182 152 C184 158 182 168 178 172" stroke-width="0.8"/>
+    <!-- 右手：扇 -->
+    <path d="M82 130 C68 140 60 156 64 168 C68 172 74 168 78 162" fill="#fefdfa"/>
+    <g transform="translate(58,156) rotate(-30)">
+      <!-- 扇の骨 -->
+      <path d="M0 0 L-30 -10 M0 0 L-30 -2 M0 0 L-28 8 M0 0 L-22 18 M0 0 L-12 26" stroke-width="1.2"/>
+      <!-- 扇の面 -->
+      <path d="M-30 -10 Q-32 6 -12 26 Q-22 12 -30 -10 Z" fill="#fefdfa" stroke-width="1.2"/>
+      <!-- 紅葉のマーク -->
+      <g transform="translate(-22,4) scale(0.7)" stroke-width="0.9" fill="none">
+        <path d="M0 -6 L-3 -2 L-7 -3 L-5 1 L-8 4 L-3 4 L-2 8 L0 5 L2 8 L3 4 L8 4 L5 1 L7 -3 L3 -2 Z"/>
+      </g>
+    </g>
+    <!-- 左手：金袋 -->
+    <path d="M138 138 C150 150 158 168 152 180 C146 188 138 188 134 182" fill="#fefdfa"/>
+    <g transform="translate(146,184)">
+      <!-- 袋の首部分 -->
+      <path d="M-8 -4 L8 -4 L10 0 L-10 0 Z" fill="#fefdfa" stroke-width="1.2"/>
+      <!-- 袋本体 -->
+      <path d="M-10 0 C-14 8 -14 18 -8 22 C-2 26 6 26 10 22 C14 18 14 8 10 0" fill="#fefdfa" stroke-width="1.4"/>
+      <!-- 結び目 -->
+      <path d="M-4 -8 C-4 -10 0 -10 0 -8 M0 -8 C0 -10 4 -10 4 -8" stroke-width="1"/>
+      <!-- 金マーク -->
+      <text x="0" y="14" text-anchor="middle" font-family="Noto Serif JP" font-size="9" fill="#1a2340" stroke="none">金</text>
+    </g>
+    <!-- 草 -->
+    <path d="M40 232 L42 228 L44 232 M178 232 L180 228 L182 232 M58 234 L60 230 L62 234" stroke-width="0.9"/>
+  </g>
+</svg>
