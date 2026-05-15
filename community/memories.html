@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>アルバム・証言 — Keifu Community</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .compose {
+      background: var(--paper);
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow-card);
+      padding: 22px 26px;
+      margin-bottom: 28px;
+    }
+    .compose .head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .compose .avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg,#9a8260,#5c4830);
+      border: 1px solid var(--line-warm);
+    }
+    .compose .label {
+      font-size: 14px;
+      color: var(--navy);
+      letter-spacing: 0.06em;
+    }
+    .compose .label small {
+      display: block;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: var(--text-light);
+      letter-spacing: 0.08em;
+      margin-top: 2px;
+    }
+    .compose textarea {
+      width: 100%;
+      border: none;
+      resize: vertical;
+      min-height: 80px;
+      font-family: var(--font-serif);
+      font-size: 15px;
+      line-height: 2;
+      color: var(--text-dark);
+      letter-spacing: 0.04em;
+      padding: 8px 4px;
+    }
+    .compose textarea:focus { outline: none; }
+    .compose-foot {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding-top: 14px;
+      border-top: 1px dashed var(--line);
+    }
+    .compose-foot .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--navy);
+      letter-spacing: 0.04em;
+      transition: all 0.25s;
+    }
+    .compose-foot .chip:hover { background: var(--cream); border-color: var(--gold); color: var(--gold); }
+    .compose-foot .chip svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.4; }
+    .compose-foot .post-btn { margin-left: auto; }
+
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .filter-chip {
+      padding: 8px 18px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      font-size: 12px;
+      color: var(--text-mid);
+      letter-spacing: 0.06em;
+      transition: all 0.25s;
+    }
+    .filter-chip.active { background: var(--navy); color: var(--gold); border-color: var(--navy); }
+    .filter-chip:hover:not(.active) { border-color: var(--gold); color: var(--gold); }
+  </style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">Keifu<small>Community</small></div>
+    <nav class="nav">
+      <a href="index.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>ホーム</a>
+      <a href="tree.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 4v6m-6 4v6m12-6v6M6 14h12M9 4h6"/></svg>家系図</a>
+      <a href="memories.html" class="active"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M3 17l5-5 4 4 3-3 6 6"/></svg>アルバム・証言</a>
+      <a href="profile.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>自分のページ</a>
+      <a href="notifications.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 8a6 6 0 0112 0v5l2 3H4l2-3V8zM10 19a2 2 0 004 0"/></svg>お知らせ</a>
+      <a href="gifts.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9h18v3H3zM5 12v9h14v-9M12 9V5"/></svg>ギフト・お供え</a>
+      <a href="book.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 5a2 2 0 012-2h6v18H6a2 2 0 01-2-2V5zM12 3h6a2 2 0 012 2v14a2 2 0 01-2 2h-6"/></svg>印刷・ブック</a>
+    </nav>
+    <div class="me-card">
+      <div class="avatar" style="background:linear-gradient(135deg,#9a8260,#5c4830)"></div>
+      <div class="meta"><div class="name">山田 太郎</div><div class="role">マイページ</div></div>
+    </div>
+  </aside>
+
+
+  <main class="main" style="grid-column: span 2;">
+    <div class="page-head">
+      <div class="crumbs">
+        <a href="index.html">HOME</a><span class="sep">›</span>
+        <span>MEMORIES & TESTIMONY</span>
+      </div>
+      <h1 class="page-title">
+        <span class="accent"></span>
+        先祖の写真と、家族の証言
+      </h1>
+      <p class="page-lead">
+        家族の記憶を、ひとことずつ、一枚ずつ。<br/>
+        どんな小さなエピソードも、孫の代には宝物になります。家族みんなで書き足していきましょう。
+      </p>
+    </div>
+
+    <!-- 投稿フォーム -->
+    <div class="compose">
+      <div class="head">
+        <div class="avatar"></div>
+        <div class="label">
+          山田 太郎 として投稿
+          <small>家族みんなで思い出を残しましょう</small>
+        </div>
+      </div>
+      <textarea placeholder="どなたについて、どんな思い出ですか？  例：「祖父・勇一が、夏休みの朝に必ず連れて行ってくれた散歩のこと…」"></textarea>
+      <div class="compose-foot">
+        <button class="chip">
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M3 17l5-5 4 4 3-3 6 6"/></svg>
+          写真を添付
+        </button>
+        <button class="chip">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>
+          家族をタグ付け
+        </button>
+        <button class="chip">
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4m8-4v4"/></svg>
+          日付を指定
+        </button>
+        <button class="chip">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M2 12h20M12 2c3 3 3 17 0 20M12 2c-3 3-3 17 0 20"/></svg>
+          場所を指定
+        </button>
+        <button class="btn btn-primary post-btn">
+          <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          投稿する
+        </button>
+      </div>
+    </div>
+
+    <!-- フィルタ -->
+    <div class="filter-bar">
+      <button class="filter-chip active">すべて</button>
+      <button class="filter-chip">写真</button>
+      <button class="filter-chip">証言・エピソード</button>
+      <button class="filter-chip">古い記録</button>
+      <button class="filter-chip">私が投稿</button>
+      <button class="filter-chip">タグ：山田 勇一</button>
+    </div>
+
+    <!-- メモリーストリーム -->
+    <div class="memory-stream">
+
+      <article class="memory">
+        <div class="avatar" style="background:linear-gradient(135deg,#bea088,#74553a)"></div>
+        <div>
+          <div class="meta">
+            <span class="name">山田 綾子</span>
+            <span class="when">2026年5月14日</span>
+            <span class="tag">山田 勇一</span>
+            <span class="tag" style="background:rgba(138,157,110,0.15); color:var(--leaf)">エピソード</span>
+          </div>
+          <p>父・勇一は、毎週日曜の朝、必ずわたしを連れて松本城のお堀まで散歩に行きました。鯉に麩を投げる手つきと、帰り道に必ず買ってくれた草餅の味は、今も忘れられません。父は何も多くを語らない人だったけれど、その時間そのものが愛情でした。</p>
+          <div class="photo-strip">
+            <div class="ph" style="background:linear-gradient(135deg,#d4c2a3,#8a7250)"></div>
+            <div class="ph" style="background:linear-gradient(135deg,#c0a888,#6e5a40)"></div>
+            <div class="ph" style="background:linear-gradient(135deg,#a89070,#5d4a38)"></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="memory">
+        <div class="avatar" style="background:linear-gradient(135deg,#a89070,#5d4a38)"></div>
+        <div>
+          <div class="meta">
+            <span class="name">山田 健一</span>
+            <span class="when">2026年5月13日</span>
+            <span class="tag">山田 佐蔵</span>
+            <span class="tag" style="background:rgba(196,123,115,0.15); color:var(--rose)">古写真</span>
+          </div>
+          <p>祖父の代まで遡る、明治末年に撮影された一枚を実家から見つけました。長野県松本の自宅前で撮ったもののようです。後ろに見えるのが、当時の正門だそうです。 高祖父・佐蔵の凜とした表情に、家系の始まりを感じます。</p>
+          <div class="photo-strip">
+            <div class="ph" style="background:linear-gradient(135deg,#9a8264,#3e2f1f)"></div>
+            <div class="ph" style="background:linear-gradient(135deg,#8e7a5e,#4a3a26)"></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="memory">
+        <div class="avatar" style="background:linear-gradient(135deg,#c5a880,#705a3e)"></div>
+        <div>
+          <div class="meta">
+            <span class="name">山田 恵理</span>
+            <span class="when">2026年5月10日</span>
+            <span class="tag">山田 花子</span>
+            <span class="tag" style="background:rgba(138,157,110,0.15); color:var(--leaf)">エピソード</span>
+          </div>
+          <p>祖母・花子は、お正月になると必ず一族30人分のおせちを一人で仕込んでいたと聞きました。「忙しいんじゃなくて、楽しいの。家族が集まるからね」と、よく母に話していたそうです。わたしは会ったことがないけれど、その言葉だけで祖母の人となりが見えてくる気がします。</p>
+        </div>
+      </article>
+
+      <article class="memory">
+        <div class="avatar" style="background:linear-gradient(135deg,#9a8260,#5c4830)"></div>
+        <div>
+          <div class="meta">
+            <span class="name">山田 太郎</span>
+            <span class="when">2026年5月8日</span>
+            <span class="tag">山田 正明</span>
+            <span class="tag" style="background:rgba(184,151,90,0.15); color:var(--gold)">声・録音</span>
+          </div>
+          <p>父・正明に、子どもの頃の松本の暮らしについて話してもらいました。22分の音声を保存しています。父の声が残せたこと、家系図に音まで残せること、本当にこのサービスをはじめてよかったと思います。</p>
+          <div class="photo-strip" style="grid-template-columns: 1fr">
+            <div class="ph" style="aspect-ratio:auto; height:60px; background:linear-gradient(90deg,#1a2340,#b8975a); position:relative; overflow:hidden;">
+              <svg viewBox="0 0 600 60" preserveAspectRatio="none" style="width:100%; height:100%; position:absolute; top:0; left:0" fill="none" stroke="#faf8f4" stroke-width="1.2" opacity="0.6">
+                <path d="M0 30 Q20 20 40 30 T80 30 T120 30 T160 30 T200 30 T240 30 T280 30 T320 30 T360 30 T400 30 T440 30 T480 30 T520 30 T560 30 T600 30"/>
+                <path d="M0 30 Q15 6 30 30 T60 30 T90 30 T120 12 T150 30 T180 30 T210 30 T240 8 T270 30 T300 30 T330 30 T360 30 T390 16 T420 30 T450 30 T480 30 T510 10 T540 30 T570 30 T600 30"/>
+              </svg>
+              <span style="position:absolute; bottom:6px; left:14px; color:#faf8f4; font-family:Cormorant Garamond; font-size:11px; letter-spacing:0.25em">VOICE · 22:08</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

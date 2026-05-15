@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1年に一冊、家系図ブック — Keifu Community</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .vol-shelf {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 24px;
+    }
+    @media (max-width: 980px){ .vol-shelf { grid-template-columns: repeat(2, 1fr); } }
+
+    .vol {
+      background: var(--paper);
+      border-radius: var(--r-xl);
+      padding: 24px 22px;
+      box-shadow: var(--shadow-card);
+      text-align: center;
+      position: relative;
+    }
+    .vol .vbook {
+      width: 110px;
+      height: 144px;
+      margin: 0 auto 18px;
+      position: relative;
+      transform: perspective(800px) rotateY(-18deg);
+      transform-style: preserve-3d;
+    }
+    .vol .vbook .face {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #1f2848, #0e1428);
+      border-radius: 3px 8px 8px 3px;
+      box-shadow: -1.5px 0 0 #b8975a, -6px 8px 18px rgba(0,0,0,0.2);
+      padding: 18px 14px;
+    }
+    .vol .vbook .face .lg {
+      font-family: var(--font-display);
+      color: var(--gold);
+      font-size: 18px;
+      letter-spacing: 0.08em;
+      text-align: center;
+    }
+    .vol .vbook .face .crest {
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(184,151,90,0.4);
+      border-radius: 50%;
+      margin: 14px auto 0;
+    }
+    .vol .vbook .face .yr {
+      position: absolute;
+      bottom: 16px;
+      left: 0; right: 0;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: rgba(184,151,90,0.6);
+    }
+    .vol .label {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .vol h4 {
+      font-size: 18px;
+      color: var(--navy);
+      letter-spacing: 0.06em;
+      margin-top: 4px;
+      font-weight: 400;
+    }
+    .vol .stat {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: var(--text-light);
+      letter-spacing: 0.06em;
+      margin-top: 10px;
+    }
+    .vol.upcoming { border: 1px dashed var(--gold); }
+    .vol.upcoming .vbook .face { opacity: 0.4; }
+    .vol.upcoming::after {
+      content: '次回お届け予定';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 4px 14px;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: var(--font-display);
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      border-radius: 999px;
+    }
+
+    .preview-wrap {
+      background: var(--paper);
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow-card);
+      padding: 36px;
+      margin-top: 36px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+    @media (max-width: 980px){ .preview-wrap { grid-template-columns: 1fr; } }
+    .preview-pages {
+      background: linear-gradient(135deg, var(--warm-white), var(--cream));
+      border-radius: var(--r-md);
+      padding: 30px;
+      box-shadow: inset 0 0 20px rgba(184,151,90,0.05);
+    }
+
+    /* 模擬冊子の見開き */
+    .spread {
+      background: var(--paper);
+      border-radius: 4px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.1);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 320px;
+      position: relative;
+    }
+    .spread::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0; left: 50%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.1), transparent);
+    }
+    .spread .pg {
+      padding: 22px 24px;
+      position: relative;
+    }
+    .spread .pg .pn {
+      position: absolute;
+      bottom: 10px;
+      font-family: var(--font-display);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--text-faint);
+    }
+    .spread .pg.l .pn { left: 24px; }
+    .spread .pg.r .pn { right: 24px; }
+    .spread h5 {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.35em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .spread .pt {
+      font-size: 16px;
+      color: var(--navy);
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .spread .ln-art {
+      width: 30px;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 12px;
+    }
+    .spread p.bd {
+      font-family: var(--font-serif);
+      font-size: 9.5px;
+      line-height: 1.9;
+      color: var(--text-mid);
+      letter-spacing: 0.04em;
+    }
+    .spread .mini-portrait {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #dcc8aa, #7e6448);
+      border: 2px solid var(--gold);
+      margin: 0 auto 10px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 28px 0;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 18px 8px;
+      background: var(--paper);
+      border-radius: var(--r-md);
+      box-shadow: var(--shadow-card);
+    }
+    .stat-item .num {
+      font-family: var(--font-display);
+      font-size: 36px;
+      color: var(--navy);
+      letter-spacing: 0.05em;
+      line-height: 1;
+    }
+    .stat-item .lbl {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: var(--text-light);
+      letter-spacing: 0.1em;
+      margin-top: 8px;
+    }
+
+    .faq {
+      background: var(--paper);
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow-card);
+      padding: 30px 36px;
+      margin-top: 24px;
+    }
+    .faq h3 {
+      font-size: 18px;
+      color: var(--navy);
+      letter-spacing: 0.06em;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+    .faq-item {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-item .q {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 14px;
+      color: var(--navy);
+      letter-spacing: 0.06em;
+      cursor: pointer;
+    }
+    .faq-item .q .mark {
+      font-family: var(--font-display);
+      color: var(--gold);
+      font-size: 18px;
+      width: 18px;
+      flex-shrink: 0;
+    }
+    .faq-item .a {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      color: var(--text-mid);
+      line-height: 2;
+      padding: 8px 0 0 32px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">Keifu<small>Community</small></div>
+    <nav class="nav">
+      <a href="index.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>ホーム</a>
+      <a href="tree.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 4v6m-6 4v6m12-6v6M6 14h12M9 4h6"/></svg>家系図</a>
+      <a href="memories.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M3 17l5-5 4 4 3-3 6 6"/></svg>アルバム・証言</a>
+      <a href="profile.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>自分のページ</a>
+      <a href="notifications.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 8a6 6 0 0112 0v5l2 3H4l2-3V8zM10 19a2 2 0 004 0"/></svg>お知らせ</a>
+      <a href="gifts.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9h18v3H3zM5 12v9h14v-9M12 9V5"/></svg>ギフト・お供え</a>
+      <a href="book.html" class="active"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 5a2 2 0 012-2h6v18H6a2 2 0 01-2-2V5zM12 3h6a2 2 0 012 2v14a2 2 0 01-2 2h-6"/></svg>印刷・ブック</a>
+    </nav>
+    <div class="me-card">
+      <div class="avatar" style="background:linear-gradient(135deg,#9a8260,#5c4830)"></div>
+      <div class="meta"><div class="name">山田 太郎</div><div class="role">マイページ</div></div>
+    </div>
+  </aside>
+
+
+  <main class="main" style="grid-column: span 2;">
+    <div class="page-head">
+      <div class="crumbs">
+        <a href="index.html">HOME</a><span class="sep">›</span>
+        <span>ANNUAL BOOK</span>
+      </div>
+    </div>
+
+    <!-- ヒーロー -->
+    <section class="book-hero">
+      <div>
+        <div class="eyebrow">ANNUAL · 一年に一冊</div>
+        <h1>一年分の家族の物語を、<br/><em>一冊の本に</em>。</h1>
+        <p>家系図購入時にお届けした<strong style="color:var(--gold-light)">本編</strong>に、毎年追加できる<strong style="color:var(--gold-light)">追補ブック</strong>。みんなで書き足した写真と証言が、装丁の美しい一冊になって毎春届きます。</p>
+        <div style="margin-top: 32px; display: flex; gap: 12px; flex-wrap: wrap;">
+          <a href="#preview" class="btn btn-gold">中身を見る</a>
+          <a href="#plans" class="btn-outline" style="background:transparent; border:1px solid rgba(184,151,90,0.5); color:var(--gold); padding:11px 22px; border-radius:999px; font-size:13px; letter-spacing:0.1em;">プランを見る</a>
+        </div>
+      </div>
+      <div class="book-3d">
+        <div class="cover">
+          <div class="logo">Keifu</div>
+          <div class="crest">
+            <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+              <g stroke="#b8975a" stroke-width="0.6" stroke-linecap="round" opacity="0.7">
+                <path d="M30 50 V20"/>
+                <path d="M30 30 L20 22 M30 30 L40 22"/>
+                <path d="M30 24 L14 14 M30 24 L46 14"/>
+              </g>
+              <g fill="#b8975a" opacity="0.7">
+                <circle cx="14" cy="14" r="1"/><circle cx="46" cy="14" r="1"/>
+                <circle cx="20" cy="22" r="0.8"/><circle cx="40" cy="22" r="0.8"/>
+                <circle cx="30" cy="20" r="0.9"/>
+              </g>
+            </svg>
+          </div>
+          <div class="year">FAMILY CHRONICLE</div>
+          <div class="vol">VOL · 2026</div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 統計（ふりかえり） -->
+    <div class="stat-grid">
+      <div class="stat-item">
+        <div class="num">128</div>
+        <div class="lbl">追加された写真</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">42</div>
+        <div class="lbl">家族の証言</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">7</div>
+        <div class="lbl">新しいご家族</div>
+      </div>
+      <div class="stat-item">
+        <div class="num">152</div>
+        <div class="lbl">追補ブックのページ数</div>
+      </div>
+    </div>
+
+
+    <!-- お届けの流れ -->
+    <h2 style="text-align:center; font-size:22px; font-weight:400; color:var(--navy); letter-spacing:0.08em; margin-top:24px;">
+      <span style="font-family:var(--font-display); font-size:11px; letter-spacing:0.4em; color:var(--gold); text-transform:uppercase; display:block; margin-bottom:8px">How it works</span>
+      毎年春、家族の一年が一冊になる
+    </h2>
+    <div class="book-flow">
+      <div class="flow-step">
+        <div class="step-no">STEP · 01</div>
+        <h4>1年かけて書き足す</h4>
+        <p>家族みんなで写真や証言、思い出を Keifu に書き加えていきます。</p>
+      </div>
+      <div class="flow-step">
+        <div class="step-no">STEP · 02</div>
+        <h4>春に編集会議</h4>
+        <p>3月、その年の更新内容をプレビューでご確認いただきます。</p>
+      </div>
+      <div class="flow-step">
+        <div class="step-no">STEP · 03</div>
+        <h4>製本してお届け</h4>
+        <p>追補ブックを職人が製本。4月下旬にご自宅へお届けします。</p>
+      </div>
+      <div class="flow-step">
+        <div class="step-no">STEP · 04</div>
+        <h4>本編に綴じ込み</h4>
+        <p>最初の家系図ブックに、毎年そっと追加していけます。</p>
+      </div>
+    </div>
+
+
+    <!-- 過去の冊子棚 -->
+    <div class="divider-deco">
+      <div class="line"></div><div class="mark">your library</div><div class="line"></div>
+    </div>
+    <div class="vol-shelf">
+      <div class="vol">
+        <div class="vbook"><div class="face">
+          <div class="lg">Keifu</div>
+          <div class="crest"></div>
+          <div class="yr">VOL · 2024</div>
+        </div></div>
+        <div class="label">VOL · 2024</div>
+        <h4>本編「家系のはじまり」</h4>
+        <div class="stat">240ページ ／ お届け済み</div>
+      </div>
+      <div class="vol">
+        <div class="vbook"><div class="face">
+          <div class="lg">Keifu</div>
+          <div class="crest"></div>
+          <div class="yr">VOL · 2025</div>
+        </div></div>
+        <div class="label">VOL · 2025</div>
+        <h4>追補「家族の一年目」</h4>
+        <div class="stat">98ページ ／ お届け済み</div>
+      </div>
+      <div class="vol upcoming">
+        <div class="vbook"><div class="face">
+          <div class="lg">Keifu</div>
+          <div class="crest"></div>
+          <div class="yr">VOL · 2026</div>
+        </div></div>
+        <div class="label">VOL · 2026</div>
+        <h4>追補「みんなの記憶」</h4>
+        <div class="stat">152ページ予定 ／ 4月下旬</div>
+      </div>
+      <div class="vol" style="opacity:0.55">
+        <div class="vbook"><div class="face">
+          <div class="lg">Keifu</div>
+          <div class="crest"></div>
+          <div class="yr">VOL · 2027</div>
+        </div></div>
+        <div class="label">VOL · 2027</div>
+        <h4>追補（次々回）</h4>
+        <div class="stat">ただいま書き足し中</div>
+      </div>
+    </div>
+
+
+    <!-- プレビュー -->
+    <section class="preview-wrap" id="preview">
+      <div>
+        <span style="font-family:var(--font-display); font-size:11px; letter-spacing:0.4em; color:var(--gold); text-transform:uppercase">Preview</span>
+        <h2 style="font-size:26px; font-weight:400; color:var(--navy); letter-spacing:0.08em; line-height:1.6; margin-top:12px;">中身は、こんなふうに<br/>仕上がります。</h2>
+        <p style="font-family:var(--font-sans); font-size:13px; color:var(--text-mid); line-height:2; margin-top:14px; letter-spacing:0.04em;">家系図のページに続いて、その年に投稿された家族の証言・写真・新しく加わったご家族の紹介を、職人による組版で美しい一冊に仕立てます。表紙・本文紙・装丁は本編とまったく同じものを使うので、書棚に並べると一連の作品集になります。</p>
+        <ul style="list-style:none; margin-top:18px; font-family:var(--font-sans); font-size:13px; color:var(--text-mid); line-height:2.1;">
+          <li>・ 本文紙：気品ある上質紙（OK特アート）</li>
+          <li>・ 装丁：糸かがり上製本／表紙は本革風クロス</li>
+          <li>・ 印刷：オフセット4色＋金箔（紋章）</li>
+          <li>・ サイズ：A5判（148 × 210mm）</li>
+        </ul>
+      </div>
+      <div class="preview-pages">
+        <div class="spread">
+          <div class="pg l">
+            <h5>Chapter 3</h5>
+            <div class="pt">家族の証言<br/>― 祖父・勇一のこと ―</div>
+            <div class="ln-art"></div>
+            <p class="bd">
+              父・勇一は、毎週日曜の朝、必ずわたしを連れて松本城のお堀まで散歩に行きました。鯉に麩を投げる手つきと、帰り道に必ず買ってくれた草餅の味は、今も忘れられません。父は何も多くを語らない人だったけれど、その時間そのものが愛情でした。<br/><br/>
+              ― 山田 綾子（長女）<br/><br/>
+              祖父の代まで遡る、明治末年に撮影された一枚を実家から見つけました。長野県松本の自宅前で撮ったもののようです。<br/><br/>
+              ― 山田 健一（孫）
+            </p>
+            <div class="pn">— 042 —</div>
+          </div>
+          <div class="pg r" style="text-align:center;">
+            <div class="mini-portrait"></div>
+            <h5>Plate 3-2</h5>
+            <div class="pt" style="font-size:14px">山田 勇一<br/><span style="font-family:'Cormorant Garamond'; font-size:11px; letter-spacing:0.2em; color:var(--gold)">1908 — 1989</span></div>
+            <div class="ln-art" style="margin: 8px auto;"></div>
+            <p class="bd" style="text-align:left; padding: 0 8px;">
+              松本市出身。寡黙であたたかな人柄。
+              庭の手入れと、孫たちに将棋を
+              教えるのが楽しみだった。
+              享年 81。
+            </p>
+            <div class="pn">— 043 —</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- プラン -->
+    <h2 id="plans" style="text-align:center; font-size:22px; font-weight:400; color:var(--navy); letter-spacing:0.08em; margin: 48px 0 8px;">
+      <span style="font-family:var(--font-display); font-size:11px; letter-spacing:0.4em; color:var(--gold); text-transform:uppercase; display:block; margin-bottom:8px">Plans</span>
+      継続プラン
+    </h2>
+    <p style="text-align:center; font-family:var(--font-sans); font-size:13px; color:var(--text-mid); letter-spacing:0.06em; max-width:540px; margin: 0 auto 20px;">
+      家系図ご購入の方は、コミュニティ機能を無料でご利用いただけます。<br/>
+      毎年の追補ブックのお届けは、以下のいずれかのプランをお選びください。
+    </p>
+
+    <div class="plan-row">
+      <div class="plan">
+        <div class="pname">Annual</div>
+        <h3>年に一冊プラン</h3>
+        <div class="price">
+          <span class="yen">¥9,800</span>
+          <small>／ 年（税込・送料込）</small>
+        </div>
+        <ul>
+          <li>追補ブック 年1冊 お届け（〜200ページ）</li>
+          <li>コミュニティ機能・通知 すべて利用可能</li>
+          <li>命日・誕生日のギフト 家族割 5% OFF</li>
+          <li>クラウド保管：写真・証言 無制限</li>
+        </ul>
+        <button class="btn btn-ghost" style="width:100%; justify-content:center">このプランで申し込む</button>
+      </div>
+
+      <div class="plan featured">
+        <div class="pname">Heritage</div>
+        <h3>家宝プラン</h3>
+        <div class="price">
+          <span class="yen">¥14,800</span>
+          <small>／ 年（税込・送料込）</small>
+        </div>
+        <ul>
+          <li>追補ブック 年1冊（〜300ページ／革装）</li>
+          <li>家族3人まで分のブックを同時お届け</li>
+          <li>命日・誕生日のギフト 家族割 10% OFF</li>
+          <li>毎年「家族編集会議」のオンライン招待</li>
+          <li>音声・動画証言の文字起こしサービス付き</li>
+        </ul>
+        <button class="btn btn-gold" style="width:100%; justify-content:center">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-6 4 2 8-6-4-6 4 2-8-6-4h7z"/></svg>
+          このプランで申し込む
+        </button>
+      </div>
+    </div>
+
+
+    <!-- FAQ -->
+    <section class="faq">
+      <h3>よくあるご質問</h3>
+
+      <div class="faq-item">
+        <div class="q"><span class="mark">+</span> 追補ブックは最初に買った本編にどうやって追加するの？</div>
+        <div class="a">本編は背中部分が脱着できる構造になっており、追補ブックを糸かがりのまま挟み込んで一冊に保てる設計です。家具職人と装丁家が共同で開発した方式で、追加してもページが抜けにくく、見た目も自然に一冊として並びます。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="q"><span class="mark">+</span> 1年間で十分な分量が集まらなかった場合は？</div>
+        <div class="a">追加された写真や証言が一定数に満たない場合、職人が「過去のページ」「家族年表」など補完コンテンツを編集して一冊に仕立てます。空白のままお届けすることはありません。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="q"><span class="mark">+</span> 家族みんなで一冊ずつ持ちたい</div>
+        <div class="a">Heritage プランなら、最大3名までのご家族にそれぞれ同内容のブックをお届けできます。それ以上の追加は1冊あたり ¥4,800（税込）で承ります。</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="q"><span class="mark">+</span> 解約はいつでもできますか？</div>
+        <div class="a">はい。マイページからいつでも解約できます。解約後も、それまでにお届けした冊子はもちろんお手元に残ります。Keifu に蓄積した写真・証言データも、引き続きご家族でご覧いただけます。</div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+</body>
+</html>

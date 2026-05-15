@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>命日・誕生日 — Keifu Community</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .month-strip {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 24px;
+    }
+    .month-strip .m {
+      flex: 0 0 auto;
+      padding: 10px 22px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      font-family: var(--font-display);
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      color: var(--text-mid);
+      text-transform: uppercase;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+    .month-strip .m.active { background: var(--navy); color: var(--gold); border-color: var(--navy); }
+    .month-strip .m .num { display: block; font-size: 20px; color: inherit; margin-bottom: 2px; }
+
+    .event-detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 980px){ .event-detail-grid { grid-template-columns: 1fr; } }
+
+    .featured-event {
+      background: linear-gradient(135deg, var(--navy), var(--navy-deep));
+      color: #fff;
+      border-radius: var(--r-xl);
+      padding: 36px 38px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-deep);
+      margin-bottom: 28px;
+    }
+    .featured-event::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 90% 100%, rgba(184,151,90,0.20), transparent 60%),
+        radial-gradient(ellipse 40% 30% at 0% 0%, rgba(184,151,90,0.10), transparent 60%);
+      pointer-events: none;
+    }
+    .featured-event > * { position: relative; z-index: 1; }
+    .featured-event .eyebrow {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: 0.4em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .featured-event h2 {
+      font-size: 32px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+    .featured-event h2 em { font-style: italic; color: var(--gold-light); }
+    .featured-event .count {
+      font-family: var(--font-display);
+      font-size: 14px;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      margin-top: 14px;
+    }
+    .featured-event .count strong { font-size: 28px; padding: 0 4px; }
+    .featured-event .cta-row {
+      display: flex; gap: 12px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+    .featured-event .btn-gold {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 14px 28px;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+    }
+    .featured-event .btn-gold:hover { background: var(--gold-light); }
+    .featured-event .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(184,151,90,0.5);
+      color: var(--gold);
+      padding: 14px 28px;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .featured-event .btn-outline:hover { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+
+    .featured-portrait {
+      position: absolute;
+      right: 38px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #dcc8aa, #7e6448);
+      border: 3px solid var(--gold);
+      z-index: 1;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    @media (max-width: 760px){
+      .featured-portrait { position: relative; right: auto; top: auto; transform: none; margin: 0 auto 20px; }
+    }
+
+    .reminder-pref {
+      background: var(--paper);
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow-card);
+      padding: 28px 32px;
+      margin-bottom: 28px;
+    }
+    .reminder-pref h3 {
+      font-size: 17px;
+      color: var(--navy);
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
+    }
+    .toggle-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px dashed var(--line);
+    }
+    .toggle-row:last-child { border-bottom: none; }
+    .toggle-row .desc {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: 2px;
+    }
+    .switch {
+      width: 44px;
+      height: 24px;
+      border-radius: 999px;
+      background: var(--line);
+      position: relative;
+      cursor: pointer;
+      transition: background 0.25s;
+    }
+    .switch::after {
+      content: '';
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--paper);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: transform 0.25s;
+    }
+    .switch.on { background: var(--gold); }
+    .switch.on::after { transform: translateX(20px); }
+  </style>
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">Keifu<small>Community</small></div>
+    <nav class="nav">
+      <a href="index.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>ホーム</a>
+      <a href="tree.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 4v6m-6 4v6m12-6v6M6 14h12M9 4h6"/></svg>家系図</a>
+      <a href="memories.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M3 17l5-5 4 4 3-3 6 6"/></svg>アルバム・証言</a>
+      <a href="profile.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>自分のページ</a>
+      <a href="notifications.html" class="active"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 8a6 6 0 0112 0v5l2 3H4l2-3V8zM10 19a2 2 0 004 0"/></svg>お知らせ</a>
+      <a href="gifts.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9h18v3H3zM5 12v9h14v-9M12 9V5"/></svg>ギフト・お供え</a>
+      <a href="book.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 5a2 2 0 012-2h6v18H6a2 2 0 01-2-2V5zM12 3h6a2 2 0 012 2v14a2 2 0 01-2 2h-6"/></svg>印刷・ブック</a>
+    </nav>
+    <div class="me-card">
+      <div class="avatar" style="background:linear-gradient(135deg,#9a8260,#5c4830)"></div>
+      <div class="meta"><div class="name">山田 太郎</div><div class="role">マイページ</div></div>
+    </div>
+  </aside>
+
+
+  <main class="main" style="grid-column: span 2;">
+    <div class="page-head">
+      <div class="crumbs">
+        <a href="index.html">HOME</a><span class="sep">›</span>
+        <span>ANNIVERSARIES</span>
+      </div>
+      <h1 class="page-title">
+        <span class="accent"></span>
+        命日・誕生日のお知らせ
+      </h1>
+      <p class="page-lead">
+        大切な日を、ご家族みんなで覚えていく。<br/>
+        通知は登録された方全員に届き、その日に合わせて<strong style="color:var(--gold)">お花・お供え</strong>をすぐに贈ることもできます。
+      </p>
+    </div>
+
+    <!-- フィーチャー：直近のイベント -->
+    <section class="featured-event">
+      <div class="featured-portrait"></div>
+      <div style="max-width: calc(100% - 200px)">
+        <div class="eyebrow">TODAY · 本日</div>
+        <h2>山田 花子 さんの<br/><em>114回目の</em>お誕生日</h2>
+        <div class="count">通知済み <strong>28</strong> 人 ／ 家族 32 人中</div>
+        <div class="cta-row">
+          <a href="gifts.html" class="btn-outline" style="background:var(--gold); color:var(--navy); border-color:var(--gold)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" width="16" height="16"><path d="M3 9h18v3H3zM5 12v9h14v-9M12 9V5"/></svg>
+            お花を贈る
+          </a>
+          <a href="memories.html" class="btn-outline">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" width="16" height="16"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            メッセージを残す
+          </a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- 月セレクタ -->
+    <div class="month-strip">
+      <div class="m">Apr<span class="num">4</span></div>
+      <div class="m active">May<span class="num">5</span></div>
+      <div class="m">Jun<span class="num">6</span></div>
+      <div class="m">Jul<span class="num">7</span></div>
+      <div class="m">Aug<span class="num">8</span></div>
+      <div class="m">Sep<span class="num">9</span></div>
+      <div class="m">Oct<span class="num">10</span></div>
+      <div class="m">Nov<span class="num">11</span></div>
+      <div class="m">Dec<span class="num">12</span></div>
+      <div class="m">Jan<span class="num">1</span></div>
+      <div class="m">Feb<span class="num">2</span></div>
+      <div class="m">Mar<span class="num">3</span></div>
+    </div>
+
+    <!-- 今月のイベント一覧 -->
+    <div class="timeline">
+
+      <a href="gifts.html" class="event-card">
+        <div class="event-date">
+          <div class="m">MAY</div>
+          <div class="d">15</div>
+        </div>
+        <div class="event-info">
+          <div class="name">山田 花子 さん</div>
+          <div class="kind bd">● BIRTHDAY · 誕生日</div>
+        </div>
+        <div class="go">›</div>
+      </a>
+
+      <a href="gifts.html" class="event-card">
+        <div class="event-date">
+          <div class="m">MAY</div>
+          <div class="d">20</div>
+        </div>
+        <div class="event-info">
+          <div class="name">山田 勇一 さん</div>
+          <div class="kind me">● MEMORIAL · 命日</div>
+        </div>
+        <div class="go">›</div>
+      </a>
+
+      <a href="gifts.html" class="event-card">
+        <div class="event-date">
+          <div class="m">MAY</div>
+          <div class="d">25</div>
+        </div>
+        <div class="event-info">
+          <div class="name">山田 美咲 さん</div>
+          <div class="kind bd">● BIRTHDAY · 誕生日</div>
+        </div>
+        <div class="go">›</div>
+      </a>
+
+      <a href="gifts.html" class="event-card">
+        <div class="event-date">
+          <div class="m">MAY</div>
+          <div class="d">28</div>
+        </div>
+        <div class="event-info">
+          <div class="name">山田 タエ さん</div>
+          <div class="kind me">● MEMORIAL · 命日</div>
+        </div>
+        <div class="go">›</div>
+      </a>
+
+    </div>
+
+
+    <div class="divider-deco">
+      <div class="line"></div><div class="mark">settings</div><div class="line"></div>
+    </div>
+
+
+    <!-- 通知設定 -->
+    <section class="reminder-pref">
+      <h3>通知の受け取り方</h3>
+
+      <div class="toggle-row">
+        <div>
+          <div style="color:var(--navy)">誕生日のお知らせ</div>
+          <div class="desc">家族の誕生日の7日前と当日に通知します</div>
+        </div>
+        <div class="switch on"></div>
+      </div>
+
+      <div class="toggle-row">
+        <div>
+          <div style="color:var(--navy)">命日のお知らせ</div>
+          <div class="desc">命日の14日前と前日、当日に通知します</div>
+        </div>
+        <div class="switch on"></div>
+      </div>
+
+      <div class="toggle-row">
+        <div>
+          <div style="color:var(--navy)">家族の更新通知</div>
+          <div class="desc">写真や証言が追加されたら通知</div>
+        </div>
+        <div class="switch on"></div>
+      </div>
+
+      <div class="toggle-row">
+        <div>
+          <div style="color:var(--navy)">メールでも受け取る</div>
+          <div class="desc">アプリ通知に加えて、メールで受け取る</div>
+        </div>
+        <div class="switch"></div>
+      </div>
+
+      <div class="toggle-row">
+        <div>
+          <div style="color:var(--navy)">LINEで家族へ自動共有</div>
+          <div class="desc">命日・誕生日を家族LINEに自動で投稿</div>
+        </div>
+        <div class="switch on"></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>家系図エディタ — Keifu Community</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .editor-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 24px;
+    }
+    @media (max-width: 1180px){ .editor-grid { grid-template-columns: 1fr; } }
+
+    .node-detail {
+      background: var(--paper);
+      border-radius: var(--r-xl);
+      padding: 28px 26px;
+      box-shadow: var(--shadow-card);
+    }
+    .node-detail h3 {
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--navy);
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+    .node-detail .sub {
+      font-family: var(--font-display);
+      font-size: 12px;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .node-detail .portrait {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 16px auto;
+      background: linear-gradient(135deg,#dcc8aa,#7e6448);
+      border: 3px solid var(--gold);
+      position: relative;
+    }
+    .node-detail .portrait .edit {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid var(--paper);
+    }
+    .legend {
+      display: flex;
+      gap: 14px;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: var(--text-light);
+      letter-spacing: 0.06em;
+      margin-left: auto;
+    }
+    .legend .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; vertical-align: middle; }
+    .history {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+    .history h4 {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--text-light);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .history .row {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      gap: 10px;
+      padding: 8px 0;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-mid);
+    }
+    .history .row .av {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+    }
+    .history .row .when {
+      font-family: var(--font-display);
+      color: var(--text-light);
+      letter-spacing: 0.1em;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ─── サイドバー（共通） ─── -->
+  <aside class="sidebar">
+    <div class="brand">Keifu<small>Community</small></div>
+    <nav class="nav">
+      <a href="index.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>ホーム</a>
+      <a href="tree.html" class="active"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 4v6m-6 4v6m12-6v6M6 14h12M9 4h6"/></svg>家系図</a>
+      <a href="memories.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M3 17l5-5 4 4 3-3 6 6"/></svg>アルバム・証言</a>
+      <a href="profile.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>自分のページ</a>
+      <a href="notifications.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M6 8a6 6 0 0112 0v5l2 3H4l2-3V8zM10 19a2 2 0 004 0"/></svg>お知らせ</a>
+      <a href="gifts.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 9h18v3H3zM5 12v9h14v-9M12 9V5"/></svg>ギフト・お供え</a>
+      <a href="book.html"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 5a2 2 0 012-2h6v18H6a2 2 0 01-2-2V5zM12 3h6a2 2 0 012 2v14a2 2 0 01-2 2h-6"/></svg>印刷・ブック</a>
+    </nav>
+
+    <div class="me-card">
+      <div class="avatar" style="background:linear-gradient(135deg,#9a8260,#5c4830)"></div>
+      <div class="meta">
+        <div class="name">山田 太郎</div>
+        <div class="role">編集権限：あり</div>
+      </div>
+    </div>
+  </aside>
+
+
+  <!-- ─── メイン ─── -->
+  <main class="main" style="grid-column: span 2;">
+
+    <div class="page-head">
+      <div class="crumbs">
+        <a href="index.html">HOME</a><span class="sep">›</span>
+        <span>FAMILY TREE</span>
+      </div>
+      <h1 class="page-title">
+        <span class="accent"></span>
+        家系図を共同編集
+      </h1>
+      <p class="page-lead">
+        家族みんなで、ひとつの家系図を育てていきましょう。<br/>
+        ノードをクリックして詳細を編集、<strong style="color:var(--gold)">＋</strong> で新しいご家族を追加できます。すべての変更は自動で保存され、他のメンバーにも反映されます。
+      </p>
+    </div>
+
+    <!-- ツールバー -->
+    <div class="editor-toolbar">
+      <button class="tool primary">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        新しい家族を追加
+      </button>
+      <button class="tool">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        メンバー検索
+      </button>
+      <button class="tool">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        世代で絞る
+      </button>
+      <button class="tool">
+        <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/></svg>
+        写真を一括アップ
+      </button>
+      <button class="tool">
+        <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 11-3-6.7M21 3v6h-6"/></svg>
+        変更履歴
+      </button>
+
+      <div class="legend">
+        <span class="live-dot" style="width:8px;height:8px;border-radius:50%;background:var(--leaf);display:inline-block;margin-right:6px"></span>
+        ライブ同期中
+      </div>
+    </div>
+
+    <!-- エディタ＋詳細 -->
+    <div class="editor-grid">
+
+      <!-- 家系図キャンバス -->
+      <section class="editor-canvas">
+        <div class="collaborators">
+          <span class="collab-label">編集中：</span>
+          <div class="collab-stack">
+            <div class="avatar" style="background:linear-gradient(135deg,#bea088,#74553a)" title="綾子さん"></div>
+            <div class="avatar" style="background:linear-gradient(135deg,#a89070,#5d4a38)" title="健一さん"></div>
+            <div class="avatar" style="background:linear-gradient(135deg,#c5a880,#705a3e)" title="恵理さん"></div>
+          </div>
+        </div>
+
+        <svg class="tree-svg" viewBox="0 0 880 540" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#dcc8aa"/><stop offset="100%" stop-color="#7e6448"/>
+            </linearGradient>
+            <linearGradient id="g2" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#c6a98a"/><stop offset="100%" stop-color="#634c34"/>
+            </linearGradient>
+            <linearGradient id="g3" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#b8a48a"/><stop offset="100%" stop-color="#5a4632"/>
+            </linearGradient>
+          </defs>
+          <style>
+            .nm { font: 500 13px 'Noto Serif JP'; fill: #1a2340; letter-spacing: 0.06em; }
+            .yr { font: 11px 'Cormorant Garamond'; fill: #7a7a7a; letter-spacing: 0.1em; }
+            .ring { fill: #faf8f4; stroke: #b8975a; stroke-width: 1.2; }
+            .ln   { stroke: #1a2340; stroke-width: 1; fill: none; opacity: 0.6; }
+            .plus { fill: #faf8f4; stroke: #b8975a; }
+            .plus-x { stroke: #b8975a; stroke-width: 1.2; stroke-linecap: round; }
+            .add-node { fill: none; stroke: #b8975a; stroke-width: 1; stroke-dasharray: 3 3; }
+            .selected { stroke: #b8975a; stroke-width: 3; }
+            .editing-glow { stroke: #8a9d6e; stroke-width: 2.5; stroke-dasharray: 4 3; }
+            .cursor-tag { font: 10px 'Noto Sans JP'; fill: #fff; letter-spacing: 0.06em; }
+          </style>
+
+          <!-- 1代目 -->
+          <g transform="translate(360,40)">
+            <circle class="ring" r="34"/><circle r="31" fill="url(#g1)"/>
+            <text class="nm" y="58" text-anchor="middle">山田 佐蔵</text>
+            <text class="yr" y="74" text-anchor="middle">1878 — 1951</text>
+            <circle class="plus" cx="36" cy="-22" r="8"/>
+            <path class="plus-x" d="M31 -22 H41 M36 -27 V-17"/>
+          </g>
+          <g transform="translate(520,40)">
+            <circle class="ring editing-glow" r="34"/>
+            <circle r="31" fill="url(#g2)"/>
+            <text class="nm" y="58" text-anchor="middle">山田 タエ</text>
+            <text class="yr" y="74" text-anchor="middle">1883 — 1962</text>
+            <rect x="-18" y="-50" width="42" height="14" rx="7" fill="#8a9d6e"/>
+            <text class="cursor-tag" x="3" y="-40" text-anchor="middle">恵理が編集中</text>
+          </g>
+
+          <path class="ln" d="M394 40 H520"/>
+          <path class="ln" d="M440 60 V130"/>
+
+          <!-- 2代目 -->
+          <path class="ln" d="M160 130 H720"/>
+          <path class="ln" d="M160 130 V170 M320 130 V170 M520 130 V170 M720 130 V170"/>
+
+          <g transform="translate(160,200)">
+            <circle class="ring selected" r="30"/><circle r="27" fill="url(#g3)"/>
+            <text class="nm" y="52" text-anchor="middle">山田 勇一</text>
+            <text class="yr" y="68" text-anchor="middle">1908 — 1989</text>
+            <circle class="plus" cx="30" cy="-20" r="7"/><path class="plus-x" d="M26 -20 H34 M30 -24 V-16"/>
+          </g>
+          <g transform="translate(320,200)">
+            <circle class="ring" r="30"/><circle r="27" fill="url(#g1)"/>
+            <text class="nm" y="52" text-anchor="middle">山田 花子</text>
+            <text class="yr" y="68" text-anchor="middle">1912 — 1995</text>
+            <circle class="plus" cx="30" cy="-20" r="7"/><path class="plus-x" d="M26 -20 H34 M30 -24 V-16"/>
+          </g>
+          <g transform="translate(520,200)">
+            <circle class="ring" r="30"/><circle r="27" fill="url(#g3)"/>
+            <text class="nm" y="52" text-anchor="middle">山田 博</text>
+            <text class="yr" y="68" text-anchor="middle">1905 — 1978</text>
+            <circle class="plus" cx="30" cy="-20" r="7"/><path class="plus-x" d="M26 -20 H34 M30 -24 V-16"/>
+          </g>
+          <g transform="translate(720,200)">
+            <circle class="ring" r="30"/><circle r="27" fill="url(#g2)"/>
+            <text class="nm" y="52" text-anchor="middle">山田 鈴江</text>
+            <text class="yr" y="68" text-anchor="middle">1910 — 2001</text>
+            <circle class="plus" cx="30" cy="-20" r="7"/><path class="plus-x" d="M26 -20 H34 M30 -24 V-16"/>
+          </g>
+
+          <path class="ln" d="M240 260 V310"/>
+          <path class="ln" d="M620 260 V310"/>
+          <path class="ln" d="M100 310 H780"/>
+          <path class="ln" d="M100 310 V350 M260 310 V350 M420 310 V350 M580 310 V350 M780 310 V350"/>
+
+          <!-- 3代目 -->
+          <g transform="translate(100,390)">
+            <circle class="ring" r="28"/><circle r="25" fill="url(#g1)"/>
+            <text class="nm" y="50" text-anchor="middle">山田 直樹</text>
+            <text class="yr" y="66" text-anchor="middle">1935 —</text>
+            <circle class="plus" cx="28" cy="-18" r="7"/><path class="plus-x" d="M24 -18 H32 M28 -22 V-14"/>
+          </g>
+          <g transform="translate(260,390)">
+            <circle class="ring" r="28"/><circle r="25" fill="url(#g2)"/>
+            <text class="nm" y="50" text-anchor="middle">山田 綾子</text>
+            <text class="yr" y="66" text-anchor="middle">1938 —</text>
+            <rect x="-14" y="-52" width="34" height="14" rx="7" fill="#bea088"/>
+            <text class="cursor-tag" x="3" y="-42" text-anchor="middle">綾子</text>
+          </g>
+          <g transform="translate(420,390)">
+            <circle class="ring" r="28"/><circle r="25" fill="url(#g3)"/>
+            <text class="nm" y="50" text-anchor="middle">山田 正明</text>
+            <text class="yr" y="66" text-anchor="middle">1942 —</text>
+          </g>
+          <g transform="translate(580,390)">
+            <circle class="ring" r="28"/><circle r="25" fill="url(#g1)"/>
+            <text class="nm" y="50" text-anchor="middle">山田 節子</text>
+            <text class="yr" y="66" text-anchor="middle">1946 —</text>
+          </g>
+          <g transform="translate(780,390)">
+            <circle class="ring" r="28"/><circle r="25" fill="url(#g3)"/>
+            <text class="nm" y="50" text-anchor="middle">山田 一郎</text>
+            <text class="yr" y="66" text-anchor="middle">1949 —</text>
+          </g>
+
+          <path class="ln" d="M100 450 V475 M100 475 H580"/>
+          <path class="ln" d="M180 475 V490 M320 475 V490 M440 475 V490 M560 475 V490"/>
+
+          <g transform="translate(180,510)">
+            <circle class="ring" r="22"/><circle r="19" fill="url(#g3)"/>
+          </g>
+          <g transform="translate(320,510)">
+            <circle class="ring" r="22"/><circle r="19" fill="url(#g1)"/>
+          </g>
+          <g transform="translate(440,510)">
+            <circle class="ring" r="22"/><circle r="19" fill="url(#g3)"/>
+          </g>
+          <g transform="translate(560,510)">
+            <circle class="ring" r="22"/><circle r="19" fill="url(#g2)"/>
+          </g>
+          <g transform="translate(700,510)">
+            <circle class="add-node" r="22"/>
+            <path class="plus-x" d="M-7 0 H7 M0 -7 V7" stroke-width="1.4"/>
+          </g>
+        </svg>
+      </section>
+
+      <!-- 選択中のノード詳細 -->
+      <aside>
+        <div class="node-detail">
+          <div class="sub">SELECTED</div>
+          <h3>山田 勇一</h3>
+          <div class="portrait">
+            <span class="edit">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9M4 20l4-1 11-11-3-3L5 16l-1 4z"/></svg>
+            </span>
+          </div>
+
+          <div class="field">
+            <label>名前</label>
+            <input type="text" value="山田 勇一" />
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label>生年</label>
+              <input type="text" value="1908" />
+            </div>
+            <div class="field">
+              <label>没年</label>
+              <input type="text" value="1989" />
+            </div>
+          </div>
+          <div class="field">
+            <label>出身地</label>
+            <input type="text" value="長野県松本市" />
+          </div>
+          <div class="field">
+            <label>続柄</label>
+            <select>
+              <option>祖父（父方）</option>
+              <option>祖母（父方）</option>
+              <option>父</option>
+              <option>母</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>ひとことメモ</label>
+            <textarea placeholder="家族から見たこの方の人柄や、印象的なエピソードを残しましょう">寡黙だけれど、いつも家族のことを一番に考えてくれていた人。庭の手入れと、孫たちに将棋を教えるのが楽しみだった。</textarea>
+          </div>
+
+          <button class="btn btn-gold" style="width:100%;justify-content:center">
+            <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+            変更を保存する
+          </button>
+
+          <div class="history">
+            <h4>最近の更新</h4>
+            <div class="row">
+              <div class="av" style="background:linear-gradient(135deg,#bea088,#74553a)"></div>
+              <div>綾子さんが「ひとことメモ」を追記</div>
+              <div class="when">2h</div>
+            </div>
+            <div class="row">
+              <div class="av" style="background:linear-gradient(135deg,#a89070,#5d4a38)"></div>
+              <div>健一さんが写真を追加</div>
+              <div class="when">1d</div>
+            </div>
+            <div class="row">
+              <div class="av" style="background:linear-gradient(135deg,#c5a880,#705a3e)"></div>
+              <div>恵理さんが続柄を修正</div>
+              <div class="when">3d</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>

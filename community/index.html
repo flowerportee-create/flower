@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keifu Community — つながる、そだてる、のこす。</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ─── サイドバー ─── -->
+  <aside class="sidebar">
+    <div class="brand">
+      Keifu
+      <small>Community</small>
+    </div>
+
+    <nav class="nav">
+      <a href="index.html" class="active">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>
+        ホーム
+      </a>
+      <a href="tree.html">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M12 4v6m-6 4v6m12-6v6M6 14h12M9 4h6"/><circle cx="12" cy="4" r="1.6"/><circle cx="6" cy="14" r="1.6"/><circle cx="18" cy="14" r="1.6"/></svg>
+        家系図
+      </a>
+      <a href="memories.html">
+        <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M3 17l5-5 4 4 3-3 6 6"/></svg>
+        アルバム・証言
+      </a>
+      <a href="profile.html">
+        <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>
+        自分のページ
+      </a>
+      <a href="notifications.html">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0112 0v5l2 3H4l2-3V8zM10 19a2 2 0 004 0"/></svg>
+        お知らせ
+      </a>
+      <a href="gifts.html">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M3 9h18v3H3zM5 12v9h14v-9M12 9V5m-4 4c-2 0-3-3-1-4s5 4 5 4m3 0c2 0 3-3 1-4s-5 4-5 4"/></svg>
+        ギフト・お供え
+      </a>
+      <a href="book.html">
+        <svg class="ico" viewBox="0 0 24 24"><path d="M4 5a2 2 0 012-2h6v18H6a2 2 0 01-2-2V5zM12 3h6a2 2 0 012 2v14a2 2 0 01-2 2h-6"/></svg>
+        印刷・ブック
+      </a>
+      <a href="settings.html">
+        <svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 00-.1-1.2l2.1-1.6-2-3.4-2.4 1a7 7 0 00-2.1-1.2L14 3h-4l-.5 2.6a7 7 0 00-2.1 1.2l-2.4-1-2 3.4 2.1 1.6A7 7 0 005 12c0 .4 0 .8.1 1.2l-2.1 1.6 2 3.4 2.4-1a7 7 0 002.1 1.2L10 21h4l.5-2.6a7 7 0 002.1-1.2l2.4 1 2-3.4-2.1-1.6c.1-.4.1-.8.1-1.2z"/></svg>
+        設定
+      </a>
+    </nav>
+
+    <div class="side-section">
+      <div class="label">家族メンバー（32人）</div>
+      <div class="member-cluster">
+        <div class="avatar" style="background:linear-gradient(135deg,#cdb89c,#8d7259)"></div>
+        <div class="avatar" style="background:linear-gradient(135deg,#b8a288,#7a6248)"></div>
+        <div class="avatar" style="background:linear-gradient(135deg,#a89178,#705a40)"></div>
+        <div class="avatar" style="background:linear-gradient(135deg,#c8b496,#806848)"></div>
+        <div class="avatar" style="background:linear-gradient(135deg,#bca58a,#776048)"></div>
+        <div class="avatar" style="background:linear-gradient(135deg,#a89070,#5d4a38)"></div>
+        <div class="avatar" style="background:linear-gradient(135deg,#c0a888,#7d6048)"></div>
+        <div class="avatar more">+</div>
+      </div>
+      <a href="members.html" class="pill">すべて見る</a>
+    </div>
+
+    <div class="me-card">
+      <div class="avatar" style="background:linear-gradient(135deg,#9a8260,#5c4830)"></div>
+      <div class="meta">
+        <div class="name">山田 太郎</div>
+        <div class="role">マイページ</div>
+      </div>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"><path d="M9 6l6 6-6 6"/></svg>
+    </div>
+  </aside>
+
+
+  <!-- ─── メイン ─── -->
+  <main class="main">
+
+    <div class="topbar">
+      <div class="greet">
+        <h1>おかえりなさい、山田 太郎さん</h1>
+        <div class="date">今日は 2026年5月15日（金）</div>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" aria-label="検索">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        </button>
+        <button class="icon-btn" aria-label="お知らせ">
+          <svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0112 0v5l2 3H4l2-3V8zM10 19a2 2 0 004 0"/></svg>
+          <span class="dot"></span>
+        </button>
+        <button class="icon-btn" aria-label="メッセージ">
+          <svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="M4 6l8 7 8-7"/></svg>
+        </button>
+        <span class="tagline">つながる。そだてる。のこす。</span>
+      </div>
+    </div>
+
+
+    <!-- ─── 家系図カード ─── -->
+    <section class="tree-card">
+      <div class="tree-head">
+        <div class="tree-title">
+          <!-- 装飾的な木のSVG -->
+          <svg class="tree-icon" viewBox="0 0 80 80" fill="none">
+            <g stroke="#b8975a" stroke-width="0.8" stroke-linecap="round">
+              <path d="M40 60 V40"/>
+              <path d="M40 50 L26 40 M40 50 L54 40"/>
+              <path d="M40 44 L18 32 M40 44 L62 32"/>
+              <path d="M40 38 L14 22 M40 38 L66 22"/>
+              <path d="M40 60 L34 70 M40 60 L46 70 M40 60 L40 72"/>
+              <path d="M40 64 L30 74 M40 64 L50 74"/>
+            </g>
+            <g fill="#b8975a">
+              <circle cx="14" cy="22" r="1.6"/><circle cx="66" cy="22" r="1.6"/>
+              <circle cx="18" cy="32" r="1.4"/><circle cx="62" cy="32" r="1.4"/>
+              <circle cx="26" cy="40" r="1.2"/><circle cx="54" cy="40" r="1.2"/>
+              <circle cx="22" cy="14" r="1"/><circle cx="40" cy="10" r="1.2"/><circle cx="58" cy="14" r="1"/>
+              <circle cx="32" cy="18" r="0.9"/><circle cx="48" cy="18" r="0.9"/>
+              <circle cx="10" cy="30" r="0.9"/><circle cx="70" cy="30" r="0.9"/>
+            </g>
+          </svg>
+          <div>
+            <h2>わたしたちの家系図</h2>
+            <div class="sub">みんなでつくる、家族の物語</div>
+          </div>
+        </div>
+        <div class="tree-actions">
+          <a class="btn btn-primary" href="tree.html">
+            <svg viewBox="0 0 24 24"><path d="M12 20h9M4 20l4-1 11-11-3-3L5 16l-1 4z"/></svg>
+            家系図を編集
+          </a>
+          <a class="btn btn-ghost" href="invite.html">
+            <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21c1-4 4-6 7-6s6 2 7 6M17 8h6m-3-3v6"/></svg>
+            メンバーを招待
+          </a>
+        </div>
+      </div>
+
+      <!-- 家系図 SVG -->
+      <div class="tree-stage">
+        <svg class="tree-svg" viewBox="0 0 920 440" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gradPortrait" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#dcc8aa"/>
+              <stop offset="100%" stop-color="#7e6448"/>
+            </linearGradient>
+            <linearGradient id="gradPortrait2" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#c6a98a"/>
+              <stop offset="100%" stop-color="#634c34"/>
+            </linearGradient>
+            <linearGradient id="gradPortrait3" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#b8a48a"/>
+              <stop offset="100%" stop-color="#5a4632"/>
+            </linearGradient>
+            <pattern id="paper" patternUnits="userSpaceOnUse" width="3" height="3">
+              <rect width="3" height="3" fill="#faf8f4"/>
+              <circle cx="1.5" cy="1.5" r="0.3" fill="#e8e1d2"/>
+            </pattern>
+          </defs>
+
+          <style>
+            .node circle.ring { fill: #faf8f4; stroke: #b8975a; stroke-width: 1.2; }
+            .node text.nm { font: 500 13px 'Noto Serif JP'; fill: #1a2340; letter-spacing: 0.06em; }
+            .node text.yr { font: 11px 'Cormorant Garamond'; fill: #7a7a7a; letter-spacing: 0.1em; }
+            .ln { stroke: #1a2340; stroke-width: 1; fill: none; opacity: 0.65; }
+            .plus { fill: #faf8f4; stroke: #b8975a; stroke-width: 0.8; }
+            .plus-x { stroke: #b8975a; stroke-width: 1.2; stroke-linecap: round; }
+            .add-node { fill: none; stroke: #b8975a; stroke-width: 1; stroke-dasharray: 3 3; }
+          </style>
+
+          <!-- 1代目（祖父・祖母） -->
+          <g class="node" transform="translate(380,30)">
+            <circle class="ring" r="32" cx="0" cy="0"/>
+            <circle r="29" cx="0" cy="0" fill="url(#gradPortrait)"/>
+            <text class="nm" x="0" y="56" text-anchor="middle">山田 佐蔵</text>
+            <text class="yr" x="0" y="72" text-anchor="middle">1878 — 1951</text>
+            <circle class="plus" cx="34" cy="-22" r="7"/>
+            <path class="plus-x" d="M30 -22 H38 M34 -26 V-18"/>
+          </g>
+          <g class="node" transform="translate(540,30)">
+            <circle class="ring" r="32" cx="0" cy="0"/>
+            <circle r="29" cx="0" cy="0" fill="url(#gradPortrait2)"/>
+            <text class="nm" x="0" y="56" text-anchor="middle">山田 タエ</text>
+            <text class="yr" x="0" y="72" text-anchor="middle">1883 — 1962</text>
+            <circle class="plus" cx="34" cy="-22" r="7"/>
+            <path class="plus-x" d="M30 -22 H38 M34 -26 V-18"/>
+          </g>
+
+          <!-- 連結線 1代目→ -->
+          <path class="ln" d="M412 30 H540"/>
+          <path class="ln" d="M460 30 V110"/>
+
+          <!-- 2代目 4人 -->
+          <path class="ln" d="M180 110 H740"/>
+          <path class="ln" d="M180 110 V150 M340 110 V150 M540 110 V150 M740 110 V150"/>
+
+          <g class="node" transform="translate(180,180)">
+            <circle class="ring" r="28" cx="0" cy="0"/>
+            <circle r="25" cx="0" cy="0" fill="url(#gradPortrait3)"/>
+            <text class="nm" x="0" y="50" text-anchor="middle">山田 勇一</text>
+            <text class="yr" x="0" y="66" text-anchor="middle">1908 — 1989</text>
+            <circle class="plus" cx="28" cy="-18" r="6"/>
+            <path class="plus-x" d="M25 -18 H31 M28 -21 V-15"/>
+          </g>
+          <g class="node" transform="translate(340,180)">
+            <circle class="ring" r="28" cx="0" cy="0"/>
+            <circle r="25" cx="0" cy="0" fill="url(#gradPortrait)"/>
+            <text class="nm" x="0" y="50" text-anchor="middle">山田 花子</text>
+            <text class="yr" x="0" y="66" text-anchor="middle">1912 — 1995</text>
+            <circle class="plus" cx="28" cy="-18" r="6"/>
+            <path class="plus-x" d="M25 -18 H31 M28 -21 V-15"/>
+          </g>
+          <g class="node" transform="translate(540,180)">
+            <circle class="ring" r="28" cx="0" cy="0"/>
+            <circle r="25" cx="0" cy="0" fill="url(#gradPortrait3)"/>
+            <text class="nm" x="0" y="50" text-anchor="middle">山田 博</text>
+            <text class="yr" x="0" y="66" text-anchor="middle">1905 — 1978</text>
+            <circle class="plus" cx="28" cy="-18" r="6"/>
+            <path class="plus-x" d="M25 -18 H31 M28 -21 V-15"/>
+          </g>
+          <g class="node" transform="translate(740,180)">
+            <circle class="ring" r="28" cx="0" cy="0"/>
+            <circle r="25" cx="0" cy="0" fill="url(#gradPortrait2)"/>
+            <text class="nm" x="0" y="50" text-anchor="middle">山田 鈴江</text>
+            <text class="yr" x="0" y="66" text-anchor="middle">1910 — 2001</text>
+            <circle class="plus" cx="28" cy="-18" r="6"/>
+            <path class="plus-x" d="M25 -18 H31 M28 -21 V-15"/>
+          </g>
+
+          <!-- 2代目→3代目線 -->
+          <path class="ln" d="M260 230 V260"/>
+          <path class="ln" d="M640 230 V260"/>
+          <path class="ln" d="M120 260 H800"/>
+          <path class="ln" d="M120 260 V300 M280 260 V300 M440 260 V300 M600 260 V300 M800 260 V300"/>
+
+          <!-- 3代目 5人 -->
+          <g class="node" transform="translate(120,320)">
+            <circle class="ring" r="26" cx="0" cy="0"/>
+            <circle r="23" cx="0" cy="0" fill="url(#gradPortrait)"/>
+            <text class="nm" x="0" y="46" text-anchor="middle">山田 直樹</text>
+            <text class="yr" x="0" y="62" text-anchor="middle">1935 —</text>
+            <circle class="plus" cx="25" cy="-16" r="6"/>
+            <path class="plus-x" d="M22 -16 H28 M25 -19 V-13"/>
+          </g>
+          <g class="node" transform="translate(280,320)">
+            <circle class="ring" r="26" cx="0" cy="0"/>
+            <circle r="23" cx="0" cy="0" fill="url(#gradPortrait2)"/>
+            <text class="nm" x="0" y="46" text-anchor="middle">山田 綾子</text>
+            <text class="yr" x="0" y="62" text-anchor="middle">1938 —</text>
+            <circle class="plus" cx="25" cy="-16" r="6"/>
+            <path class="plus-x" d="M22 -16 H28 M25 -19 V-13"/>
+          </g>
+          <g class="node" transform="translate(440,320)">
+            <circle class="ring" r="26" cx="0" cy="0"/>
+            <circle r="23" cx="0" cy="0" fill="url(#gradPortrait3)"/>
+            <text class="nm" x="0" y="46" text-anchor="middle">山田 正明</text>
+            <text class="yr" x="0" y="62" text-anchor="middle">1942 —</text>
+            <circle class="plus" cx="25" cy="-16" r="6"/>
+            <path class="plus-x" d="M22 -16 H28 M25 -19 V-13"/>
+          </g>
+          <g class="node" transform="translate(600,320)">
+            <circle class="ring" r="26" cx="0" cy="0"/>
+            <circle r="23" cx="0" cy="0" fill="url(#gradPortrait)"/>
+            <text class="nm" x="0" y="46" text-anchor="middle">山田 節子</text>
+            <text class="yr" x="0" y="62" text-anchor="middle">1946 —</text>
+            <circle class="plus" cx="25" cy="-16" r="6"/>
+            <path class="plus-x" d="M22 -16 H28 M25 -19 V-13"/>
+          </g>
+          <g class="node" transform="translate(800,320)">
+            <circle class="ring" r="26" cx="0" cy="0"/>
+            <circle r="23" cx="0" cy="0" fill="url(#gradPortrait3)"/>
+            <text class="nm" x="0" y="46" text-anchor="middle">山田 一郎</text>
+            <text class="yr" x="0" y="62" text-anchor="middle">1949 —</text>
+            <circle class="plus" cx="25" cy="-16" r="6"/>
+            <path class="plus-x" d="M22 -16 H28 M25 -19 V-13"/>
+          </g>
+
+          <!-- 4代目（自分世代）連結線 -->
+          <path class="ln" d="M120 370 V395"/>
+          <path class="ln" d="M120 395 H600"/>
+          <path class="ln" d="M210 395 V410 M340 395 V410 M460 395 V410 M580 395 V410"/>
+
+          <!-- 自分(山田太郎)世代 -->
+          <g class="node" transform="translate(210,425)">
+            <circle class="ring" r="22" cx="0" cy="0" stroke-width="2.4" stroke="#b8975a"/>
+            <circle r="19" cx="0" cy="0" fill="url(#gradPortrait3)"/>
+          </g>
+          <g class="node" transform="translate(340,425)">
+            <circle class="ring" r="22" cx="0" cy="0"/>
+            <circle r="19" cx="0" cy="0" fill="url(#gradPortrait)"/>
+          </g>
+          <g class="node" transform="translate(460,425)">
+            <circle class="ring" r="22" cx="0" cy="0"/>
+            <circle r="19" cx="0" cy="0" fill="url(#gradPortrait3)"/>
+          </g>
+          <g class="node" transform="translate(580,425)">
+            <circle class="ring" r="22" cx="0" cy="0"/>
+            <circle r="19" cx="0" cy="0" fill="url(#gradPortrait2)"/>
+          </g>
+
+          <!-- 「家族を追加」点線ノード -->
+          <g class="node" transform="translate(720,425)">
+            <circle class="add-node" r="22" cx="0" cy="0"/>
+            <path class="plus-x" d="M-7 0 H7 M0 -7 V7" stroke-width="1.4"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="tree-foot">
+        <div class="status">
+          <span class="live-dot"></span>
+          いま 3人が編集中（綾子さん、健一さん、恵理さん）
+        </div>
+        <div class="tree-paginate">
+          <span class="active"></span>
+          <span></span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ─── 機能カード4分割 ─── -->
+    <section class="feature-grid">
+
+      <a href="memories.html" class="feature">
+        <h3>写真や証言を残す</h3>
+        <p>思い出の写真や<br/>エピソードを<br/>自由に追加できます</p>
+        <!-- カエルの線画 -->
+        <svg class="illust" viewBox="0 0 80 80" fill="none" stroke="#b8975a" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 46c0-12 8-22 18-22s18 10 18 22-8 16-18 16-18-4-18-16z"/>
+          <circle cx="32" cy="34" r="4" fill="#faf8f4"/><circle cx="32" cy="35" r="1.2" fill="#1a2340" stroke="none"/>
+          <circle cx="48" cy="34" r="4" fill="#faf8f4"/><circle cx="48" cy="35" r="1.2" fill="#1a2340" stroke="none"/>
+          <path d="M34 46c2 2 8 2 10 0"/>
+          <path d="M14 56l8-4M66 56l-8-4"/>
+          <rect x="36" y="60" width="14" height="10" rx="1"/>
+          <path d="M40 64v6M46 64v6M38 67h10"/>
+        </svg>
+        <span class="plus">+</span>
+      </a>
+
+      <a href="profile.html" class="feature">
+        <h3>自分のページを編集</h3>
+        <p>プロフィールや想いを<br/>自分の言葉で<br/>残しましょう</p>
+        <!-- ウサギの線画 -->
+        <svg class="illust" viewBox="0 0 80 80" fill="none" stroke="#b8975a" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="34" cy="50" rx="14" ry="16"/>
+          <path d="M26 36c-2-10 0-22 4-22s6 14 4 22"/>
+          <path d="M42 36c2-10 0-22-4-22s-6 14-4 22"/>
+          <circle cx="30" cy="48" r="1.5" fill="#1a2340" stroke="none"/>
+          <circle cx="38" cy="48" r="1.5" fill="#1a2340" stroke="none"/>
+          <path d="M32 54c1 1 3 1 4 0"/>
+          <path d="M48 56l16-10M52 58l14-4"/>
+          <path d="M64 44l4 2 -2 4"/>
+        </svg>
+        <span class="plus">+</span>
+      </a>
+
+      <a href="notifications.html" class="feature">
+        <h3>命日・誕生日をお知らせ</h3>
+        <p>大切な日をみんなで<br/>共有し、想いを<br/>届け合いましょう</p>
+        <!-- 動物（小鳥）の線画 -->
+        <svg class="illust" viewBox="0 0 80 80" fill="none" stroke="#b8975a" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 50c0-10 6-16 18-16s20 8 20 18-8 14-18 14-20-6-20-16z"/>
+          <circle cx="28" cy="42" r="1.4" fill="#1a2340" stroke="none"/>
+          <circle cx="36" cy="42" r="1.4" fill="#1a2340" stroke="none"/>
+          <path d="M30 50c2 2 6 2 8 0"/>
+          <path d="M18 30c2-6 8-8 12-6M62 28c-2-6-6-6-10-4"/>
+          <circle cx="55" cy="22" r="2" fill="#b8975a" stroke="none"/>
+          <path d="M55 24v8" stroke-dasharray="2 2"/>
+        </svg>
+        <span class="plus">+</span>
+      </a>
+
+      <a href="book.html" class="feature">
+        <h3>一年に一冊お届け</h3>
+        <p>アップデートした情報を<br/>印刷してブックを<br/>お届けします</p>
+        <!-- キツネ＆本の線画 -->
+        <svg class="illust" viewBox="0 0 80 80" fill="none" stroke="#b8975a" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 52l6-22 8 8 12-2 12 2 8-8 6 22"/>
+          <path d="M20 52c0 10 8 16 20 16s20-6 20-16"/>
+          <circle cx="32" cy="50" r="1.4" fill="#1a2340" stroke="none"/>
+          <circle cx="48" cy="50" r="1.4" fill="#1a2340" stroke="none"/>
+          <path d="M36 58l4 3 4-3"/>
+          <rect x="30" y="62" width="20" height="12" rx="1"/>
+          <path d="M40 62v12"/>
+        </svg>
+        <span class="plus">+</span>
+      </a>
+
+    </section>
+
+  </main>
+
+
+  <!-- ─── 右サイドパネル ─── -->
+  <aside class="aside">
+
+    <!-- お知らせ -->
+    <div class="card">
+      <div class="card-head">
+        <h2>
+          <svg class="ico-mini" viewBox="0 0 24 24" fill="none"><path d="M6 8a6 6 0 0112 0v5l2 3H4l2-3V8zM10 19a2 2 0 004 0" stroke="currentColor" stroke-width="1.3"/></svg>
+          大切なお知らせ
+        </h2>
+        <a href="notifications.html" class="see-all">すべて見る</a>
+      </div>
+
+      <div class="notice-list">
+        <div class="notice">
+          <div class="ic">
+            <!-- ケーキ -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="#c47b73" stroke-width="1.3" stroke-linecap="round"><path d="M5 21h14V11H5z"/><path d="M3 21h18M8 11V8m4 3V8m4 3V8M8 6v1m4-1v1m4-1v1"/></svg>
+          </div>
+          <div class="body">
+            <div class="name">山田 花子 さんの誕生日</div>
+            <div class="date">5月15日</div>
+          </div>
+          <div class="count">あと <strong>0</strong> 日</div>
+        </div>
+
+        <div class="notice">
+          <div class="ic">
+            <!-- 花 -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="#8a9d6e" stroke-width="1.3" stroke-linecap="round"><circle cx="12" cy="9" r="3"/><path d="M12 6c0-2-2-3-3-2s-1 4 3 5M12 6c0-2 2-3 3-2s1 4-3 5M12 12c-2 0-3 2-2 3s4 1 5-3M12 12c2 0 3 2 2 3s-4 1-5-3M12 14v7"/></svg>
+          </div>
+          <div class="body">
+            <div class="name">山田 勇一 さんの命日</div>
+            <div class="date">5月20日</div>
+          </div>
+          <div class="count">あと <strong>5</strong> 日</div>
+        </div>
+
+        <div class="notice">
+          <div class="ic">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#c47b73" stroke-width="1.3" stroke-linecap="round"><path d="M5 21h14V11H5z"/><path d="M3 21h18M8 11V8m4 3V8m4 3V8"/></svg>
+          </div>
+          <div class="body">
+            <div class="name">山田 美咲 さんの誕生日</div>
+            <div class="date">5月25日</div>
+          </div>
+          <div class="count">あと <strong>10</strong> 日</div>
+        </div>
+      </div>
+
+      <a href="gifts.html" class="gift-cta">
+        <span>お花やギフトを贈る</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+
+    <!-- みんなの更新 -->
+    <div class="card">
+      <div class="card-head">
+        <h2>
+          <svg class="ico-mini" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.3"/><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.3"/></svg>
+          みんなの更新
+        </h2>
+        <a href="memories.html" class="see-all">すべて見る</a>
+      </div>
+
+      <div class="update">
+        <div class="avatar" style="background:linear-gradient(135deg,#c5a880,#705a3e)"></div>
+        <div>
+          <div class="text">山田 恵理さんが <em style="color:var(--gold);font-style:normal">写真</em> を追加しました</div>
+          <div class="when">2時間前</div>
+        </div>
+        <div class="badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/></svg>
+        </div>
+      </div>
+
+      <div class="update">
+        <div class="avatar" style="background:linear-gradient(135deg,#a08868,#5a4630)"></div>
+        <div>
+          <div class="text">山田 健一さんが <em style="color:var(--gold);font-style:normal">証言</em> を追加しました</div>
+          <div class="when">昨日</div>
+        </div>
+        <div class="badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M7 7c0-1 1-2 2-2h2v6H9c-1 0-2-1-2-2zM13 7c0-1 1-2 2-2h2v6h-2c-1 0-2-1-2-2z"/></svg>
+        </div>
+      </div>
+
+      <div class="update">
+        <div class="avatar" style="background:linear-gradient(135deg,#bea088,#74553a)"></div>
+        <div>
+          <div class="text">山田 太郎さんがプロフィールを更新</div>
+          <div class="when">2日前</div>
+        </div>
+        <div class="badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 20h9M4 20l4-1 11-11-3-3L5 16l-1 4z"/></svg>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- 印刷ブック -->
+    <div class="book-card">
+      <div>
+        <h3>印刷・ブック</h3>
+        <p>1年間の更新をまとめて、<br/>家系図ブックをお届けします。</p>
+        <a href="book.html" class="btn btn-ghost" style="padding:9px 20px;font-size:12px">詳細を見る</a>
+      </div>
+      <div>
+        <svg viewBox="0 0 110 130" width="110" height="130">
+          <defs>
+            <linearGradient id="bk" x1="0" x2="1">
+              <stop offset="0%" stop-color="#1a2340"/>
+              <stop offset="100%" stop-color="#0e1428"/>
+            </linearGradient>
+          </defs>
+          <rect x="8" y="8" width="94" height="116" rx="3" fill="url(#bk)" stroke="#0a0f22"/>
+          <rect x="8" y="8" width="4" height="116" fill="#b8975a"/>
+          <text x="55" y="48" text-anchor="middle" font-family="Cormorant Garamond" font-size="18" fill="#b8975a" letter-spacing="3">Keifu</text>
+          <circle cx="55" cy="80" r="14" fill="none" stroke="rgba(184,151,90,0.5)" stroke-width="0.8"/>
+          <path d="M55 73 v14 M48 80 h14" stroke="rgba(184,151,90,0.5)" stroke-width="0.6"/>
+          <text x="55" y="110" text-anchor="middle" font-family="Cormorant Garamond" font-size="8" fill="rgba(184,151,90,0.5)" letter-spacing="2">VOL · 2026</text>
+        </svg>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+
+<!-- モバイル下部ナビ -->
+<nav class="mobile-nav">
+  <a href="index.html" class="active">
+    <svg class="icw" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></svg>
+    ホーム
+  </a>
+  <a href="tree.html">
+    <svg class="icw" viewBox="0 0 24 24"><path d="M12 4v6m-6 4v6m12-6v6M6 14h12M9 4h6"/></svg>
+    家系図
+  </a>
+  <a href="memories.html">
+    <span class="add">+</span>
+    追加
+  </a>
+  <a href="notifications.html">
+    <svg class="icw" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 8h16M9 13h4"/></svg>
+    カレンダー
+  </a>
+  <a href="profile.html">
+    <svg class="icw" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>
+    メニュー
+  </a>
+</nav>
+
+</body>
+</html>
