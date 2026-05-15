@@ -88,13 +88,17 @@ body::before {
 }
 
 .brand {
-  font-family: var(--font-display);
-  font-size: 36px;
-  font-weight: 400;
-  color: var(--gold);
-  letter-spacing: 0.06em;
-  line-height: 1;
-  padding: 0 8px 4px;
+  padding: 0 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.brand .brand-mark {
+  width: 178px;
+  height: auto;
+  display: block;
+  margin-bottom: 4px;
 }
 
 .brand small {
@@ -103,7 +107,8 @@ body::before {
   font-size: 11px;
   letter-spacing: 0.22em;
   color: rgba(184,151,90,0.65);
-  margin-top: 8px;
+  margin-top: 6px;
+  padding-left: 6px;
   font-weight: 400;
 }
 
@@ -375,6 +380,225 @@ body::before {
 }
 .see-all:hover { color: var(--gold); }
 .see-all::after { content: ' ›'; }
+
+/* ─── エディトリアル要素：縦書きスパイン（右端の章ラベル） ─── */
+.spine-label {
+  position: absolute;
+  top: 28px;
+  right: 0;
+  bottom: 28px;
+  width: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 2;
+}
+.spine-label .v-chapter {
+  writing-mode: vertical-rl;
+  font-family: var(--font-serif);
+  font-size: 13px;
+  letter-spacing: 0.45em;
+  color: var(--text-mid);
+  padding: 24px 0;
+  position: relative;
+}
+.spine-label .v-chapter::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 20px;
+  background: var(--gold);
+}
+.spine-label .v-mark {
+  writing-mode: vertical-rl;
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.45em;
+  color: var(--gold);
+  text-transform: uppercase;
+  padding: 20px 0;
+  position: relative;
+}
+.spine-label .v-mark::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, var(--line-warm));
+}
+
+/* メインカラムを位置決め用に */
+.main { position: relative; }
+
+@media (max-width: 1180px) {
+  .spine-label { display: none; }
+}
+
+/* ─── エディトリアル要素：ページ番号 ─── */
+.page-no {
+  position: absolute;
+  bottom: 22px;
+  left: 44px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--text-faint);
+  pointer-events: none;
+}
+
+/* ─── エディトリアル要素：PLAN風バッジ ─── */
+.editorial-badge {
+  display: inline-block;
+  background: var(--navy);
+  color: #fff;
+  padding: 8px 32px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+/* ─── エディトリアル要素：見出しダッシュ風 ─── */
+.editorial-h {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.editorial-h .em-dash {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--gold);
+  line-height: 1;
+}
+.editorial-h h2 {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--navy);
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+}
+.editorial-h h2 small {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-mid);
+  margin-top: 8px;
+  letter-spacing: 0.06em;
+}
+
+/* ─── エディトリアル要素：キーワード枠 ─── */
+.keywords {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+  max-width: 320px;
+  margin-top: 16px;
+}
+.keywords .kw {
+  text-align: center;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  font-family: var(--font-serif);
+  font-size: 13px;
+  color: var(--navy);
+  letter-spacing: 0.12em;
+  background: var(--paper);
+  transition: all 0.25s;
+  cursor: pointer;
+}
+.keywords .kw:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--warm-white);
+}
+.keywords .kw-label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  background: transparent;
+  border: none;
+  cursor: default;
+  padding-bottom: 4px;
+}
+
+/* ─── エディトリアル要素：家系譜テーブル ─── */
+.lineage-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--paper);
+  font-family: var(--font-serif);
+  font-size: 13px;
+  color: var(--text-dark);
+  letter-spacing: 0.04em;
+}
+.lineage-table th,
+.lineage-table td {
+  border: 1px solid var(--line);
+  padding: 16px 18px;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.9;
+}
+.lineage-table .rel {
+  width: 110px;
+  font-family: var(--font-serif);
+  letter-spacing: 0.18em;
+  color: var(--navy);
+  text-align: center;
+  vertical-align: middle;
+  background: var(--warm-white);
+}
+.lineage-table .nm-cell {
+  width: 220px;
+  background: var(--cream);
+}
+.lineage-table .nm-cell .nm {
+  font-size: 15px;
+  color: var(--navy);
+  letter-spacing: 0.12em;
+  font-weight: 500;
+}
+.lineage-table .nm-cell .parent {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: var(--text-mid);
+  letter-spacing: 0.04em;
+  margin-top: 8px;
+  line-height: 1.7;
+}
+.lineage-table .nm-cell .order {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: var(--text-light);
+  letter-spacing: 0.08em;
+  margin-top: 6px;
+}
+.lineage-table .date-cell {
+  width: 180px;
+  font-family: var(--font-serif);
+  color: var(--text-mid);
+  letter-spacing: 0.06em;
+  font-size: 13px;
+}
+.lineage-table .ev-cell {
+  font-family: var(--font-serif);
+  color: var(--text-dark);
+  letter-spacing: 0.04em;
+}
 
 /* ─── 家系図カード（メインダッシュボード） ─── */
 .tree-card {
