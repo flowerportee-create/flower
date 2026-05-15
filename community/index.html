@@ -102,26 +102,6 @@
     </div>
 
 
-    <!-- ─── HEROビジュアル：家系樹のアートワーク ─── -->
-    <section class="hero-tree">
-      <img class="hero-image" src="img/tree-keifu.jpg" alt="山田家・松永家 家系樹" />
-      <div class="hero-overlay">
-        <div>
-          <div class="hero-eyebrow">Keifu Tree · 家系樹</div>
-        </div>
-        <h1>
-          <span class="accent-line"></span>
-          家族の物語は、一本の樹のように
-        </h1>
-        <div class="hero-foot">
-          <div class="meta">
-            <strong>山田家</strong> × <strong>松永家</strong> ／ 4世代 ・ 32名
-          </div>
-          <div class="romaji">Yamada & Matsunaga Family</div>
-        </div>
-      </div>
-    </section>
-
     <!-- ─── 家系図カード ─── -->
     <section class="tree-card">
       <div class="tree-head">
@@ -345,55 +325,71 @@
     </section>
 
 
-    <!-- 章扉風マーカー（動物が並ぶ） -->
-    <div class="chapter-marker">
-      <div class="ln"></div>
-      <div class="animals">
-        <img src="img/animal-rabbit.svg" alt="" />
-        <img src="img/animal-frog.svg" alt="" />
-        <img src="img/animal-monkey.svg" alt="" />
-        <img src="img/animal-fox.svg" alt="" />
-        <img src="img/animal-tanuki.svg" alt="" />
-      </div>
-      <div class="ln"></div>
-    </div>
-
-    <div class="chapter-marker" style="margin-top: -20px; margin-bottom: 24px;">
-      <div class="label">
-        <span>Family Features</span>
-        <small>家族みんなで使う機能</small>
-      </div>
-    </div>
-
-
     <!-- ─── 機能カード4分割 ─── -->
     <section class="feature-grid">
 
       <a href="memories.html" class="feature">
         <h3>写真や証言を残す</h3>
         <p>思い出の写真や<br/>エピソードを<br/>自由に追加できます</p>
-        <img class="illust" src="img/animal-frog.svg" alt="" />
+        <!-- カエルの線画 -->
+        <svg class="illust" viewBox="0 0 80 80" fill="none" stroke="#b8975a" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 46c0-12 8-22 18-22s18 10 18 22-8 16-18 16-18-4-18-16z"/>
+          <circle cx="32" cy="34" r="4" fill="#faf8f4"/><circle cx="32" cy="35" r="1.2" fill="#1a2340" stroke="none"/>
+          <circle cx="48" cy="34" r="4" fill="#faf8f4"/><circle cx="48" cy="35" r="1.2" fill="#1a2340" stroke="none"/>
+          <path d="M34 46c2 2 8 2 10 0"/>
+          <path d="M14 56l8-4M66 56l-8-4"/>
+          <rect x="36" y="60" width="14" height="10" rx="1"/>
+          <path d="M40 64v6M46 64v6M38 67h10"/>
+        </svg>
         <span class="plus">+</span>
       </a>
 
       <a href="profile.html" class="feature">
         <h3>自分のページを編集</h3>
         <p>プロフィールや想いを<br/>自分の言葉で<br/>残しましょう</p>
-        <img class="illust" src="img/animal-rabbit.svg" alt="" />
+        <!-- ウサギの線画 -->
+        <svg class="illust" viewBox="0 0 80 80" fill="none" stroke="#b8975a" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+          <ellipse cx="34" cy="50" rx="14" ry="16"/>
+          <path d="M26 36c-2-10 0-22 4-22s6 14 4 22"/>
+          <path d="M42 36c2-10 0-22-4-22s-6 14-4 22"/>
+          <circle cx="30" cy="48" r="1.5" fill="#1a2340" stroke="none"/>
+          <circle cx="38" cy="48" r="1.5" fill="#1a2340" stroke="none"/>
+          <path d="M32 54c1 1 3 1 4 0"/>
+          <path d="M48 56l16-10M52 58l14-4"/>
+          <path d="M64 44l4 2 -2 4"/>
+        </svg>
         <span class="plus">+</span>
       </a>
 
       <a href="notifications.html" class="feature">
         <h3>命日・誕生日をお知らせ</h3>
         <p>大切な日をみんなで<br/>共有し、想いを<br/>届け合いましょう</p>
-        <img class="illust" src="img/animal-monkey.svg" alt="" />
+        <!-- 動物（小鳥）の線画 -->
+        <svg class="illust" viewBox="0 0 80 80" fill="none" stroke="#b8975a" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 50c0-10 6-16 18-16s20 8 20 18-8 14-18 14-20-6-20-16z"/>
+          <circle cx="28" cy="42" r="1.4" fill="#1a2340" stroke="none"/>
+          <circle cx="36" cy="42" r="1.4" fill="#1a2340" stroke="none"/>
+          <path d="M30 50c2 2 6 2 8 0"/>
+          <path d="M18 30c2-6 8-8 12-6M62 28c-2-6-6-6-10-4"/>
+          <circle cx="55" cy="22" r="2" fill="#b8975a" stroke="none"/>
+          <path d="M55 24v8" stroke-dasharray="2 2"/>
+        </svg>
         <span class="plus">+</span>
       </a>
 
       <a href="book.html" class="feature">
         <h3>一年に一冊お届け</h3>
         <p>アップデートした情報を<br/>印刷してブックを<br/>お届けします</p>
-        <img class="illust" src="img/animal-fox.svg" alt="" />
+        <!-- キツネ＆本の線画 -->
+        <svg class="illust" viewBox="0 0 80 80" fill="none" stroke="#b8975a" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 52l6-22 8 8 12-2 12 2 8-8 6 22"/>
+          <path d="M20 52c0 10 8 16 20 16s20-6 20-16"/>
+          <circle cx="32" cy="50" r="1.4" fill="#1a2340" stroke="none"/>
+          <circle cx="48" cy="50" r="1.4" fill="#1a2340" stroke="none"/>
+          <path d="M36 58l4 3 4-3"/>
+          <rect x="30" y="62" width="20" height="12" rx="1"/>
+          <path d="M40 62v12"/>
+        </svg>
         <span class="plus">+</span>
       </a>
 
