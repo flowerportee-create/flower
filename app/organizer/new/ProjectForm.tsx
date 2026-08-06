@@ -88,7 +88,7 @@ export default function ProjectForm() {
               name="target_amount"
               type="number"
               min={0}
-              step={100}
+              step={1}
               inputMode="numeric"
               className="input"
               placeholder="30000"
@@ -103,7 +103,7 @@ export default function ProjectForm() {
               name="unit_amount"
               type="number"
               min={0}
-              step={100}
+              step={1}
               inputMode="numeric"
               className="input"
               placeholder="1000"

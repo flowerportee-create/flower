@@ -61,7 +61,7 @@ export default function JoinForm({
           type="number"
           required
           min={1}
-          step={100}
+          step={1}
           inputMode="numeric"
           defaultValue={unitAmount > 0 ? unitAmount : undefined}
           className="input"
