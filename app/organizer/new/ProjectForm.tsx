@@ -1,9 +1,23 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { createProject } from '../actions';
 import type { FormState } from '@/lib/types';
+import FlowerImage from '@/components/FlowerImage';
+import {
+  ARRANGEMENTS,
+  COLOR_THEMES,
+  CUSTOM_AMOUNT_MIN,
+  PURPOSES,
+  UNIT_AMOUNT_OPTIONS,
+  arrangementLabel,
+  colorLabel,
+  defaultArrangement,
+  purposeLabel,
+  tagSizeFor,
+  type ArrangementKind
+} from '@/lib/flower';
 
 const initialState: FormState = { error: null };
 
@@ -18,6 +32,11 @@ function SubmitButton() {
 
 export default function ProjectForm() {
   const [state, formAction] = useActionState(createProject, initialState);
+  const [purpose, setPurpose] = useState<string>(PURPOSES[0].key);
+  const [arrangement, setArrangement] = useState<ArrangementKind>(
+    defaultArrangement(PURPOSES[0].key)
+  );
+  const [colorKey, setColorKey] = useState<string>(COLOR_THEMES[0].key);
 
   return (
     <form action={formAction} className="space-y-6">
@@ -96,25 +115,29 @@ export default function ProjectForm() {
           </div>
           <div>
             <label htmlFor="unit_amount" className="label">
-              一口金額（円）
+              おすすめの一口金額
             </label>
-            <input
-              id="unit_amount"
-              name="unit_amount"
-              type="number"
-              min={0}
-              step={1}
-              inputMode="numeric"
-              className="input"
-              placeholder="1000"
-            />
-            <p className="hint">参加者の入力欄に初期値として表示されます。</p>
+            <select id="unit_amount" name="unit_amount" className="input" defaultValue="10000">
+              {UNIT_AMOUNT_OPTIONS.map((value) => (
+                <option key={value} value={String(value)}>
+                  {value.toLocaleString('ja-JP')} 円（立て札：{tagSizeFor(value).label}）
+                </option>
+              ))}
+            </select>
+            <p className="hint">参加ページで最初に選ばれている金額になります。</p>
           </div>
         </div>
 
-        <p className="rounded-xl bg-ivory/60 px-3 py-2 text-xs leading-relaxed text-muted">
-          オンライン決済機能はありません。集金は幹事の皆さまでお願いいたします。
-        </p>
+        <div className="space-y-2 rounded-xl bg-ivory/60 px-4 py-3">
+          <p className="text-xs leading-relaxed text-muted">
+            参加者は Square のカード決済でお支払いいただきます。参加金額は
+            {UNIT_AMOUNT_OPTIONS.map((v) => v.toLocaleString('ja-JP')).join(' / ')} 円、
+            および {CUSTOM_AMOUNT_MIN.toLocaleString('ja-JP')} 円以上の自由入力から選べます。
+          </p>
+          <p className="text-xs leading-relaxed text-muted">
+            金額が大きいほど、立て札のお名前を大きくお入れします。
+          </p>
+        </div>
       </section>
 
       <section className="card space-y-4">
@@ -122,29 +145,94 @@ export default function ProjectForm() {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label htmlFor="flower_type" className="label">
-              花の種類
+            <label htmlFor="purpose" className="label">
+              用途
             </label>
-            <input
-              id="flower_type"
-              name="flower_type"
-              maxLength={80}
+            <select
+              id="purpose"
+              name="purpose"
               className="input"
-              placeholder="胡蝶蘭 / スタンド花 など"
-            />
+              value={purpose}
+              onChange={(e) => {
+                setPurpose(e.target.value);
+                // 用途を変えたら、その用途の定番の形に合わせる
+                setArrangement(defaultArrangement(e.target.value));
+              }}
+            >
+              {PURPOSES.map((p) => (
+                <option key={p.key} value={p.key}>
+                  {p.label}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
-            <label htmlFor="color_preference" className="label">
-              希望カラー
+            <label htmlFor="arrangement" className="label">
+              花の形
             </label>
-            <input
-              id="color_preference"
-              name="color_preference"
-              maxLength={80}
+            <select
+              id="arrangement"
+              name="arrangement"
               className="input"
-              placeholder="白・グリーン系"
+              value={arrangement}
+              onChange={(e) => setArrangement(e.target.value as ArrangementKind)}
+            >
+              {ARRANGEMENTS.map((a) => (
+                <option key={a.key} value={a.key}>
+                  {a.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label htmlFor="color_preference" className="label">
+            希望カラー
+          </label>
+          <select
+            id="color_preference"
+            name="color_preference"
+            className="input"
+            value={colorKey}
+            onChange={(e) => setColorKey(e.target.value)}
+          >
+            {COLOR_THEMES.map((c) => (
+              <option key={c.key} value={c.key}>
+                {c.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="rounded-2xl border border-ivory bg-white p-4">
+          <p className="text-sm text-ink">仕上がりのイメージ</p>
+          <div className="mx-auto mt-3 max-w-[240px]">
+            <FlowerImage
+              colorKey={colorKey}
+              arrangement={arrangement}
+              alt={`${purposeLabel(purpose)}向け、${colorLabel(colorKey)}の${arrangementLabel(
+                arrangement
+              )}のイメージ`}
             />
           </div>
+          <p className="hint mt-2 text-center">
+            イメージです。実際のお花の種類・本数はお届け時期により変わります。
+          </p>
+        </div>
+
+        <div>
+          <label htmlFor="flower_type" className="label">
+            花の種類（補足）
+          </label>
+          <input
+            id="flower_type"
+            name="flower_type"
+            maxLength={80}
+            className="input"
+            placeholder="胡蝶蘭 3本立 / スタンド花 1段 など"
+          />
+          <p className="hint">ご希望が決まっていれば記入してください。空欄でも構いません。</p>
         </div>
 
         <div>

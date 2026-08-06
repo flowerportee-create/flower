@@ -66,6 +66,8 @@ create table if not exists public.projects (
   entry_deadline date not null,
   target_amount integer not null default 0 check (target_amount >= 0),
   unit_amount integer not null default 0 check (unit_amount >= 0),
+  purpose text not null default 'other',
+  arrangement text not null default 'stand',
   flower_type text not null default '',
   color_preference text not null default '',
   tag_name text not null default '',
@@ -101,6 +103,8 @@ create trigger projects_touch_updated_at
 -- =========================================================
 -- 参加者
 -- =========================================================
+-- 決済が完了して初めて「参加確定」とみなす。
+-- payment_status = 'pending' の行は Square の決済ページへ送る前の仮登録。
 create table if not exists public.participants (
   id uuid primary key default gen_random_uuid(),
   project_id uuid not null references public.projects (id) on delete cascade,
@@ -109,10 +113,24 @@ create table if not exists public.participants (
   message text not null default '',
   include_in_tag boolean not null default true,
   is_anonymous boolean not null default false,
+
+  payment_status text not null default 'pending'
+    check (payment_status in ('pending', 'paid', 'canceled')),
+  -- 戻り先URLで参加者を特定するための自前のトークン（Square の値には依存しない）
+  payment_token text not null unique default encode(gen_random_bytes(16), 'hex'),
+  square_payment_link_id text,
+  square_order_id text,
+  square_payment_id text,
+  paid_at timestamptz,
+
   created_at timestamptz not null default now()
 );
 
 create index if not exists participants_project_idx on public.participants (project_id);
+create index if not exists participants_paid_idx
+  on public.participants (project_id, payment_status);
+create unique index if not exists participants_square_order_idx
+  on public.participants (square_order_id) where square_order_id is not null;
 
 -- =========================================================
 -- 完成写真（複数枚）
@@ -128,6 +146,24 @@ create table if not exists public.project_photos (
 create index if not exists project_photos_project_idx on public.project_photos (project_id);
 
 -- =========================================================
+-- 見本写真（用途 × 色でお客さまに見せるイメージ）
+-- 登録が無い組み合わせは、アプリ側で自動生成のイラストを表示する。
+-- =========================================================
+create table if not exists public.flower_samples (
+  id uuid primary key default gen_random_uuid(),
+  purpose text not null,
+  color_key text not null,
+  arrangement text not null default 'stand',
+  storage_path text not null,
+  public_url text not null,
+  caption text not null default '',
+  created_at timestamptz not null default now()
+);
+
+create index if not exists flower_samples_lookup_idx
+  on public.flower_samples (purpose, color_key, arrangement);
+
+-- =========================================================
 -- RLS
 -- 参加者向けの公開ページはサーバー側の service role 経由で読み書きするため、
 -- ここでは認証ユーザー（幹事・花屋）のみを対象にポリシーを定義します。
@@ -136,6 +172,7 @@ alter table public.profiles enable row level security;
 alter table public.projects enable row level security;
 alter table public.participants enable row level security;
 alter table public.project_photos enable row level security;
+alter table public.flower_samples enable row level security;
 
 -- profiles
 drop policy if exists "profiles_select_own" on public.profiles;
@@ -187,6 +224,7 @@ begin
       or new.entry_deadline is distinct from old.entry_deadline
       or new.target_amount is distinct from old.target_amount
       or new.unit_amount is distinct from old.unit_amount
+      or new.purpose is distinct from old.purpose
       or new.tag_name is distinct from old.tag_name
       or new.message is distinct from old.message
       or new.status is distinct from old.status
@@ -242,6 +280,19 @@ create policy "project_photos_insert_florist" on public.project_photos
 
 drop policy if exists "project_photos_delete_florist" on public.project_photos;
 create policy "project_photos_delete_florist" on public.project_photos
+  for delete using (public.is_florist());
+
+-- flower_samples（見本写真は幹事も参照するため、ログイン済みなら読める）
+drop policy if exists "flower_samples_select" on public.flower_samples;
+create policy "flower_samples_select" on public.flower_samples
+  for select using (auth.uid() is not null);
+
+drop policy if exists "flower_samples_write_florist" on public.flower_samples;
+create policy "flower_samples_write_florist" on public.flower_samples
+  for insert with check (public.is_florist());
+
+drop policy if exists "flower_samples_delete_florist" on public.flower_samples;
+create policy "flower_samples_delete_florist" on public.flower_samples
   for delete using (public.is_florist());
 
 -- =========================================================

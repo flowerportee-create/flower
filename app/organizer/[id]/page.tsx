@@ -6,6 +6,7 @@ import ProjectSummary from '@/components/ProjectSummary';
 import ShareLink from '@/components/ShareLink';
 import SiteHeader from '@/components/SiteHeader';
 import { EntryBadge, ProductionBadge } from '@/components/StatusBadge';
+import TagPreview from '@/components/TagPreview';
 import { createClient } from '@/lib/supabase/server';
 import type { Participant, Project } from '@/lib/types';
 import { formatDateTime, formatYen, sumAmount } from '@/lib/utils';
@@ -44,11 +45,17 @@ export default async function OrganizerProjectPage({
     .eq('project_id', project.id)
     .order('created_at', { ascending: true });
 
-  const participants = (participantRows ?? []) as Participant[];
+  const allRows = (participantRows ?? []) as Participant[];
+  // 決済が完了した参加者だけを「参加確定」として集計する
+  const participants = allRows.filter((p) => p.payment_status === 'paid');
+  // 決済ページで離脱した仮登録は、決済中の件数として控えめに知らせる
+  const pendingCount = allRows.filter((p) => p.payment_status === 'pending').length;
   const total = sumAmount(participants);
-  const tagNames = participants
+  const tagEntries = participants
     .filter((p) => p.include_in_tag && !p.is_anonymous)
-    .map((p) => p.name);
+    .map((p) => ({ name: p.name, amount: p.amount }))
+    .sort((a, b) => b.amount - a.amount);
+  const tagNames = tagEntries.map((p) => p.name);
 
   return (
     <>
@@ -82,6 +89,10 @@ export default async function OrganizerProjectPage({
 
         <section className="card mt-4">
           <ProgressBar current={total} target={project.target_amount} />
+          <p className="hint mt-3">
+            カード決済が完了した方のみを集計しています。
+            {pendingCount > 0 && `（決済手続き中 ${pendingCount} 件）`}
+          </p>
         </section>
 
         <section className="mt-4 space-y-3">
@@ -130,6 +141,29 @@ export default async function OrganizerProjectPage({
             </div>
           )}
         </section>
+
+        {tagEntries.length > 0 && (
+          <section className="card mt-4">
+            <h2 className="font-serif text-lg text-ink">立て札のイメージ</h2>
+            <p className="hint mt-1">
+              ご参加金額が大きい方から順に、お名前を大きくお入れします。
+            </p>
+            <div className="mx-auto mt-4 max-w-[300px]">
+              <TagPreview
+                headline={project.tag_name ? undefined : '祝'}
+                entries={tagEntries.slice(0, 10)}
+              />
+            </div>
+            {tagEntries.length > 10 && (
+              <p className="hint mt-2 text-center">
+                上位10名を表示しています（掲載希望 {tagEntries.length} 名）。
+              </p>
+            )}
+            <p className="hint mt-2 text-center">
+              実際の書体・配置は花屋がお仕立てします。
+            </p>
+          </section>
+        )}
 
         <section className="card mt-4">
           <h2 className="font-serif text-lg text-ink">メッセージ一覧</h2>

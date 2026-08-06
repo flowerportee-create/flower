@@ -28,6 +28,8 @@ export type Project = {
   entry_deadline: string;
   target_amount: number;
   unit_amount: number;
+  purpose: string;
+  arrangement: string;
   flower_type: string;
   color_preference: string;
   tag_name: string;
@@ -41,6 +43,8 @@ export type Project = {
   updated_at: string;
 }
 
+export type PaymentStatus = 'pending' | 'paid' | 'canceled';
+
 export type Participant = {
   id: string;
   project_id: string;
@@ -49,6 +53,23 @@ export type Participant = {
   message: string;
   include_in_tag: boolean;
   is_anonymous: boolean;
+  payment_status: PaymentStatus;
+  payment_token: string;
+  square_payment_link_id: string | null;
+  square_order_id: string | null;
+  square_payment_id: string | null;
+  paid_at: string | null;
+  created_at: string;
+}
+
+export type FlowerSample = {
+  id: string;
+  purpose: string;
+  color_key: string;
+  arrangement: string;
+  storage_path: string;
+  public_url: string;
+  caption: string;
   created_at: string;
 }
 
@@ -66,7 +87,26 @@ export type ProjectInsert = Omit<
 > &
   Partial<Pick<Project, 'share_token' | 'report_token'>>;
 
-export type ParticipantInsert = Omit<Participant, 'id' | 'created_at'>;
+export type ParticipantInsert = Omit<
+  Participant,
+  | 'id'
+  | 'created_at'
+  | 'payment_token'
+  | 'square_payment_link_id'
+  | 'square_order_id'
+  | 'square_payment_id'
+  | 'paid_at'
+> &
+  Partial<
+    Pick<
+      Participant,
+      | 'payment_token'
+      | 'square_payment_link_id'
+      | 'square_order_id'
+      | 'square_payment_id'
+      | 'paid_at'
+    >
+  >;
 
 export interface ActionResult {
   error: string | null;
@@ -108,6 +148,12 @@ export interface Database {
         Row: ProjectPhoto;
         Insert: Omit<ProjectPhoto, 'id' | 'created_at'>;
         Update: Partial<ProjectPhoto>;
+        Relationships: [];
+      };
+      flower_samples: {
+        Row: FlowerSample;
+        Insert: Omit<FlowerSample, 'id' | 'created_at'>;
+        Update: Partial<FlowerSample>;
         Relationships: [];
       };
     };

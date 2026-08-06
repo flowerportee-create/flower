@@ -2,9 +2,16 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import ProgressBar from '@/components/ProgressBar';
 import ProjectSummary from '@/components/ProjectSummary';
+import FlowerImage from '@/components/FlowerImage';
 import { createAdminClient } from '@/lib/supabase/admin';
-import type { Participant, Project } from '@/lib/types';
+import type { FlowerSample, Participant, Project } from '@/lib/types';
 import { displayName, formatDate, formatYen, isDeadlinePassed, sumAmount } from '@/lib/utils';
+import {
+  colorLabel,
+  defaultArrangement,
+  isArrangementKind,
+  purposeLabel
+} from '@/lib/flower';
 import JoinForm from './JoinForm';
 
 export const dynamic = 'force-dynamic';
@@ -35,14 +42,27 @@ export default async function JoinPage({ params }: { params: Promise<{ token: st
   if (!projectRow) notFound();
   const project = projectRow as Project;
 
+  // 決済が完了した参加者のみを表示・集計の対象にする
   const { data: participantRows } = await supabase
     .from('participants')
     .select('*')
     .eq('project_id', project.id)
+    .eq('payment_status', 'paid')
     .order('created_at', { ascending: true });
 
   const participants = (participantRows ?? []) as Participant[];
   const total = sumAmount(participants);
+
+  // 花屋が見本写真を登録していれば、自動生成のイラストより優先して見せる
+  const { data: sampleRow } = await supabase
+    .from('flower_samples')
+    .select('*')
+    .eq('purpose', project.purpose)
+    .eq('color_key', project.color_preference)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+  const sample = (sampleRow ?? null) as FlowerSample | null;
   const closed = project.status === 'closed' || isDeadlinePassed(project.entry_deadline);
   const reportReady =
     project.production_status === 'completed' || project.production_status === 'delivered';
@@ -74,7 +94,26 @@ export default async function JoinPage({ params }: { params: Promise<{ token: st
 
         <section className="card">
           <h2 className="font-serif text-lg text-ink">お花の内容</h2>
-          <div className="mt-2">
+          <div className="mt-4">
+            <FlowerImage
+              colorKey={project.color_preference}
+              arrangement={
+                isArrangementKind(project.arrangement)
+                  ? project.arrangement
+                  : defaultArrangement(project.purpose)
+              }
+              photoUrl={sample?.public_url ?? null}
+              alt={`${purposeLabel(project.purpose)}向け、${
+                colorLabel(project.color_preference) || project.color_preference
+              }のお花のイメージ`}
+            />
+            <p className="hint mt-2 text-center">
+              {sample
+                ? sample.caption || 'これまでのお仕立て例です。'
+                : 'イメージです。実際のお花の種類・本数はお届け時期により変わります。'}
+            </p>
+          </div>
+          <div className="mt-4">
             <ProjectSummary project={project} />
           </div>
         </section>
@@ -100,10 +139,17 @@ export default async function JoinPage({ params }: { params: Promise<{ token: st
           ) : (
             <>
               <p className="mt-1 text-sm leading-relaxed text-muted">
-                ログインは不要です。集金方法は幹事の方からのご案内をご確認ください。
+                ログインは不要です。お支払いはカード決済のみとなります。
               </p>
               <div className="mt-5">
-                <JoinForm token={token} unitAmount={project.unit_amount} />
+                <JoinForm
+                  token={token}
+                  unitAmount={project.unit_amount}
+                  tagName={project.tag_name}
+                  existingNames={participants
+                    .filter((p) => p.include_in_tag && !p.is_anonymous)
+                    .map((p) => ({ name: p.name, amount: p.amount }))}
+                />
               </div>
             </>
           )}
@@ -126,9 +172,9 @@ export default async function JoinPage({ params }: { params: Promise<{ token: st
         </section>
 
         <p className="px-2 text-center text-xs leading-relaxed text-muted">
-          本サービスにオンライン決済機能はありません。
+          お支払いは Square の決済ページで行います。
           <br />
-          お支払い方法は幹事の方のご案内に従ってください。
+          カード情報が当サイトに保存されることはありません。
         </p>
         {project.target_amount > 0 && (
           <p className="text-center text-xs text-muted">

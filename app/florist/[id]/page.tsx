@@ -6,9 +6,18 @@ import ProjectSummary from '@/components/ProjectSummary';
 import ShareLink from '@/components/ShareLink';
 import SiteHeader from '@/components/SiteHeader';
 import { EntryBadge } from '@/components/StatusBadge';
+import TagPreview from '@/components/TagPreview';
+import FlowerImage from '@/components/FlowerImage';
 import { createClient } from '@/lib/supabase/server';
 import type { Participant, Project, ProjectPhoto } from '@/lib/types';
 import { formatYen, sumAmount } from '@/lib/utils';
+import {
+  colorLabel,
+  defaultArrangement,
+  isArrangementKind,
+  purposeLabel,
+  tagSizeFor
+} from '@/lib/flower';
 import CommentEditor from './CommentEditor';
 import PhotoManager from './PhotoManager';
 import StatusSelect from './StatusSelect';
@@ -49,6 +58,7 @@ export default async function FloristProjectPage({
     .from('participants')
     .select('*')
     .eq('project_id', project.id)
+    .eq('payment_status', 'paid')
     .order('created_at', { ascending: true });
 
   const participants = (participantRows ?? []) as Participant[];
@@ -62,9 +72,11 @@ export default async function FloristProjectPage({
 
   const photos = (photoRows ?? []) as ProjectPhoto[];
 
-  const tagNames = participants
+  // 立て札は金額の大きい順。名前の大きさもこの順で変わる。
+  const tagEntries = participants
     .filter((p) => p.include_in_tag && !p.is_anonymous)
-    .map((p) => p.name);
+    .map((p) => ({ name: p.name, amount: p.amount }))
+    .sort((a, b) => b.amount - a.amount);
 
   return (
     <>
@@ -101,11 +113,49 @@ export default async function FloristProjectPage({
           </div>
         </section>
 
-        {tagNames.length > 0 && (
+        <section className="card mt-4">
+          <h2 className="font-serif text-lg text-ink">ご希望のイメージ</h2>
+          <div className="mx-auto mt-4 max-w-[260px]">
+            <FlowerImage
+              colorKey={project.color_preference}
+              arrangement={
+                isArrangementKind(project.arrangement)
+                  ? project.arrangement
+                  : defaultArrangement(project.purpose)
+              }
+              alt={`${purposeLabel(project.purpose)}向け、${
+                colorLabel(project.color_preference) || project.color_preference
+              }のイメージ`}
+            />
+          </div>
+          <p className="hint mt-2 text-center">
+            参加ページで参加者にお見せしているイメージです。
+          </p>
+        </section>
+
+        {tagEntries.length > 0 && (
           <section className="card mt-4">
-            <h2 className="font-serif text-lg text-ink">札名への掲載希望者</h2>
-            <p className="mt-2 text-sm leading-relaxed text-ink">{tagNames.join('、')}</p>
-            <p className="hint">連名の札をご希望の場合の参考としてご確認ください。</p>
+            <h2 className="font-serif text-lg text-ink">立て札のご指定</h2>
+            <p className="hint mt-1">
+              ご参加金額の大きい方から順に、お名前を大きくお入れします。
+            </p>
+            <div className="mx-auto mt-4 max-w-[300px]">
+              <TagPreview
+                headline={project.tag_name ? undefined : '祝'}
+                entries={tagEntries.slice(0, 10)}
+              />
+            </div>
+            <ul className="mt-4 divide-y divide-ivory text-sm">
+              {tagEntries.map((entry) => (
+                <li key={entry.name} className="flex justify-between gap-3 py-2">
+                  <span className="text-ink">{entry.name}</span>
+                  <span className="whitespace-nowrap text-muted">
+                    {formatYen(entry.amount)}・{tagSizeFor(entry.amount).label}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <p className="hint mt-3">連名の札をご希望の場合の参考としてご確認ください。</p>
           </section>
         )}
 

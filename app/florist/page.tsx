@@ -47,7 +47,10 @@ export default async function FloristHomePage() {
 
   const projects = (projectRows ?? []) as Project[];
 
-  const { data: participantRows } = await supabase.from('participants').select('*');
+  const { data: participantRows } = await supabase
+    .from('participants')
+    .select('*')
+    .eq('payment_status', 'paid');
   const participants = (participantRows ?? []) as Participant[];
 
   const todayJst = todayInJst();
@@ -58,8 +61,15 @@ export default async function FloristHomePage() {
     <>
       <SiteHeader />
       <main className="container-app py-10">
-        <h1 className="font-serif text-2xl text-ink">ご注文一覧</h1>
-        <p className="mt-2 text-sm text-muted">お届け日の近い順に表示しています。</p>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h1 className="font-serif text-2xl text-ink">ご注文一覧</h1>
+            <p className="mt-2 text-sm text-muted">お届け日の近い順に表示しています。</p>
+          </div>
+          <Link href="/florist/samples" className="btn-secondary text-sm">
+            見本写真の管理
+          </Link>
+        </div>
 
         <Section title="これからお届け" projects={upcoming} participants={participants} />
         <Section title="お届け済み・過去" projects={past} participants={participants} />

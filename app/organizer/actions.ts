@@ -4,6 +4,13 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import type { FormState } from '@/lib/types';
+import {
+  COLOR_THEMES,
+  defaultArrangement,
+  isArrangementKind,
+  isColorKey,
+  isPurposeKey
+} from '@/lib/flower';
 
 function text(formData: FormData, key: string, max: number): string {
   return String(formData.get(key) ?? '')
@@ -44,6 +51,18 @@ export async function createProject(
     return { error: '参加締切はお届け希望日より前に設定してください。' };
   }
 
+  // 選択式の項目は、想定外の値が入らないよう既知のキーに丸める
+  const purposeRaw = text(formData, 'purpose', 40);
+  const purposeValue = isPurposeKey(purposeRaw) ? purposeRaw : 'other';
+
+  const colorRaw = text(formData, 'color_preference', 40);
+  const colorValue = isColorKey(colorRaw) ? colorRaw : COLOR_THEMES[0].key;
+
+  const arrangementRaw = text(formData, 'arrangement', 40);
+  const arrangementValue = isArrangementKind(arrangementRaw)
+    ? arrangementRaw
+    : defaultArrangement(purposeValue);
+
   const { data, error } = await supabase
     .from('projects')
     .insert({
@@ -55,8 +74,10 @@ export async function createProject(
       entry_deadline: entryDeadline,
       target_amount: amount(formData, 'target_amount'),
       unit_amount: amount(formData, 'unit_amount'),
+      purpose: purposeValue,
+      arrangement: arrangementValue,
       flower_type: text(formData, 'flower_type', 80),
-      color_preference: text(formData, 'color_preference', 80),
+      color_preference: colorValue,
       tag_name: text(formData, 'tag_name', 120),
       message: text(formData, 'message', 500),
       note: text(formData, 'note', 500),

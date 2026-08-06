@@ -36,6 +36,7 @@ export default async function OrganizerHomePage() {
   const { data: participantRows } = await supabase
     .from('participants')
     .select('*')
+    .eq('payment_status', 'paid')
     .in('project_id', projects.length > 0 ? projects.map((p) => p.id) : ['00000000-0000-0000-0000-000000000000']);
 
   const participants = (participantRows ?? []) as Participant[];

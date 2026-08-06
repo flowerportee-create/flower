@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import type { Participant, Project } from '@/lib/types';
 import { buildCsv, formatDateTime, safeFileName, sumAmount } from '@/lib/utils';
+import { tagSizeFor } from '@/lib/flower';
 
 export const dynamic = 'force-dynamic';
 
@@ -35,19 +36,31 @@ export async function GET(
     .from('participants')
     .select('*')
     .eq('project_id', project.id)
+    .eq('payment_status', 'paid')
     .order('created_at', { ascending: true });
 
   const participants = (participantRows ?? []) as Participant[];
 
   const rows: (string | number)[][] = [
-    ['お名前', '参加金額', '札名掲載', '匿名表示', 'メッセージ', '登録日時'],
+    [
+      'お名前',
+      '参加金額',
+      '立て札の大きさ',
+      '札名掲載',
+      '匿名表示',
+      'メッセージ',
+      '入金日時',
+      'Square決済ID'
+    ],
     ...participants.map((p) => [
       p.name,
       p.amount,
+      tagSizeFor(p.amount).label,
       p.include_in_tag ? '希望する' : '希望しない',
       p.is_anonymous ? 'はい' : 'いいえ',
       p.message,
-      formatDateTime(p.created_at)
+      p.paid_at ? formatDateTime(p.paid_at) : formatDateTime(p.created_at),
+      p.square_payment_id ?? ''
     ]),
     [],
     ['合計人数', participants.length],

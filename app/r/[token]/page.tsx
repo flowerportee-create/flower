@@ -44,6 +44,7 @@ export default async function ReportPage({ params }: { params: Promise<{ token: 
     .from('participants')
     .select('*')
     .eq('project_id', project.id)
+    .eq('payment_status', 'paid')
     .order('created_at', { ascending: true });
 
   const participants = (participantRows ?? []) as Participant[];
