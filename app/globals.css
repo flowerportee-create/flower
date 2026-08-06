@@ -1,0 +1,87 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+  }
+
+  h1, h2, h3 {
+    @apply font-serif;
+  }
+
+  /* iOS でのフォーカス時ズームを防ぐ */
+  input, select, textarea {
+    font-size: 16px;
+  }
+}
+
+@layer components {
+  .container-app {
+    @apply mx-auto w-full max-w-3xl px-5 sm:px-6;
+  }
+
+  .card {
+    @apply rounded-2xl border border-ivory bg-white p-5 shadow-soft sm:p-6;
+  }
+
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-ink;
+  }
+
+  .hint {
+    @apply mt-1 text-xs text-muted;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-ivory bg-white px-3.5 py-2.5 text-ink
+           placeholder:text-muted/60 outline-none transition
+           focus:border-moss focus:ring-2 focus:ring-moss/20;
+  }
+
+  .textarea {
+    @apply input min-h-[96px] resize-y leading-relaxed;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5
+           text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply btn bg-ink text-white hover:bg-ink/85;
+  }
+
+  .btn-secondary {
+    @apply btn border border-ivory bg-white text-ink hover:bg-ivory/60;
+  }
+
+  .btn-ghost {
+    @apply btn text-muted hover:text-ink;
+  }
+
+  .badge {
+    @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-medium;
+  }
+
+  .stat {
+    @apply rounded-2xl border border-ivory bg-white px-4 py-4 text-center;
+  }
+
+  .stat-value {
+    @apply font-serif text-2xl text-ink sm:text-3xl;
+  }
+
+  .stat-label {
+    @apply mt-1 text-xs text-muted;
+  }
+
+  .divider {
+    @apply my-6 h-px w-full bg-ivory;
+  }
+}
