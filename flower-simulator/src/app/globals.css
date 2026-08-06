@@ -1,0 +1,140 @@
+@import 'tailwindcss';
+
+/* =============================================================================
+ * ブランドカラー・フォントは src/config/shop.ts から
+ * app/layout.tsx 経由でここに流し込まれます（下の値は読み込み前の初期値）。
+ * 色を変えたいときは shop.ts を編集してください。
+ * ========================================================================== */
+:root {
+  --brand-primary: #6b7f63;
+  --brand-primary-foreground: #ffffff;
+  --brand-accent: #b08a64;
+  --brand-surface: #faf8f5;
+  --brand-text: #2e2a26;
+  --brand-muted: #7a736c;
+  --brand-border: #e5dfd7;
+  --font-base: system-ui, sans-serif;
+  --font-heading: serif;
+}
+
+@theme inline {
+  --color-brand: var(--brand-primary);
+  --color-brand-fg: var(--brand-primary-foreground);
+  --color-accent: var(--brand-accent);
+  --color-surface: var(--brand-surface);
+  --color-ink: var(--brand-text);
+  --color-muted: var(--brand-muted);
+  --color-line: var(--brand-border);
+  --font-sans: var(--font-base);
+  --font-heading: var(--font-heading);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: var(--brand-text);
+    font-family: var(--font-base);
+    line-height: 1.8;
+    /* iOS で入力欄をタップしたときの拡大を防ぎます */
+    font-size: 16px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-heading);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+  }
+
+  /* キーボード操作時のフォーカスを分かりやすく表示します（アクセシビリティ） */
+  :focus-visible {
+    outline: 2px solid var(--brand-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* アニメーションを減らす設定にしている方には動きを止めます */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* 選択カードなどの控えめなフェードイン */
+  .animate-fade-in {
+    animation: fade-in 0.25s ease-out both;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* =============================================================================
+ * 印刷用スタイル（ブラウザの「印刷」からPDF保存できます）
+ * .no-print を付けた要素は印刷されません。
+ * ========================================================================== */
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm 12mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    font-size: 10.5pt;
+    line-height: 1.6;
+  }
+
+  /* 操作用ボタン・プログレスバー・ナビゲーションなどを非表示にします */
+  .no-print,
+  header.site-header,
+  footer.site-footer,
+  nav {
+    display: none !important;
+  }
+
+  .print-block {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .print-page-break {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  /* 印刷時は装飾を最小限にします */
+  .print-plain {
+    background: #ffffff !important;
+    border-color: #cccccc !important;
+    box-shadow: none !important;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+}
