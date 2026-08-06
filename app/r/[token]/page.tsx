@@ -1,5 +1,4 @@
 import { notFound } from 'next/navigation';
-import MessageList from '@/components/MessageList';
 import { createAdminClient } from '@/lib/supabase/admin';
 import type { Participant, Project, ProjectPhoto } from '@/lib/types';
 import { displayName, formatDate } from '@/lib/utils';
@@ -122,13 +121,6 @@ export default async function ReportPage({ params }: { params: Promise<{ token: 
               ))}
             </ul>
           )}
-        </section>
-
-        <section className="card">
-          <h2 className="font-serif text-lg text-ink">皆さまからのメッセージ</h2>
-          <div className="mt-3">
-            <MessageList participants={participants} />
-          </div>
         </section>
 
         <p className="pt-4 text-center text-xs text-muted">ハナタバ — お祝い花の取りまとめ</p>

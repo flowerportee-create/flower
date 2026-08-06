@@ -1,15 +1,14 @@
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
-import MessageList from '@/components/MessageList';
 import ProgressBar from '@/components/ProgressBar';
 import ProjectSummary from '@/components/ProjectSummary';
 import ShareLink from '@/components/ShareLink';
 import SiteHeader from '@/components/SiteHeader';
 import { EntryBadge, ProductionBadge } from '@/components/StatusBadge';
-import TagPreview from '@/components/TagPreview';
 import { createClient } from '@/lib/supabase/server';
 import type { Participant, Project } from '@/lib/types';
 import { formatDateTime, formatYen, sumAmount } from '@/lib/utils';
+import { tagLine, tagSizeFor } from '@/lib/flower';
 import EntryToggle from './EntryToggle';
 import ParticipantRow from './ParticipantRow';
 import CsvButton from './CsvButton';
@@ -51,11 +50,11 @@ export default async function OrganizerProjectPage({
   // 決済ページで離脱した仮登録は、決済中の件数として控えめに知らせる
   const pendingCount = allRows.filter((p) => p.payment_status === 'pending').length;
   const total = sumAmount(participants);
+  // 立て札に載る方を金額の大きい順に。文字列は参加者が選んだ載せ方で組み立てる。
   const tagEntries = participants
-    .filter((p) => p.include_in_tag && !p.is_anonymous)
-    .map((p) => ({ name: p.name, amount: p.amount }))
+    .map((p) => ({ line: tagLine(p), amount: p.amount }))
+    .filter((e): e is { line: string; amount: number } => e.line !== null)
     .sort((a, b) => b.amount - a.amount);
-  const tagNames = tagEntries.map((p) => p.name);
 
   return (
     <>
@@ -133,43 +132,24 @@ export default async function OrganizerProjectPage({
             </ul>
           )}
 
-          {tagNames.length > 0 && (
+          {tagEntries.length > 0 && (
             <div className="mt-5 rounded-2xl bg-ivory/50 p-4">
-              <p className="text-sm font-medium text-ink">札名への掲載を希望された方</p>
-              <p className="mt-1.5 text-sm leading-relaxed text-ink">{tagNames.join('、')}</p>
-              <p className="hint">連名の札をご希望の場合は、この内容を花屋にお伝えください。</p>
+              <p className="text-sm font-medium text-ink">立て札に入るお名前</p>
+              <ul className="mt-2 divide-y divide-ivory/80 text-sm">
+                {tagEntries.map((entry, index) => (
+                  <li key={`${entry.line}-${index}`} className="flex justify-between gap-3 py-1.5">
+                    <span className="text-ink">{entry.line}</span>
+                    <span className="whitespace-nowrap text-muted">
+                      {tagSizeFor(entry.amount).label}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <p className="hint mt-2">
+                ご参加金額が大きい方から順に、お名前を大きくお入れします。
+              </p>
             </div>
           )}
-        </section>
-
-        {tagEntries.length > 0 && (
-          <section className="card mt-4">
-            <h2 className="font-serif text-lg text-ink">立て札のイメージ</h2>
-            <p className="hint mt-1">
-              ご参加金額が大きい方から順に、お名前を大きくお入れします。
-            </p>
-            <div className="mx-auto mt-4 max-w-[300px]">
-              <TagPreview
-                headline={project.tag_name ? undefined : '祝'}
-                entries={tagEntries.slice(0, 10)}
-              />
-            </div>
-            {tagEntries.length > 10 && (
-              <p className="hint mt-2 text-center">
-                上位10名を表示しています（掲載希望 {tagEntries.length} 名）。
-              </p>
-            )}
-            <p className="hint mt-2 text-center">
-              実際の書体・配置は花屋がお仕立てします。
-            </p>
-          </section>
-        )}
-
-        <section className="card mt-4">
-          <h2 className="font-serif text-lg text-ink">メッセージ一覧</h2>
-          <div className="mt-3">
-            <MessageList participants={participants} />
-          </div>
         </section>
 
         <section className="card mt-4">

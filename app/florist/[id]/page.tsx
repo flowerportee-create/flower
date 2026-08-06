@@ -1,12 +1,10 @@
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
-import MessageList from '@/components/MessageList';
 import ParticipantList from '@/components/ParticipantList';
 import ProjectSummary from '@/components/ProjectSummary';
 import ShareLink from '@/components/ShareLink';
 import SiteHeader from '@/components/SiteHeader';
 import { EntryBadge } from '@/components/StatusBadge';
-import TagPreview from '@/components/TagPreview';
 import FlowerImage from '@/components/FlowerImage';
 import { createClient } from '@/lib/supabase/server';
 import type { Participant, Project, ProjectPhoto } from '@/lib/types';
@@ -16,6 +14,7 @@ import {
   defaultArrangement,
   isArrangementKind,
   purposeLabel,
+  tagLine,
   tagSizeFor
 } from '@/lib/flower';
 import CommentEditor from './CommentEditor';
@@ -74,8 +73,8 @@ export default async function FloristProjectPage({
 
   // 立て札は金額の大きい順。名前の大きさもこの順で変わる。
   const tagEntries = participants
-    .filter((p) => p.include_in_tag && !p.is_anonymous)
-    .map((p) => ({ name: p.name, amount: p.amount }))
+    .map((p) => ({ line: tagLine(p), amount: p.amount }))
+    .filter((e): e is { line: string; amount: number } => e.line !== null)
     .sort((a, b) => b.amount - a.amount);
 
   return (
@@ -139,23 +138,19 @@ export default async function FloristProjectPage({
             <p className="hint mt-1">
               ご参加金額の大きい方から順に、お名前を大きくお入れします。
             </p>
-            <div className="mx-auto mt-4 max-w-[300px]">
-              <TagPreview
-                headline={project.tag_name ? undefined : '祝'}
-                entries={tagEntries.slice(0, 10)}
-              />
-            </div>
             <ul className="mt-4 divide-y divide-ivory text-sm">
-              {tagEntries.map((entry) => (
-                <li key={entry.name} className="flex justify-between gap-3 py-2">
-                  <span className="text-ink">{entry.name}</span>
+              {tagEntries.map((entry, index) => (
+                <li key={`${entry.line}-${index}`} className="flex justify-between gap-3 py-2">
+                  <span className="text-ink">{entry.line}</span>
                   <span className="whitespace-nowrap text-muted">
                     {formatYen(entry.amount)}・{tagSizeFor(entry.amount).label}
                   </span>
                 </li>
               ))}
             </ul>
-            <p className="hint mt-3">連名の札をご希望の場合の参考としてご確認ください。</p>
+            <p className="hint mt-3">
+              肩書きの有無は参加者ご本人の選択です。連名の札をお仕立ての際の参考にしてください。
+            </p>
           </section>
         )}
 
@@ -182,13 +177,6 @@ export default async function FloristProjectPage({
             label="完成報告ページのURL"
             description="幹事・参加者の皆さまにご覧いただけるページです。"
           />
-        </section>
-
-        <section className="card mt-4">
-          <h2 className="font-serif text-lg text-ink">メッセージ一覧</h2>
-          <div className="mt-3">
-            <MessageList participants={participants} />
-          </div>
         </section>
 
         <section className="card mt-4">

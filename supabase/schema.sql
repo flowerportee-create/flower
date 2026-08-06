@@ -109,9 +109,12 @@ create table if not exists public.participants (
   id uuid primary key default gen_random_uuid(),
   project_id uuid not null references public.projects (id) on delete cascade,
   name text not null,
+  -- 肩書き・役職。立て札で名前の前に入る。
+  title text not null default '',
   amount integer not null check (amount > 0),
-  message text not null default '',
-  include_in_tag boolean not null default true,
+  -- 立て札への載せ方は参加者本人が選ぶ
+  tag_style text not null default 'name'
+    check (tag_style in ('title_name', 'name', 'none')),
   is_anonymous boolean not null default false,
 
   payment_status text not null default 'pending'

@@ -60,6 +60,53 @@ export const TAG_SIZES: TagSize[] = [
   }
 ];
 
+/** 立て札への載せ方の選択肢。 */
+export const TAG_STYLES = [
+  {
+    key: 'title_name',
+    label: '肩書きとお名前',
+    example: '営業部長 山田 太郎'
+  },
+  {
+    key: 'name',
+    label: 'お名前のみ',
+    example: '山田 太郎'
+  },
+  {
+    key: 'none',
+    label: '立て札に載せない',
+    example: '—'
+  }
+] as const;
+
+export type TagStyleKey = (typeof TAG_STYLES)[number]['key'];
+
+export function isTagStyle(value: string): value is TagStyleKey {
+  return TAG_STYLES.some((s) => s.key === value);
+}
+
+export function tagStyleLabel(key: string): string {
+  return TAG_STYLES.find((s) => s.key === key)?.label ?? 'お名前のみ';
+}
+
+/**
+ * 立て札に実際に入る文字列を組み立てる。
+ * 肩書きが空のまま「肩書きとお名前」を選んだ場合は、お名前だけになる。
+ */
+export function tagLine(participant: {
+  name: string;
+  title: string;
+  tag_style: string;
+  is_anonymous: boolean;
+}): string | null {
+  if (participant.is_anonymous || participant.tag_style === 'none') return null;
+  const title = participant.title.trim();
+  if (participant.tag_style === 'title_name' && title) {
+    return `${title} ${participant.name}`;
+  }
+  return participant.name;
+}
+
 export function tagSizeFor(amount: number): TagSize {
   let matched = TAG_SIZES[0];
   for (const size of TAG_SIZES) {

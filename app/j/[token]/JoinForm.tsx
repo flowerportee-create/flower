@@ -4,10 +4,10 @@ import { useActionState, useMemo, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { startJoin } from './actions';
 import type { JoinState } from '@/lib/types';
-import TagPreview from '@/components/TagPreview';
 import {
   AMOUNT_MAX,
   CUSTOM_AMOUNT_MIN,
+  TAG_STYLES,
   UNIT_AMOUNT_OPTIONS,
   tagSizeFor
 } from '@/lib/flower';
@@ -31,15 +31,10 @@ function SubmitButton({ amount }: { amount: number }) {
 
 export default function JoinForm({
   token,
-  unitAmount,
-  tagName,
-  existingNames
+  unitAmount
 }: {
   token: string;
   unitAmount: number;
-  tagName: string;
-  /** 既に確定している連名（プレビューで並びを見せるため） */
-  existingNames: { name: string; amount: number }[];
 }) {
   const [state, formAction] = useActionState(startJoin, initialState);
 
@@ -52,8 +47,9 @@ export default function JoinForm({
   const [choice, setChoice] = useState<string>(defaultChoice);
   const [customAmount, setCustomAmount] = useState<string>('');
   const [name, setName] = useState('');
+  const [title, setTitle] = useState('');
+  const [tagStyle, setTagStyle] = useState<string>('name');
   const [isAnonymous, setIsAnonymous] = useState(false);
-  const [includeInTag, setIncludeInTag] = useState(true);
 
   const amount = useMemo(() => {
     if (choice !== CUSTOM) return Number(choice);
@@ -62,22 +58,14 @@ export default function JoinForm({
   }, [choice, customAmount]);
 
   const size = tagSizeFor(amount);
-  const showOnTag = includeInTag && !isAnonymous;
 
-  const previewEntries = useMemo(() => {
-    const entries = existingNames.map((entry) => ({ name: entry.name, amount: entry.amount }));
-    if (showOnTag) {
-      entries.push({ name: name.trim() || 'あなたのお名前', amount });
-    }
-    // 立て札は金額の大きい方から並べる
-    entries.sort((a, b) => b.amount - a.amount);
-    return entries
-      .slice(0, 8)
-      .map((entry) => ({
-        ...entry,
-        highlight: showOnTag && entry.name === (name.trim() || 'あなたのお名前')
-      }));
-  }, [existingNames, name, amount, showOnTag]);
+  // 選んだ載せ方で、実際に立て札へ入る文字列
+  const tagLinePreview = useMemo(() => {
+    if (isAnonymous || tagStyle === 'none') return null;
+    const t = title.trim();
+    const n = name.trim() || 'お名前';
+    return tagStyle === 'title_name' && t ? `${t} ${n}` : n;
+  }, [isAnonymous, tagStyle, title, name]);
 
   return (
     <form action={formAction} className="space-y-5">
@@ -96,9 +84,67 @@ export default function JoinForm({
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="input"
-          placeholder="花田 はな"
+          placeholder="山田 太郎"
         />
         <p className="hint">領収書のお宛名と、立て札の連名に使われます。</p>
+      </div>
+
+      <div>
+        <label htmlFor="title" className="label">
+          肩書き・役職
+        </label>
+        <input
+          id="title"
+          name="title"
+          maxLength={40}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="input"
+          placeholder="営業部長"
+        />
+        <p className="hint">立て札でお名前の前に入ります。不要な場合は空欄で構いません。</p>
+      </div>
+
+      <div>
+        <label htmlFor="tag_style" className="label">
+          立て札への載せ方 <span className="text-red-600">*</span>
+        </label>
+        <select
+          id="tag_style"
+          name="tag_style"
+          className="input"
+          value={tagStyle}
+          onChange={(e) => setTagStyle(e.target.value)}
+          disabled={isAnonymous}
+        >
+          {TAG_STYLES.map((style) => (
+            <option key={style.key} value={style.key}>
+              {style.label}
+            </option>
+          ))}
+        </select>
+
+        <div className="mt-2 rounded-xl bg-ivory/60 px-4 py-3">
+          {tagLinePreview ? (
+            <>
+              <p className="text-xs text-muted">立て札にはこう入ります</p>
+              <p className="mt-1 font-serif text-base text-ink">{tagLinePreview}</p>
+              <p className="hint mt-1">
+                お名前の大きさ：{size.label}。{size.description}
+              </p>
+            </>
+          ) : (
+            <p className="text-xs leading-relaxed text-muted">
+              {isAnonymous
+                ? '匿名でのご参加のため、立て札にお名前は入りません。'
+                : '立て札にお名前は入りません。'}
+            </p>
+          )}
+        </div>
+
+        <p className="hint">
+          連名が多い場合は「〇〇一同」にまとめさせていただくことがあります。
+        </p>
       </div>
 
       <div>
@@ -113,7 +159,7 @@ export default function JoinForm({
         >
           {UNIT_AMOUNT_OPTIONS.map((value) => (
             <option key={value} value={String(value)}>
-              {value.toLocaleString('ja-JP')} 円（{tagSizeFor(value).label}）
+              {value.toLocaleString('ja-JP')} 円（立て札：{tagSizeFor(value).label}）
             </option>
           ))}
           <option value={CUSTOM}>
@@ -152,63 +198,7 @@ export default function JoinForm({
         )}
       </div>
 
-      {/* 立て札のイメージ */}
-      <div className="space-y-3 rounded-2xl border border-ivory bg-white p-4">
-        <div className="flex items-baseline justify-between gap-3">
-          <h3 className="font-serif text-base text-ink">立て札のイメージ</h3>
-          <span className="rounded-full bg-sakura px-3 py-0.5 text-xs text-ink">
-            お名前の大きさ：{size.label}
-          </span>
-        </div>
-        <p className="text-xs leading-relaxed text-muted">
-          ご参加金額が大きいほど、立て札のお名前を大きくお入れします。{size.description}
-        </p>
-
-        {showOnTag ? (
-          <TagPreview headline={tagName ? undefined : '祝'} entries={previewEntries} />
-        ) : (
-          <p className="rounded-xl bg-ivory/60 px-4 py-6 text-center text-sm text-muted">
-            {isAnonymous
-              ? '匿名でのご参加のため、立て札にお名前は入りません。'
-              : '「札名にお名前を掲載してもよい」を選ぶと、立て札のイメージが表示されます。'}
-          </p>
-        )}
-
-        <p className="text-xs leading-relaxed text-muted">
-          実際の書体・配置は花屋がお仕立てします。連名が多い場合は「〇〇一同」にまとめさせていただくことがあります。
-        </p>
-      </div>
-
-      <div>
-        <label htmlFor="message" className="label">
-          メッセージ
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          maxLength={500}
-          className="textarea"
-          placeholder="ご栄転おめでとうございます。新天地でのご活躍をお祈りしております。"
-        />
-        <p className="hint">贈り先へのメッセージとしてまとめてお伝えします。</p>
-      </div>
-
-      <div className="space-y-3 rounded-2xl bg-ivory/50 p-4">
-        <label className="flex items-start gap-3">
-          <input
-            type="checkbox"
-            name="include_in_tag"
-            checked={includeInTag}
-            onChange={(e) => setIncludeInTag(e.target.checked)}
-            disabled={isAnonymous}
-            className="mt-0.5 h-4 w-4 rounded border-ivory text-moss focus:ring-moss/30 disabled:opacity-40"
-          />
-          <span className="text-sm leading-relaxed text-ink">
-            札名にお名前を掲載してもよい
-            <span className="block text-xs text-muted">お花に添える立札の連名に使用されます。</span>
-          </span>
-        </label>
-
+      <div className="rounded-2xl bg-ivory/50 p-4">
         <label className="flex items-start gap-3">
           <input
             type="checkbox"
@@ -218,9 +208,9 @@ export default function JoinForm({
             className="mt-0.5 h-4 w-4 rounded border-ivory text-moss focus:ring-moss/30"
           />
           <span className="text-sm leading-relaxed text-ink">
-            匿名で表示する
+            匿名で参加する
             <span className="block text-xs text-muted">
-              参加者一覧では「匿名希望」と表示され、札名にも掲載されません。
+              参加者一覧では「匿名希望」と表示され、立て札にも掲載されません。
             </span>
           </span>
         </label>

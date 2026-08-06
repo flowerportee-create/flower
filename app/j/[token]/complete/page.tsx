@@ -4,7 +4,7 @@ import { createAdminClient } from '@/lib/supabase/admin';
 import { settleParticipantPayment } from '@/lib/payments';
 import type { Participant, Project } from '@/lib/types';
 import { formatYen } from '@/lib/utils';
-import { tagSizeFor } from '@/lib/flower';
+import { tagLine, tagSizeFor } from '@/lib/flower';
 
 export const dynamic = 'force-dynamic';
 
@@ -76,10 +76,12 @@ export default async function JoinCompletePage({
               <dt className="text-xs text-muted">ご参加金額</dt>
               <dd className="font-serif text-base text-ink">{formatYen(participant.amount)}</dd>
             </div>
-            {participant.include_in_tag && !participant.is_anonymous && (
+            {tagLine(participant) && (
               <div className="flex justify-between gap-4">
                 <dt className="text-xs text-muted">立て札のお名前</dt>
-                <dd className="text-sm text-ink">{size.label}の大きさで掲載</dd>
+                <dd className="text-sm text-ink">
+                  {tagLine(participant)}（{size.label}）
+                </dd>
               </div>
             )}
           </dl>

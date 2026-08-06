@@ -5,8 +5,8 @@ import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { createPaymentLink, squareConfigured } from '@/lib/square';
-import type { JoinState, Participant, Project } from '@/lib/types';
-import { AMOUNT_MAX, CUSTOM_AMOUNT_MIN, UNIT_AMOUNT_OPTIONS } from '@/lib/flower';
+import type { JoinState, Participant, Project, TagStyle } from '@/lib/types';
+import { AMOUNT_MAX, CUSTOM_AMOUNT_MIN, UNIT_AMOUNT_OPTIONS, isTagStyle } from '@/lib/flower';
 import { absoluteUrl, isDeadlinePassed } from '@/lib/utils';
 
 function isAllowedAmount(amount: number): boolean {
@@ -30,10 +30,16 @@ export async function startJoin(_prev: JoinState, formData: FormData): Promise<J
   }
 
   const name = String(formData.get('name') ?? '').trim().slice(0, 60);
-  const message = String(formData.get('message') ?? '').trim().slice(0, 500);
+  const title = String(formData.get('title') ?? '').trim().slice(0, 40);
   const amount = Number(formData.get('amount'));
-  const includeInTag = formData.get('include_in_tag') === 'on';
   const isAnonymous = formData.get('is_anonymous') === 'on';
+
+  const tagStyleRaw = String(formData.get('tag_style') ?? '');
+  const tagStyle: TagStyle = isAnonymous
+    ? 'none'
+    : isTagStyle(tagStyleRaw)
+      ? tagStyleRaw
+      : 'name';
 
   if (!name) {
     return { error: 'お名前をご入力ください。', success: false };
@@ -80,9 +86,9 @@ export async function startJoin(_prev: JoinState, formData: FormData): Promise<J
     .insert({
       project_id: project.id,
       name,
+      title,
       amount,
-      message,
-      include_in_tag: isAnonymous ? false : includeInTag,
+      tag_style: tagStyle,
       is_anonymous: isAnonymous,
       payment_status: 'pending'
     })

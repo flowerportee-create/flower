@@ -45,13 +45,17 @@ export type Project = {
 
 export type PaymentStatus = 'pending' | 'paid' | 'canceled';
 
+/** 立て札への載せ方。参加者が選ぶ。 */
+export type TagStyle = 'title_name' | 'name' | 'none';
+
 export type Participant = {
   id: string;
   project_id: string;
   name: string;
+  /** 肩書き・役職。立て札で名前の前に入る。 */
+  title: string;
   amount: number;
-  message: string;
-  include_in_tag: boolean;
+  tag_style: TagStyle;
   is_anonymous: boolean;
   payment_status: PaymentStatus;
   payment_token: string;

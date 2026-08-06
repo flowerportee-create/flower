@@ -142,14 +142,7 @@ export default async function JoinPage({ params }: { params: Promise<{ token: st
                 ログインは不要です。お支払いはカード決済のみとなります。
               </p>
               <div className="mt-5">
-                <JoinForm
-                  token={token}
-                  unitAmount={project.unit_amount}
-                  tagName={project.tag_name}
-                  existingNames={participants
-                    .filter((p) => p.include_in_tag && !p.is_anonymous)
-                    .map((p) => ({ name: p.name, amount: p.amount }))}
-                />
+                <JoinForm token={token} unitAmount={project.unit_amount} />
               </div>
             </>
           )}

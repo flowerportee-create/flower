@@ -21,7 +21,7 @@ export default function ParticipantList({
           <div className="min-w-0">
             <p className="truncate text-sm text-ink">
               {displayName(p)}
-              {!p.is_anonymous && !p.include_in_tag && (
+              {!p.is_anonymous && p.tag_style === 'none' && (
                 <span className="ml-2 text-xs text-muted">札名なし</span>
               )}
             </p>
