@@ -65,8 +65,8 @@ export default async function JoinPage({ params }: { params: Promise<{ token: st
               <p className="stat-value">{participants.length}</p>
               <p className="stat-label">参加人数</p>
             </div>
-            <div className="stat">
-              <p className="stat-value">{formatDate(project.entry_deadline)}</p>
+            <div className="stat flex flex-col justify-center">
+              <p className="stat-value-sm">{formatDate(project.entry_deadline)}</p>
               <p className="stat-label">参加締切</p>
             </div>
           </div>
