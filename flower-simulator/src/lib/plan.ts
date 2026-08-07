@@ -73,12 +73,14 @@ export function generatePlanConcept(values: SimulationFormValues): string {
     .map(findColorName)
     .filter(Boolean)
     .slice(0, 3);
+  // 2色なら「AとB」、3色なら「A、B、C」とつなぎます
+  const colorPhrase = colorNames.length === 2 ? colorNames.join('と') : colorNames.join('、');
   const seasonPhrase = getSeasonPhrase(getMonthFromDate(values.venue.eventDate));
 
   if (colorNames.length > 0 && seasonPhrase) {
-    sentences.push(`${colorNames.join('と')}を基調に、${seasonPhrase}花材を取り入れた装花プランです。`);
+    sentences.push(`${colorPhrase}を基調に、${seasonPhrase}花材を取り入れた装花プランです。`);
   } else if (colorNames.length > 0) {
-    sentences.push(`${colorNames.join('と')}を基調にした装花プランです。`);
+    sentences.push(`${colorPhrase}を基調にした装花プランです。`);
   } else if (seasonPhrase) {
     sentences.push(`${seasonPhrase}花材を取り入れた装花プランです。`);
   } else {
@@ -92,9 +94,15 @@ export function generatePlanConcept(values: SimulationFormValues): string {
     .map((tagId) => shopConfig.impressionTags.find((tag) => tag.id === tagId)?.label)
     .filter((label): label is string => Boolean(label))
     .slice(0, 3);
-  const impressionPhrase =
-    impressionLabels.length > 0 ? `${impressionLabels.join('で')}に` : '心地よく';
-  sentences.push(`${stylePhrase}、会場全体が${impressionPhrase}見える構成を目指します。`);
+  // 印象タグは「上質」「温かい」「凛とした」のように品詞がそろわないため、
+  // かぎかっこで囲んでそのまま並べます（お店がタグを増やしても文が崩れません）
+  if (impressionLabels.length > 0) {
+    sentences.push(
+      `${stylePhrase}、会場全体で「${impressionLabels.join('・')}」という印象が伝わることを目指します。`,
+    );
+  } else {
+    sentences.push(`${stylePhrase}、会場全体が心地よく感じられることを目指します。`);
+  }
 
   // --- 3文目: 花材の方針 ---
   if (values.flowersOmakase) {

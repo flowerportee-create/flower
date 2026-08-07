@@ -88,7 +88,7 @@ function SimulationFormInner({ initialValues, initialStep }: SimulationFormInner
     (currentStep: number, completed = false) => {
       const result = saveState({ currentStep, values: form.getValues(), completed });
       if (result === 'saved-without-images') {
-        setStatusText('保存容量の都合により、画像を除いて保存しました');
+        setStatusText('保存容量の上限のため、画像は保存されません（この画面では表示されます）');
         return;
       }
       if (result === 'failed') {
